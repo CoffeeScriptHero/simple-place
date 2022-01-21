@@ -19,21 +19,41 @@ export const SignUpForm = () => {
     setShowLogIn(!showLogIn);
   };
 
+  const signUpInitialValues = {
+    username: "",
+    password: "",
+    passwordConfirmation: "",
+  };
+
+  const logInInitialValues = {
+    username: "",
+    password: "",
+  };
+
   return (
     <FormikWrapper>
       <Formik
         initialValues={{
-          login: "",
+          username: "",
           password: "",
           passwordConfirmation: "",
         }}
         onSubmit={(values, { resetForm }) => {
+          console.log(values);
           resetForm();
-          // const fieldsNumber = Object.keys(values).length;
-          sendUserData(values).then((res) => {
-            if (res.status === 500) {
-            }
-          });
+          sendUserData(values)
+            .then((res) => {
+              console.log(res);
+              // if (res.status === 200) {
+              //   console.log(values);
+              //   // document.cookie =
+              //   // username + "=" + encodeURIComponent(v);
+              //   alert(document.cookie);
+              //   return
+              // }
+              return res.json();
+            })
+            .then((res) => console.log(res));
         }}
         validationSchema={schema}
       >
@@ -43,7 +63,7 @@ export const SignUpForm = () => {
               <div>
                 <Field
                   component={FormInput}
-                  name="login"
+                  name="username"
                   type="text"
                   placeholder="Введите логин"
                 />
@@ -68,7 +88,7 @@ export const SignUpForm = () => {
               )}
               <div>
                 <SubmitButton>
-                  {showLogIn ? "Войти" : "Зарегистрироваться"}
+                  {showLogIn ? "Зарегистрироваться" : "Войти"}
                 </SubmitButton>
               </div>
               <LogInOptions>

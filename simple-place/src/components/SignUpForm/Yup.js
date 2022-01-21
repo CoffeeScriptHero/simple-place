@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { RequiredMessage } from "./SignUpForm-styles";
 
 export const schema = yup.object().shape({
-  login: yup
+  username: yup
     .string()
     .required(<RequiredMessage>Введите логин</RequiredMessage>)
     .matches(/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/, {
@@ -20,6 +20,7 @@ export const schema = yup.object().shape({
     }),
   passwordConfirmation: yup
     .string()
+    .required(<RequiredMessage>Подтвердите пароль!</RequiredMessage>)
     .oneOf(
       [yup.ref("password"), null],
       <RequiredMessage>Пароли должны совпадать</RequiredMessage>
