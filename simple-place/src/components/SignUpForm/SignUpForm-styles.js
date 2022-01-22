@@ -8,6 +8,7 @@ export const RequiredMessage = styled.p`
   color: red;
   font-size: 16px;
   margin: 0;
+  text-align: center;
 `;
 
 export const LogInOptions = styled.div`

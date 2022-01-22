@@ -1,65 +1,70 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
   FormikWrapper,
   SubmitButton,
   LogInOptions,
   LogInLink,
+  RequiredMessage,
 } from "./SignUpForm-styles.js";
 import FormInput from "../FormInput/FormInput.js";
-import { schema } from "./Yup.js";
+import { signUpSchema, logInSchema } from "./Yup.js";
 import { useState } from "react";
 import { sendUserData } from "../../services/SignUpService.js";
 
 export const SignUpForm = () => {
   const [showLogIn, setShowLogIn] = useState(true);
-  const [showError, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const swapShowLogIn = () => {
     setShowLogIn(!showLogIn);
   };
 
-  const signUpInitialValues = {
-    username: "",
-    password: "",
-    passwordConfirmation: "",
-  };
-
-  const logInInitialValues = {
-    username: "",
-    password: "",
+  const handleSubmit = (values) => {
+    const userData = {
+      username: values.username,
+      password: values.password,
+    };
+    const entryType = showLogIn ? "signup" : "login";
+    sendUserData(userData, `/api/${entryType}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        const message = res.message;
+        if (message === "allowed") {
+          setShowError(false);
+          console.log("allowed");
+          return;
+        }
+        setShowError(true);
+        if (message === "exist") {
+          setErrorMessage("User with this nickname already exists");
+        } else if (message === "wrong password") {
+          setErrorMessage("Wrong password. Try again");
+        } else if (message === "no user") {
+          setErrorMessage("User with this nickname does not exist");
+        } else if (message === "catched") {
+          setErrorMessage("Unexpected error. Try again");
+        }
+      });
   };
 
   return (
     <FormikWrapper>
       <Formik
-        initialValues={{
-          username: "",
-          password: "",
-          passwordConfirmation: "",
-        }}
+        initialValues={{ username: "", password: "", passwordConfirmation: "" }}
         onSubmit={(values, { resetForm }) => {
-          console.log(values);
-          resetForm();
-          sendUserData(values)
-            .then((res) => {
-              console.log(res);
-              // if (res.status === 200) {
-              //   console.log(values);
-              //   // document.cookie =
-              //   // username + "=" + encodeURIComponent(v);
-              //   alert(document.cookie);
-              //   return
-              // }
-              return res.json();
-            })
-            .then((res) => console.log(res));
+          // resetForm();
+          handleSubmit(values);
         }}
-        validationSchema={schema}
+        validationSchema={showLogIn ? signUpSchema : logInSchema}
       >
         {(formikProps) => {
           return (
             <Form noValidate>
+              {showError && <RequiredMessage>{errorMessage}</RequiredMessage>}
               <div>
                 <Field
                   component={FormInput}

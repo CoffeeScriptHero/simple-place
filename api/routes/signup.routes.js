@@ -5,36 +5,44 @@ const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const { v1: uuidv1 } = require("uuid");
 
 router.post(
-  "/api/request",
+  "/api/signup",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { username, password, passwordConfirmation } = req.body.data;
-      const fieldsNumber = Object.keys(req.body.data).length;
+      const { username, password } = req.body.data;
+      const user = await UserModel.findOne({ username }).exec();
 
-      if (fieldsNumber === 2) {
-        console.log(true);
-        const user = await UserModel.findOne({ username, password }).exec();
-        if (user) {
-          res.status(200).json({ message: "logined" });
-        } else {
-          res
-            .status(500)
-            .json({ message: "password or nickaname is not correct" });
-        }
-      } else if (fieldsNumber === 3) {
-        const user = await UserModel.findOne({ username }).exec();
-        if (user) {
-          return res.status(400).json({ message: "that user already exist" });
-        }
+      if (user) {
+        return res.status(400).json({ message: "exist" });
+      }
 
-        const hashPassword = bcrypt.hashSync(password, 10);
-        const id = uuidv1();
-        console.log(hashPassword, id);
-        await UserModel.create({ username, password: hashPassword, id });
-        return res.status(200).json({ message: "registred" });
+      const hashPassword = bcrypt.hashSync(password, 10);
+      const id = uuidv1();
+      await UserModel.create({ username, password: hashPassword, id });
+      res.status(200).json({ message: "allowed" });
+    } catch {
+      res.status(500).json({ message: "catched" });
+    }
+  })
+);
+
+router.post(
+  "/api/login",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { username, password } = req.body.data;
+      const user = await UserModel.findOne({ username }).exec();
+      if (user) {
+        if (await bcrypt.compare(password, user.password)) {
+          return res.status(200).json({ message: "allowed" });
+        }
+        res.status(400).json({ message: "wrong password" });
+      } else {
+        res.status(500).json({
+          message: "no user",
+        });
       }
     } catch {
-      return res.status(400).json({ message: "catched" });
+      res.status(500).send({ message: "catched" });
     }
   })
 );
