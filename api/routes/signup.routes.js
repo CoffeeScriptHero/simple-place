@@ -12,7 +12,9 @@ router.post(
       const user = await UserModel.findOne({ username }).exec();
 
       if (user) {
-        return res.status(400).json({ message: "exist" });
+        return res
+          .status(400)
+          .json({ message: "User with this nickname already exists" });
       }
 
       const hashPassword = bcrypt.hashSync(password, 10);
@@ -20,7 +22,7 @@ router.post(
       await UserModel.create({ username, password: hashPassword, id });
       res.status(200).json({ message: "allowed" });
     } catch {
-      res.status(500).json({ message: "catched" });
+      res.status(500).json({ message: "Unexpected error. Try again" });
     }
   })
 );
@@ -35,14 +37,14 @@ router.post(
         if (await bcrypt.compare(password, user.password)) {
           return res.status(200).json({ message: "allowed" });
         }
-        res.status(400).json({ message: "wrong password" });
+        res.status(400).json({ message: "Wrong password. Try again" });
       } else {
         res.status(500).json({
-          message: "no user",
+          message: "User with this nickname does not exist",
         });
       }
     } catch {
-      res.status(500).send({ message: "catched" });
+      res.status(500).send({ message: "Unexpected error. Try again" });
     }
   })
 );

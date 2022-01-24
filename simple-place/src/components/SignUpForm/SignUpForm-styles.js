@@ -9,6 +9,7 @@ export const RequiredMessage = styled.p`
   font-size: 16px;
   margin: 0;
   text-align: center;
+  font-weight: 500;
 `;
 
 export const LogInOptions = styled.div`
@@ -32,21 +33,23 @@ export const SubmitButton = styled.button.attrs({
   type: "submit",
   value: "submit",
 })`
-  background: #00aec9;
+  background: #000;
   color: #fff;
   cursor: pointer;
-  margin: 8px 0 5px 0;
+  margin: 8px 0 15px 0;
   text-transform: uppercase;
   width: 100%;
+  height: 40px;
+  font-size: 16px;
   border-radius: 5px;
-  height: 35px;
   border-color: transparent;
   box-shadow: 0px;
   outline: none;
-  transition: 0.15s;
+  transition: transform 0.2s;
+  transform: translate(0);
   text-align: center;
-  &:active {
-    background-color: #f1ac15;
-  }
   font-family: sans-serif;
+  &:hover:not(:disabled):not(:active) {
+    transform: translateY(-2px);
+  }
 `;

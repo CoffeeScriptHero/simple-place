@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
+  LogoName,
   FormikWrapper,
   SubmitButton,
   LogInOptions,
@@ -18,6 +19,7 @@ export const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const swapShowLogIn = () => {
+    setShowError(false);
     setShowLogIn(!showLogIn);
   };
 
@@ -33,27 +35,20 @@ export const SignUpForm = () => {
       })
       .then((res) => {
         const message = res.message;
-        if (message === "allowed") {
-          setShowError(false);
-          console.log("allowed");
+        if (message !== "allowed") {
+          setShowError(true);
+          setErrorMessage(message);
           return;
         }
-        setShowError(true);
-        if (message === "exist") {
-          setErrorMessage("User with this nickname already exists");
-        } else if (message === "wrong password") {
-          setErrorMessage("Wrong password. Try again");
-        } else if (message === "no user") {
-          setErrorMessage("User with this nickname does not exist");
-        } else if (message === "catched") {
-          setErrorMessage("Unexpected error. Try again");
-        }
+        setShowError(false);
       });
   };
 
   return (
     <FormikWrapper>
       <Formik
+        validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{ username: "", password: "", passwordConfirmation: "" }}
         onSubmit={(values, { resetForm }) => {
           // resetForm();
@@ -67,27 +62,32 @@ export const SignUpForm = () => {
               {showError && <RequiredMessage>{errorMessage}</RequiredMessage>}
               <div>
                 <Field
+                  bdColor={formikProps.errors.username ? "red" : "black"}
                   component={FormInput}
                   name="username"
                   type="text"
-                  placeholder="Введите логин"
+                  placeholder="Username"
                 />
               </div>
               <div>
                 <Field
+                  bdColor={formikProps.errors.password ? "red" : "black"}
                   component={FormInput}
                   name="password"
                   type="password"
-                  placeholder="Введите пароль"
+                  placeholder="Password"
                 />
               </div>
               {showLogIn && (
                 <div>
                   <Field
+                    bdColor={
+                      formikProps.errors.passwordConfirmation ? "red" : "black"
+                    }
                     component={FormInput}
                     name="passwordConfirmation"
                     type="password"
-                    placeholder="Подтвердите пароль"
+                    placeholder="Confirm password"
                   />
                 </div>
               )}
