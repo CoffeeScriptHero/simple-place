@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const PORT = 3080;
 
 const signUpRoutes = require("./routes/signup.routes");
+const userRoutes = require("./routes/user.routes");
 
 const URI = process.env.MONGO_CONNECTION_URL;
 
@@ -18,6 +19,7 @@ mongoose
 app.use(bodyParser.json());
 
 app.use("/", signUpRoutes);
+app.use("/", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on the PORT::${PORT}`);

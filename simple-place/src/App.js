@@ -5,7 +5,7 @@ import { AppWrapper } from "./App-styles";
 const App = () => {
   return (
     <AppWrapper>
-      <Header />
+      {/* <Header /> */}
       <AppRoutes />
     </AppWrapper>
   );

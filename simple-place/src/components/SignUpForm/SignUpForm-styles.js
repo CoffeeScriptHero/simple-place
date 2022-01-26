@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const FormikWrapper = styled.div`
   width: 300px;
+  font-family: Quicksand;
 `;
 
 export const RequiredMessage = styled.p`
@@ -37,9 +38,8 @@ export const SubmitButton = styled.button.attrs({
   color: #fff;
   cursor: pointer;
   margin: 8px 0 15px 0;
-  text-transform: uppercase;
   width: 100%;
-  height: 40px;
+  height: 50px;
   font-size: 16px;
   border-radius: 5px;
   border-color: transparent;
@@ -48,7 +48,8 @@ export const SubmitButton = styled.button.attrs({
   transition: transform 0.2s;
   transform: translate(0);
   text-align: center;
-  font-family: sans-serif;
+  font-family: Quicksand;
+  font-weight: 600;
   &:hover:not(:disabled):not(:active) {
     transform: translateY(-2px);
   }

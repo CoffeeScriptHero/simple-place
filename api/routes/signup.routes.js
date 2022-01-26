@@ -20,7 +20,7 @@ router.post(
       const hashPassword = bcrypt.hashSync(password, 10);
       const id = uuidv1();
       await UserModel.create({ username, password: hashPassword, id });
-      res.status(200).json({ message: "allowed" });
+      res.status(200).json({ message: "allowed", id: id });
     } catch {
       res.status(500).json({ message: "Unexpected error. Try again" });
     }
@@ -35,7 +35,7 @@ router.post(
       const user = await UserModel.findOne({ username }).exec();
       if (user) {
         if (await bcrypt.compare(password, user.password)) {
-          return res.status(200).json({ message: "allowed" });
+          return res.status(200).json({ message: "allowed", id: user.id });
         }
         res.status(400).json({ message: "Wrong password. Try again" });
       } else {

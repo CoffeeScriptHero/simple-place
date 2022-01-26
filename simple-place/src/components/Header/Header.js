@@ -1,10 +1,11 @@
 import React from "react";
-import { HeaderWrapper, Logo } from "./Header-styles";
+import { HeaderWrapper, LogoFirst, LogoSecond } from "./Header-styles";
 
 const Header = () => {
   return (
     <HeaderWrapper>
-      <Logo>SimplePlace</Logo>
+      <LogoFirst>Simple</LogoFirst>
+      <LogoSecond>Place</LogoSecond>
     </HeaderWrapper>
   );
 };

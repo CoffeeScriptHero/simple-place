@@ -10,6 +10,7 @@ export const CustomInput = styled.input`
   border: 3px solid ${(props) => (props.bdColor ? props.bdColor : "black")};
   font-size: 16px;
   font-weight: 500;
+  font-family: Quicksand;
   -webkit-transition: 0.5s;
   border-radius: 5px;
   transition: 0.5s;

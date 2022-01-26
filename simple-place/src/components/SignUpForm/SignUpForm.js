@@ -1,7 +1,6 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import {
-  LogoName,
   FormikWrapper,
   SubmitButton,
   LogInOptions,
@@ -11,12 +10,17 @@ import {
 import FormInput from "../FormInput/FormInput.js";
 import { signUpSchema, logInSchema } from "./Yup.js";
 import { useState } from "react";
-import { sendUserData } from "../../services/SignUpService.js";
+import { sendUserData } from "../../services/UserService.js";
+import { setCookie } from "../../services/CookiesService.js";
+import { connect } from "react-redux";
+import { userOperations } from "../../store/user";
+import { useNavigate } from "react-router-dom";
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ setNewUser }) => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const swapShowLogIn = () => {
     setShowError(false);
@@ -35,12 +39,20 @@ export const SignUpForm = () => {
       })
       .then((res) => {
         const message = res.message;
-        if (message !== "allowed") {
-          setShowError(true);
-          setErrorMessage(message);
+
+        if (message === "allowed") {
+          setShowError(false);
+          setNewUser({ username: values.username, id: res.id });
+          setCookie("username", values.username, {
+            expires: new Date("12/31/40"),
+          });
+          setCookie("id", res.id, { expires: new Date("12/31/40") });
+          navigate("/feed");
           return;
         }
-        setShowError(false);
+
+        setShowError(true);
+        setErrorMessage(message);
       });
   };
 
@@ -50,8 +62,7 @@ export const SignUpForm = () => {
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{ username: "", password: "", passwordConfirmation: "" }}
-        onSubmit={(values, { resetForm }) => {
-          // resetForm();
+        onSubmit={(values) => {
           handleSubmit(values);
         }}
         validationSchema={showLogIn ? signUpSchema : logInSchema}
@@ -93,7 +104,7 @@ export const SignUpForm = () => {
               )}
               <div>
                 <SubmitButton>
-                  {showLogIn ? "Зарегистрироваться" : "Войти"}
+                  {showLogIn ? "Create account" : "Log in"}
                 </SubmitButton>
               </div>
               <LogInOptions>
@@ -110,4 +121,10 @@ export const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setNewUser: (userInfo) => dispatch(userOperations.setNewUser(userInfo)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignUpForm);
