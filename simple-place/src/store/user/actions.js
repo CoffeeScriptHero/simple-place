@@ -5,6 +5,11 @@ const saveUser = (userInfo) => ({
   payload: userInfo,
 });
 
-const actionsObj = { saveUser };
+const setLogged = (isLogged) => ({
+  type: types.SET_LOGGED,
+  payload: isLogged,
+});
+
+const actionsObj = { saveUser, setLogged };
 
 export default actionsObj;

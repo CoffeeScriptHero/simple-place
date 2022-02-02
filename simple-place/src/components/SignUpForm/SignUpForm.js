@@ -11,10 +11,11 @@ import FormInput from "../FormInput/FormInput.js";
 import { signUpSchema, logInSchema } from "./Yup.js";
 import { useState } from "react";
 import { sendUserData } from "../../services/UserService.js";
-import { setCookie } from "../../services/CookiesService.js";
+import { getCookie, setCookie } from "../../services/CookiesService.js";
 import { connect } from "react-redux";
 import { userOperations } from "../../store/user";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader.js";
 
 export const SignUpForm = ({ setNewUser }) => {
   const [showLogIn, setShowLogIn] = useState(true);
@@ -42,12 +43,12 @@ export const SignUpForm = ({ setNewUser }) => {
 
         if (message === "allowed") {
           setShowError(false);
-          setNewUser({ username: values.username, id: res.id });
+          setNewUser({ user: values.username, id: res.id });
           setCookie("username", values.username, {
             expires: new Date("12/31/40"),
           });
           setCookie("id", res.id, { expires: new Date("12/31/40") });
-          navigate("/feed");
+          navigate("/");
           return;
         }
 
@@ -55,6 +56,8 @@ export const SignUpForm = ({ setNewUser }) => {
         setErrorMessage(message);
       });
   };
+
+  if (getCookie("id")) return <Loader />;
 
   return (
     <FormikWrapper>
@@ -127,4 +130,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpForm);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

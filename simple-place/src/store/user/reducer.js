@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SAVE_USER: {
       return {
-        user: action.payload.username,
+        user: action.payload.user,
         id: action.payload.id,
       };
     }

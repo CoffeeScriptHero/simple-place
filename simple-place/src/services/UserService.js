@@ -9,15 +9,15 @@ export const sendUserData = async (data, request) => {
   return response;
 };
 
-export const checkUserLogged = async () => {
-  const username = getCookie("username");
+export const checkCookiesData = async () => {
   const id = getCookie("id");
-  if (username && id) {
-    const response = await sendUserData({ username, id }, "/api/check-user")
+  let isLogged = false;
+  if (id) {
+    const response = await sendUserData({ id }, "/api/check-user")
       .then((res) => res.json())
       .then((res) => {
-        if (res.message === "allowed") return { username, id };
+        if (res.message === "allowed") isLogged = true;
       });
   }
-  return false;
+  return isLogged;
 };

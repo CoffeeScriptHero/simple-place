@@ -6,8 +6,8 @@ router.post(
   "/api/check-user",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { username, id } = req.body.data;
-      const user = await UserModel.findOne({ username, id }).exec();
+      const { id } = req.body.data;
+      const user = await UserModel.findOne({ id }).exec();
 
       if (user) {
         res.status(200).send({ message: "allowed" });
