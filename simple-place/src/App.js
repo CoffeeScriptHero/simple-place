@@ -6,7 +6,7 @@ import { userOperations } from "./store/user";
 const App = () => {
   return (
     <AppWrapper>
-      {/* <Header /> */}
+      <Header />
       <AppRoutes />
     </AppWrapper>
   );

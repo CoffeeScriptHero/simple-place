@@ -9,7 +9,6 @@ import { userOperations } from "../store/user/index.js";
 const AppRoutes = ({ user, setNewUser }) => {
   const checkUserLogged = async () => {
     const isLogged = await checkCookiesData();
-
     if (isLogged) {
       setNewUser({ user: getCookie("username"), id: getCookie("id") });
     } else {
