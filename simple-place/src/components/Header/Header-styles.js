@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
 
 // const moveAnimation = keyframes`
 //  0% { left: 0; opacity: 0.2;}
@@ -29,16 +30,16 @@ import { keyframes } from "styled-components";
 //   animation-fill-mode: forwards;
 // `;
 
-export const HeaderWrapper = styled.div`
-  height: 64px;
+export const HeaderWrapper = styled.header`
+  border-bottom: 1px solid red;
 `;
 
-export const HeaderContent = styled(HeaderWrapper)`
-  width: 975px;
-  margin: 0 auto;
+export const Nav = styled.nav`
+  // width: 975px;
+  // margin: 0 auto;
   display: flex;
+  padding: 20px 0;
   justify-content: space-between;
-  align-items: center;
 `;
 
 export const LogoWrapper = styled.div`
@@ -46,20 +47,30 @@ export const LogoWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const LogoPart = styled.span`
+export const Logo = styled.span`
   margin: 0;
   font-size: 20px;
   font-family: Quicksand;
-  font-weight: semi-bold;
+  font-weight: bold;
 `;
 
-export const NavBar = styled.nav``;
-
-export const IconsList = styled.ul`
-  padding: 0;
-  margin: 0;
-  list-style: none;
+export const IconsWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: end;
+  width: 150px;
 `;
 
-export const IconItem = styled.li``;
+export const ProfileIcon = styled.img.attrs((props) => ({
+  src: props.src || "#",
+}))`
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+`;
+
+export const IconLink = styled(Link)`
+  width: 24px;
+  height: 24px;
+  z-index: 100;
+`;

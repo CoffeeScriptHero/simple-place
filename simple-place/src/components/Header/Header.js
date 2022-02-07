@@ -1,37 +1,44 @@
 import React from "react";
 import {
   HeaderWrapper,
-  HeaderContent,
+  Nav,
   LogoWrapper,
-  LogoPart,
-  NavBar,
-  IconsList,
-  IconItem,
+  Logo,
+  IconsWrapper,
+  ProfileIcon,
+  IconLink,
 } from "./Header-styles";
+import { MainContainer } from "../../App-styles";
 import Icon from "../Icon/Icon";
 
 const Header = () => {
   return (
     <HeaderWrapper>
-      <HeaderContent>
-        <LogoWrapper>
-          <LogoPart>Simple</LogoPart>
-          <LogoPart>Place</LogoPart>
-        </LogoWrapper>
-        <NavBar>
-          <IconsList>
-            <IconItem>
+      <MainContainer>
+        <Nav>
+          <LogoWrapper>
+            <Logo>SimplePlace</Logo>
+          </LogoWrapper>
+          <IconsWrapper>
+            <IconLink to="/">
               <Icon type="home" />
-            </IconItem>
-            <IconItem>
+            </IconLink>
+            <IconLink to="/messages">
               <Icon type="messages" />
-            </IconItem>
-            <IconItem>
+            </IconLink>
+            <IconLink to="/add-post">
               <Icon type="add" />
-            </IconItem>
-          </IconsList>
-        </NavBar>
-      </HeaderContent>
+            </IconLink>
+            <IconLink to="/profile">
+              <ProfileIcon
+                src={
+                  "https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/59846/176287/0044181001582748537.jpg"
+                }
+              ></ProfileIcon>
+            </IconLink>
+          </IconsWrapper>
+        </Nav>
+      </MainContainer>
     </HeaderWrapper>
   );
 };

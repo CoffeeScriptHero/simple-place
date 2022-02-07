@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
+import UsersThoughts from "../../components/UsersThoughts/UsersThoughts";
 
-const Feed = ({ user }) => {
-  return <div></div>;
+const Feed = () => {
+  return <UsersThoughts />;
 };
 
 const mapStateToProps = (state) => {

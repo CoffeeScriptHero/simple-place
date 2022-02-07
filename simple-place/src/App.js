@@ -1,13 +1,14 @@
 import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/Header/Header";
-import { AppWrapper } from "./App-styles";
-import { userOperations } from "./store/user";
+import { AppWrapper, Main } from "./App-styles";
 
 const App = () => {
   return (
     <AppWrapper>
       <Header />
-      <AppRoutes />
+      <Main>
+        <AppRoutes />
+      </Main>
     </AppWrapper>
   );
 };
