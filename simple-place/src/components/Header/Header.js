@@ -10,8 +10,11 @@ import {
 } from "./Header-styles";
 import { MainContainer } from "../../App-styles";
 import Icon from "../Icon/Icon";
+import { connect } from "react-redux";
 
-const Header = () => {
+const Header = ({ user }) => {
+  if (!user) return null;
+
   return (
     <HeaderWrapper>
       <MainContainer>
@@ -43,4 +46,10 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

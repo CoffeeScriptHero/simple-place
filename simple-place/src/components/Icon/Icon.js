@@ -1,4 +1,4 @@
-import * as Icons from "../../icons";
+import * as Icons from "../../assets/icons";
 import { Svg } from "./Icon-styles";
 
 const Icon = ({ type, onClick, ...rest }) => {

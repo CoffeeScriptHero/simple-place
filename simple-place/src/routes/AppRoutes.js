@@ -20,7 +20,7 @@ const AppRoutes = ({ user, setNewUser }) => {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Feed /> : <SignUp />} />
+      <Route exact path="/" element={user ? <Feed /> : <SignUp />} />
     </Routes>
   );
 };

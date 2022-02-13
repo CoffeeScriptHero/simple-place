@@ -15,24 +15,24 @@ code {
 @font-face {
   font-family: "Quicksand";
   src: local("Quicksand"),
-    url("./fonts/Quicksand/Quicksand-Bold.woff") format("woff");
+    url("./assets/fonts/Quicksand/Quicksand-Bold.woff") format("woff");
   font-weight: 700;
 }
 @font-face {
   font-family: "Quicksand";
   src: local("Quicksand"),
-    url("./fonts/Quicksand/Quicksand-SemiBold.woff") format("woff");
+    url("./assets/fonts/Quicksand/Quicksand-SemiBold.woff") format("woff");
   font-weight: 600;
 }
 @font-face {
   font-family: "Quicksand";
   src: local("Quicksand"),
-    url("./fonts/Quicksand/Quicksand-Medium.woff") format("woff");
+    url("./assets/fonts/Quicksand/Quicksand-Medium.woff") format("woff");
   font-weight: 500;
 }
 @font-face {
   font-family: "Quicksand";
   src: local("Quicksand"),
-    url("./fonts/Quicksand/Quicksand-Regular.woff") format("woff");
+    url("./assets/fonts/Quicksand/Quicksand-Regular.woff") format("woff");
   font-weight: normal;
 }
