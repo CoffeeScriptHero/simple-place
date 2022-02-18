@@ -12,16 +12,17 @@ import { signUpSchema, logInSchema } from "./Yup.js";
 import { useState } from "react";
 import { sendUserData } from "../../services/UserService.js";
 import { getCookie, setCookie } from "../../services/CookiesService.js";
-import { connect } from "react-redux";
 import { userOperations } from "../../store/user";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Loader from "../Loader/Loader.js";
 
-export const SignUpForm = ({ setNewUser }) => {
+export const SignUpForm = ({}) => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const swapShowLogIn = () => {
     setShowError(false);
@@ -43,7 +44,9 @@ export const SignUpForm = ({ setNewUser }) => {
 
         if (message === "allowed") {
           setShowError(false);
-          setNewUser({ user: values.username, id: res.id });
+          dispatch(
+            userOperations.setNewUser({ user: values.username, id: res.id })
+          );
           setCookie("username", values.username, {
             expires: new Date("12/31/40"),
           });
@@ -124,16 +127,4 @@ export const SignUpForm = ({ setNewUser }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setNewUser: (userInfo) => dispatch(userOperations.setNewUser(userInfo)),
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default SignUpForm;

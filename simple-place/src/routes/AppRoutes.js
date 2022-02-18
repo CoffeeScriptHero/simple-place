@@ -3,16 +3,24 @@ import SignUp from "../pages/SignUp/SignUp.js";
 import Feed from "../pages/Feed/Feed.js";
 import { checkCookiesData } from "../services/UserService.js";
 import { getCookie } from "../services/CookiesService.js";
-import { connect } from "react-redux";
-import { userOperations } from "../store/user/index.js";
+import { userOperations, userSelectors } from "../store/user/index.js";
+import { useDispatch, useSelector } from "react-redux";
 
-const AppRoutes = ({ user, setNewUser }) => {
+const AppRoutes = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(userSelectors.getUser());
+
   const checkUserLogged = async () => {
     const isLogged = await checkCookiesData();
     if (isLogged) {
-      setNewUser({ user: getCookie("username"), id: getCookie("id") });
+      dispatch(
+        userOperations.setNewUser({
+          user: getCookie("username"),
+          id: getCookie("id"),
+        })
+      );
     } else {
-      setNewUser({ user: false, id: false });
+      dispatch(userOperations.setNewUser({ user: false, id: false }));
     }
   };
 
@@ -25,16 +33,4 @@ const AppRoutes = ({ user, setNewUser }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setNewUser: (userInfo) => dispatch(userOperations.setNewUser(userInfo)),
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppRoutes);
+export default AppRoutes;

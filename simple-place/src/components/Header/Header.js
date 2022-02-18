@@ -5,12 +5,12 @@ import {
   LogoWrapper,
   Logo,
   IconsWrapper,
-  ProfileIcon,
   IconLink,
 } from "./Header-styles";
 import { MainContainer } from "../../App-styles";
 import Icon from "../Icon/Icon";
 import { connect } from "react-redux";
+import ProfileIcon from "../ProfileIcon/ProfileIcon";
 
 const Header = ({ user }) => {
   if (!user) return null;
@@ -37,7 +37,7 @@ const Header = ({ user }) => {
                 src={
                   "https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/59846/176287/0044181001582748537.jpg"
                 }
-              ></ProfileIcon>
+              />
             </IconLink>
           </IconsWrapper>
         </Nav>

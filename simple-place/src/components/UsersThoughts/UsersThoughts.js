@@ -1,13 +1,8 @@
 import React from "react";
-import { Wrapper } from "./UsersThoughts-styles";
-import { MainContainer } from "../../App-styles";
+import { Section } from "./UsersThoughts-styles";
 
 const UsersThoughts = () => {
-  return (
-    <MainContainer>
-      <Wrapper></Wrapper>
-    </MainContainer>
-  );
+  return <Section></Section>;
 };
 
 export default UsersThoughts;
