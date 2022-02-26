@@ -16,6 +16,7 @@ const Post = () => {
         />
         <Username>denya_aquapark</Username>
         <Icon type="like" />
+        <Icon type="comment" />
       </Header>
     </Article>
   );
