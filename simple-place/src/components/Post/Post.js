@@ -1,5 +1,16 @@
 import React from "react";
-import { Article, Header, Username } from "./Post-styles";
+import {
+  Article,
+  Header,
+  Main,
+  Footer,
+  Image,
+  Username,
+  IconsWrapper,
+  LikesNumber,
+  LikesText,
+  Description,
+} from "./Post-styles";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import Icon from "../Icon/Icon";
 
@@ -14,10 +25,26 @@ const Post = () => {
           width={"34px"}
           height={"34px"}
         />
-        <Username>denya_aquapark</Username>
-        <Icon type="like" />
-        <Icon type="comment" />
+        <Username to={`/denya`}>denya_aquapark</Username>
       </Header>
+      <Main>
+        <Image src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"></Image>
+      </Main>
+      <Footer>
+        <IconsWrapper>
+          {/* вынести в глобальные стили */}
+          <Icon margin={"0 10px 0 0"} type="like" />
+          <Icon type="comment" />
+        </IconsWrapper>
+        <LikesText>
+          <LikesNumber>10</LikesNumber> liked
+        </LikesText>
+        <Description>
+          <Username to={"/denis"} decoration={"underline"}>
+            denya_aquapark
+          </Username>
+        </Description>
+      </Footer>
     </Article>
   );
 };

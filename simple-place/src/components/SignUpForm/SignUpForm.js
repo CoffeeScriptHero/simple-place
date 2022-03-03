@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import {
   FormikWrapper,
+  SignUpLogo,
   SubmitButton,
   LogInOptions,
   LogInLink,
@@ -76,6 +77,7 @@ export const SignUpForm = ({}) => {
         {(formikProps) => {
           return (
             <Form noValidate>
+              <SignUpLogo>SimplePlace</SignUpLogo>
               {showError && <RequiredMessage>{errorMessage}</RequiredMessage>}
               <div>
                 <Field

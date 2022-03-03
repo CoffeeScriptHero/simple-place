@@ -6,7 +6,11 @@ const Icon = ({ type, onClick, ...rest }) => {
   if (!iconJsx) {
     return null;
   }
-  return <Svg onClick={onClick}>{iconJsx()}</Svg>;
+  return (
+    <Svg onClick={onClick} {...rest}>
+      {iconJsx()}
+    </Svg>
+  );
 };
 
 export default Icon;

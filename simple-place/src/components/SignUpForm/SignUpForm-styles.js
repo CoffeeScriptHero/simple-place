@@ -1,8 +1,16 @@
 import styled from "styled-components";
+import { Logo } from "../../App-styles";
 
 export const FormikWrapper = styled.div`
   width: 300px;
   font-family: Quicksand;
+`;
+
+export const SignUpLogo = styled(Logo)`
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 6px;
 `;
 
 export const RequiredMessage = styled.p`
@@ -19,9 +27,8 @@ export const LogInOptions = styled.div`
   font-weight: 500;
 `;
 
-export const LogInLink = styled.a.attrs((props) => ({
-  href: props.href || "#",
-}))`
+export const LogInLink = styled.span`
+  cursor: pointer;
   color: #5551ff;
   text-decoration: none;
   margin-left: 4px;

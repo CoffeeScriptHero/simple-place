@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { keyframes } from "styled-components";
+// import { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
 // const moveAnimation = keyframes`
@@ -38,18 +38,6 @@ export const Nav = styled.nav`
   display: flex;
   padding: 20px 0;
   justify-content: space-between;
-`;
-
-export const LogoWrapper = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-`;
-
-export const Logo = styled.span`
-  margin: 0;
-  font-size: 20px;
-  font-family: Quicksand;
-  font-weight: bold;
 `;
 
 export const IconsWrapper = styled.div`

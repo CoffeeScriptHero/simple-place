@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  HeaderWrapper,
-  Nav,
-  LogoWrapper,
-  Logo,
-  IconsWrapper,
-  IconLink,
-} from "./Header-styles";
+import { HeaderWrapper, Nav, IconsWrapper, IconLink } from "./Header-styles";
+import { Logo } from "../../App-styles";
 import { MainContainer } from "../../App-styles";
 import Icon from "../Icon/Icon";
 import { connect } from "react-redux";
@@ -19,9 +13,7 @@ const Header = ({ user }) => {
     <HeaderWrapper>
       <MainContainer>
         <Nav>
-          <LogoWrapper>
-            <Logo>SimplePlace</Logo>
-          </LogoWrapper>
+          <Logo>SimplePlace</Logo>
           <IconsWrapper>
             <IconLink to="/">
               <Icon type="home" />
