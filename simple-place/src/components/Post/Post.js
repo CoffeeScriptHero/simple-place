@@ -40,9 +40,15 @@ const Post = () => {
           <LikesNumber>10</LikesNumber> liked
         </LikesText>
         <Description>
-          <Username to={"/denis"} decoration={"underline"}>
+          <Username
+            margin={"0 10px 0 0 "}
+            weight={"700"}
+            to={"/denis"}
+            decoration={"underline"}
+          >
             denya_aquapark
           </Username>
+          Hello there
         </Description>
       </Footer>
     </Article>

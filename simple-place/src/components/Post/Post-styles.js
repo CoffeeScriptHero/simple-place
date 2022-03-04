@@ -22,6 +22,8 @@ export const Username = styled(Link)`
   &:hover {
     text-decoration: ${(props) => props.decoration || "none"};
   }
+  font-weight: ${(props) => props.weight || "400"};
+  margin: ${(props) => props.margin || "0"};
 `;
 
 export const Main = styled.section``;
@@ -41,6 +43,12 @@ export const IconsWrapper = styled.div`
 
 export const LikesNumber = styled.span``;
 
-export const LikesText = styled.span``;
+export const LikesText = styled.span`
+  display: block;
+  padding: 10px 16px;
+  font-weight: 700;
+`;
 
-export const Description = styled.span``;
+export const Description = styled.span`
+  padding: 0 0 0 16px;
+`;
