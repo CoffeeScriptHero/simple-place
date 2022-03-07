@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Article,
   Header,
@@ -10,25 +10,27 @@ import {
   LikesNumber,
   LikesText,
   Description,
+  ShowMore,
 } from "./Post-styles";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import Icon from "../Icon/Icon";
 
-const Post = () => {
+const Post = ({ avatar, username, img, likes, desc }) => {
+  const [showDesc, setShowDesc] = useState(true);
+
+  const showMoreHandler = (e) => {
+    e.target.textContent = !showDesc ? "more" : "less";
+    setShowDesc(!showDesc);
+  };
+
   return (
     <Article>
       <Header>
-        <ProfileIcon
-          src={
-            "https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/59846/176287/0044181001582748537.jpg"
-          }
-          width={"34px"}
-          height={"34px"}
-        />
-        <Username to={`/denya`}>denya_aquapark</Username>
+        <ProfileIcon src={avatar} width={"34px"} height={"34px"} />
+        <Username to={`/${username}`}>{username}</Username>
       </Header>
       <Main>
-        <Image src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"></Image>
+        <Image src={img}></Image>
       </Main>
       <Footer>
         <IconsWrapper>
@@ -37,18 +39,22 @@ const Post = () => {
           <Icon type="comment" />
         </IconsWrapper>
         <LikesText>
-          <LikesNumber>10</LikesNumber> liked
+          <LikesNumber>{likes}</LikesNumber> liked
         </LikesText>
         <Description>
           <Username
             margin={"0 10px 0 0 "}
             weight={"700"}
-            to={"/denis"}
+            to={`/${username}`}
             decoration={"underline"}
           >
-            denya_aquapark
+            {username}
           </Username>
-          Hello there
+          {desc.length < 50 && desc}
+          {desc.length >= 50 && desc.slice(0, 51) + "... "}
+          {desc.length >= 50 && (
+            <ShowMore onClick={showMoreHandler}>more</ShowMore>
+          )}
         </Description>
       </Footer>
     </Article>

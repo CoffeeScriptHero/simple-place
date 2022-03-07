@@ -5,6 +5,7 @@ export const Article = styled.article`
   width: 615px;
   height: 800px;
   border: 1px solid grey;
+  margin-bottom: 300px;
 `;
 
 export const Header = styled.header`
@@ -31,9 +32,7 @@ export const Main = styled.section``;
 export const Footer = styled.section``;
 
 export const Image = styled.img.attrs((props) => ({
-  src:
-    props.src ||
-    "https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/59846/176287/0044181001582748537.jpg",
+  src: props.src || "#",
 }))``;
 
 export const IconsWrapper = styled.div`
@@ -51,4 +50,11 @@ export const LikesText = styled.span`
 
 export const Description = styled.span`
   padding: 0 0 0 16px;
+  display: block;
+`;
+
+export const ShowMore = styled.span`
+  color: grey;
+  font-size: 14px;
+  cursor: pointer;
 `;
