@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+const POST_PD_LEFT = "16px";
+//post padding-left distance (description, icons, likes, etc..)
+
 export const Article = styled.article`
   width: 615px;
-  height: 800px;
-  border: 1px solid grey;
+  min-height: 600px;
+  max-height: 1200px;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   margin-bottom: 300px;
 `;
 
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  padding: 15px 0 15px 16px;
+  padding: 15px 0 15px ${POST_PD_LEFT};
 `;
 
 export const Username = styled(Link)`
@@ -33,23 +37,26 @@ export const Footer = styled.section``;
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src || "#",
-}))``;
+}))`
+  width: 100%;
+  height: 100%;
+`;
 
 export const IconsWrapper = styled.div`
   display: flex;
-  padding: 6px 16px 8px;
+  padding: 6px ${POST_PD_LEFT} 8px;
 `;
 
 export const LikesNumber = styled.span``;
 
 export const LikesText = styled.span`
   display: block;
-  padding: 10px 16px;
+  padding: 10px ${POST_PD_LEFT};
   font-weight: 700;
 `;
 
 export const Description = styled.span`
-  padding: 0 0 0 16px;
+  padding-left: ${POST_PD_LEFT};
   display: block;
 `;
 
@@ -58,3 +65,5 @@ export const ShowMore = styled.span`
   font-size: 14px;
   cursor: pointer;
 `;
+
+export const Commentaries = styled.div``;

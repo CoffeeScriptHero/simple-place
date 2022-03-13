@@ -8,7 +8,7 @@ const Feed = () => {
   return (
     <Main>
       <MainContainer>
-        <UsersThoughts />
+        {/* <UsersThoughts /> */}
         <Posts />
       </MainContainer>
     </Main>
