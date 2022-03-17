@@ -6,9 +6,9 @@ import Icon from "../Icon/Icon";
 import { connect } from "react-redux";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 
-const Header = ({ user }) => {
+const Header = ({ user, profileImg }) => {
   if (!user) return null;
-
+  console.log(profileImg);
   return (
     <HeaderWrapper>
       <MainContainer>
@@ -25,11 +25,7 @@ const Header = ({ user }) => {
               <Icon type="add" />
             </IconLink>
             <IconLink to="/profile">
-              <ProfileIcon
-                src={
-                  "https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/59846/176287/0044181001582748537.jpg"
-                }
-              />
+              <ProfileIcon src={profileImg} />
             </IconLink>
           </IconsWrapper>
         </Nav>
@@ -41,6 +37,7 @@ const Header = ({ user }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
+    profileImg: state.user.profileImg,
   };
 };
 

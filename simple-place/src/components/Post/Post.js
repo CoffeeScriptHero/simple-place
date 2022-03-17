@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Article,
   Header,
@@ -15,10 +15,22 @@ import {
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import Icon from "../Icon/Icon";
 import Comments from "../Comments/Comments";
-import CommentaryForm from "../CommentaryForm/CommentaryForm";
+import CommentForm from "../CommentForm/CommentForm";
+import { sendUserData } from "../../services/UserService";
 
-const Post = ({ avatar, username, img, likes, desc, comments }) => {
+const Post = ({ img, userId, likes, desc, comments }) => {
   const [showDesc, setShowDesc] = useState(true);
+  const [username, setUsername] = useState(null);
+  const [profileImg, setProfileImg] = useState(null);
+
+  useEffect(() => {
+    sendUserData({ id: userId }, "/api/user/get-user-data")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsername(data.username);
+        setProfileImg(data.profileImg);
+      });
+  }, []);
 
   const showMoreHandler = (e) => {
     e.target.textContent = !showDesc ? "more" : " less";
@@ -28,7 +40,7 @@ const Post = ({ avatar, username, img, likes, desc, comments }) => {
   return (
     <Article>
       <Header>
-        <ProfileIcon src={avatar} width={"34px"} height={"34px"} />
+        <ProfileIcon src={profileImg} width={"34px"} height={"34px"} />
         <Username to={`/${username}`} margin={"0 0 0 10px "} weight={"500"}>
           {username}
         </Username>
@@ -55,14 +67,14 @@ const Post = ({ avatar, username, img, likes, desc, comments }) => {
             {username}
           </Username>
           {desc.length < 50 && desc}
-          {desc.length >= 50 && showDesc && desc.slice(0, 51) + "..."}
+          {desc.length >= 50 && showDesc && desc.slice(0, 48) + "..."}
           {desc.length >= 50 && !showDesc && desc}
           {desc.length >= 50 && (
             <ShowMore onClick={showMoreHandler}>more</ShowMore>
           )}
         </Description>
         <Comments showAll={false} comments={comments} />
-        <CommentaryForm />
+        <CommentForm />
       </Footer>
     </Article>
   );

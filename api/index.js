@@ -6,8 +6,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const PORT = 3080;
 
-const signUpRoutes = require("./routes/signup.routes");
+const registrationRoutes = require("./routes/registration.routes");
 const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/post.routes");
 
 const URI = process.env.MONGO_CONNECTION_URL;
 
@@ -18,8 +19,9 @@ mongoose
 
 app.use(bodyParser.json());
 
-app.use("/", signUpRoutes);
-app.use("/", userRoutes);
+app.use("/api/registration", registrationRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on the PORT::${PORT}`);

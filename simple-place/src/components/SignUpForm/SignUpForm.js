@@ -36,7 +36,7 @@ export const SignUpForm = ({}) => {
       password: values.password,
     };
     const entryType = showLogIn ? "signup" : "login";
-    sendUserData(userData, `/api/${entryType}`)
+    sendUserData(userData, `/api/registration/${entryType}`)
       .then((res) => {
         return res.json();
       })
@@ -46,7 +46,14 @@ export const SignUpForm = ({}) => {
         if (message === "allowed") {
           setShowError(false);
           dispatch(
-            userOperations.setNewUser({ user: values.username, id: res.id })
+            userOperations.setNewUser({
+              user: values.username,
+              id: res.id,
+              profileImg: res.profileImg,
+              subscriptions: res.subscriptions,
+              subscribers: res.subscribers,
+              posts: res.posts,
+            })
           );
           setCookie("username", values.username, {
             expires: new Date("12/31/40"),

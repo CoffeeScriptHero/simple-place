@@ -15,6 +15,22 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  profileImg: {
+    type: String,
+    required: true,
+  },
+  subscriptions: {
+    type: [String],
+    required: true,
+  },
+  subscribers: {
+    type: [String],
+    required: true,
+  },
+  posts: {
+    type: [String],
+    required: true,
+  },
 });
 
 const UserModel = mongoose.model("user", UserSchema);

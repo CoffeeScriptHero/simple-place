@@ -13,7 +13,7 @@ export const checkCookiesData = async () => {
   const id = getCookie("id");
   let isLogged = false;
   if (id) {
-    const response = await sendUserData({ id }, "/api/check-user")
+    const response = await sendUserData({ id }, "/api/user/check-user")
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "allowed") isLogged = true;
@@ -21,3 +21,12 @@ export const checkCookiesData = async () => {
   }
   return isLogged;
 };
+
+// export const someFunc = async (data) => {
+//   const response = await fetch("/api/post/add-post", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ data }),
+//   });
+//   return response;
+// };

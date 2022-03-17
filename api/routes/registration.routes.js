@@ -5,7 +5,7 @@ const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const { v1: uuidv1 } = require("uuid");
 
 router.post(
-  "/api/signup",
+  "/signup",
   asyncMiddleware(async (req, res, next) => {
     try {
       const { username, password } = req.body.data;
@@ -17,10 +17,26 @@ router.post(
           .json({ message: "User with this nickname already exists" });
       }
 
+      const profileImg =
+        "https://res.cloudinary.com/drrhht2jy/image/upload/v1647441539/samples/profiles_images/default.jpg";
       const hashPassword = bcrypt.hashSync(password, 10);
       const id = uuidv1();
-      await UserModel.create({ username, password: hashPassword, id });
-      res.status(200).json({ message: "allowed", id: id });
+
+      await UserModel.create({
+        username,
+        password: hashPassword,
+        id,
+        profileImg,
+      });
+
+      res.status(200).json({
+        message: "allowed",
+        id: id,
+        profileImg: profileImg,
+        subscriptions: [],
+        subscribers: [],
+        posts: [],
+      });
     } catch {
       res.status(500).json({ message: "Unexpected error. Try again" });
     }
@@ -28,14 +44,21 @@ router.post(
 );
 
 router.post(
-  "/api/login",
+  "/login",
   asyncMiddleware(async (req, res, next) => {
     try {
       const { username, password } = req.body.data;
       const user = await UserModel.findOne({ username }).exec();
       if (user) {
         if (await bcrypt.compare(password, user.password)) {
-          return res.status(200).json({ message: "allowed", id: user.id });
+          return res.status(200).json({
+            message: "allowed",
+            id: user.id,
+            profileImg: user.profileImg,
+            subscriptions: user.subscriptions,
+            subscribers: user.subscribers,
+            posts: user.posts,
+          });
         }
         res.status(400).json({ message: "Wrong password. Try again" });
       } else {

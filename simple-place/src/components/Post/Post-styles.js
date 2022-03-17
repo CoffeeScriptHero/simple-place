@@ -7,7 +7,7 @@ const POST_PD_LEFT = "16px";
 export const Article = styled.article`
   width: 615px;
   min-height: 600px;
-  max-height: 1200px;
+  max-height: 1500px;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   margin-bottom: 300px;
 `;
@@ -58,6 +58,7 @@ export const LikesText = styled.span`
 export const Description = styled.span`
   padding-left: ${POST_PD_LEFT};
   display: block;
+  overflow-x: hidden;
 `;
 
 export const ShowMore = styled.span`

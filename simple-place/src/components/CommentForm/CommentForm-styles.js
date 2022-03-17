@@ -17,10 +17,12 @@ export const TextArea = styled.textarea`
   font-family: -apple-system;
   border: none;
   resize: none;
+  overflow-y: ${(props) => (props.isFullText ? "scroll" : "hidden")};
+  box-sizing: border-box;
   margin-left: 16px;
   width: 83%;
   font-size: 14px;
-  height: 18px;
+  height: 19px;
 `;
 
 export const Submit = styled.button.attrs((props) => ({
