@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
 import UsersThoughts from "../../components/UsersThoughts/UsersThoughts";
-import { Main } from "./Feed-styles";
-import { MainContainer } from "../../App-styles";
+import { Main, FeedContainer } from "./Feed-styles";
 import Posts from "../../components/Posts/Posts";
+import SideContent from "../../components/SideContent/SideContent";
 
 const Feed = () => {
   return (
     <Main>
-      <MainContainer>
-        {/* <UsersThoughts /> */}
+      <FeedContainer>
         <Posts />
-      </MainContainer>
+        <SideContent />
+      </FeedContainer>
     </Main>
   );
 };

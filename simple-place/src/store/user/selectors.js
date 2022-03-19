@@ -1,7 +1,7 @@
-const getUser = () => (state) => {
-  return state.user.user;
+const getUserInfo = () => (state) => {
+  return state.user;
 };
 
 export default {
-  getUser,
+  getUserInfo,
 };

@@ -6,7 +6,7 @@ const POST_PD_LEFT = "16px";
 
 export const Article = styled.article`
   width: 615px;
-  min-height: 600px;
+  min-height: 550px;
   max-height: 1500px;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   margin-bottom: 300px;

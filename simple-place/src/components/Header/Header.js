@@ -8,7 +8,6 @@ import ProfileIcon from "../ProfileIcon/ProfileIcon";
 
 const Header = ({ user, profileImg }) => {
   if (!user) return null;
-  console.log(profileImg);
   return (
     <HeaderWrapper>
       <MainContainer>
