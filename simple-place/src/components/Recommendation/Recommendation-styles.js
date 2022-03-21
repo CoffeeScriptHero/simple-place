@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   padding: 0 12px;
@@ -11,6 +12,11 @@ export const Wrapper = styled.div`
 export const UserWrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const UserLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 export const Username = styled.span`

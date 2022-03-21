@@ -27,7 +27,6 @@ const Recommended = () => {
     <RecommendedWrapper>
       <Inscription>Recommended for you</Inscription>
       {usersList}
-      {usersList}
     </RecommendedWrapper>
   );
 };

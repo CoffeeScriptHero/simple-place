@@ -22,5 +22,4 @@ export const IconsWrapper = styled.div`
 export const IconLink = styled(Link)`
   width: 24px;
   height: 24px;
-  z-index: 100;
 `;

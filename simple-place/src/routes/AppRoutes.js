@@ -7,6 +7,7 @@ import { userOperations, userSelectors } from "../store/user/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { sendUserData } from "../services/UserService.js";
 import { useEffect } from "react";
+import User from "../pages/User/User.js";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route exact path="/" element={user ? <Feed /> : <SignUp />} />
+      <Route exact path="/:username" element={<User />} />
     </Routes>
   );
 };

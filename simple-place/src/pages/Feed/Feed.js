@@ -1,4 +1,3 @@
-import { connect } from "react-redux";
 import UsersThoughts from "../../components/UsersThoughts/UsersThoughts";
 import { Main, FeedContainer } from "./Feed-styles";
 import Posts from "../../components/Posts/Posts";
@@ -15,10 +14,4 @@ const Feed = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-  };
-};
-
-export default connect(mapStateToProps)(Feed);
+export default Feed;

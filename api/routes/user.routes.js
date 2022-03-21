@@ -45,23 +45,30 @@ router.post(
   })
 );
 
-// router.post(
-//   "/get-all-users",
-//   asyncMiddleware(async (res, req, next) => {
-//     try {
-//       const { id } = req.body.data;
-//       const users = await UserModel.find({ id: { $ne: id } }).exec();
+router.post(
+  "/get-userpage",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { username } = req.body.data;
+      const user = await UserModel.findOne({ username }).exec();
 
-//       if (users) {
-//         res.json({ message: "good" });
-//       } else {
-//         res.status(400).send({ message: "no users" });
-//       }
-//     } catch {
-//       res.status(500).send({ message: "unexpected error" });
-//     }
-//   })
-// );
+      if (user) {
+        res.json({
+          status: 200,
+          username: user.username,
+          profileImg: user.profileImg,
+          subscriptions: user.subscriptions,
+          subscribers: user.subscribers,
+          posts: user.posts,
+        });
+      } else {
+        res.status(500).send({ message: "no account" });
+      }
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
 
 router.post(
   "/get-all-users",

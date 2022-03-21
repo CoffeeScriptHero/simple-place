@@ -37,6 +37,8 @@ const Post = ({ img, userId, likes, desc, comments }) => {
     setShowDesc(!showDesc);
   };
 
+  if (username === null) return "";
+
   return (
     <Article>
       <Header>
