@@ -20,10 +20,10 @@ const Recommendation = ({ profileImg, username }) => {
   return (
     <Wrapper>
       <UserWrapper>
-        <UserLink to={`/${username}`} onClick={userpageHandler}>
+        <UserLink to={`/${username}`}>
           <ProfileIcon src={profileImg} width={"36px"} height={"36px"} />
         </UserLink>
-        <UserLink to={`/${username}`} onClick={userpageHandler}>
+        <UserLink to={`/${username}`}>
           <Username>{username}</Username>
         </UserLink>
       </UserWrapper>
