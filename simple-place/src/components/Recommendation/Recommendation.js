@@ -1,31 +1,24 @@
 import React from "react";
-import {
-  Wrapper,
-  UserWrapper,
-  UserLink,
-  Username,
-  SubscribeButton,
-} from "./Recommendation-styles";
+import { Wrapper, UserWrapper, SubscribeButton } from "./Recommendation-styles";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
-import { userpageOperations } from "../../store/userpage/index.js";
-import { useDispatch } from "react-redux";
+import Username from "../Username/Username";
 
 const Recommendation = ({ profileImg, username }) => {
-  // const dispatch = useDispatch();
-
-  // const userpageHandler = () => {
-  //   dispatch(userpageOperations.setNewUserpageName(username));
-  // };
-
   return (
     <Wrapper>
       <UserWrapper>
-        <UserLink to={`/${username}`}>
-          <ProfileIcon src={profileImg} width={"36px"} height={"36px"} />
-        </UserLink>
-        <UserLink to={`/${username}`}>
-          <Username>{username}</Username>
-        </UserLink>
+        <ProfileIcon
+          src={profileImg}
+          width={"36px"}
+          height={"36px"}
+          username={username}
+        />
+        <Username
+          username={username}
+          weight={"600"}
+          margin={"0 0 0 10px"}
+          font={"-apple-system"}
+        />
       </UserWrapper>
       <SubscribeButton>Subscribe</SubscribeButton>
     </Wrapper>

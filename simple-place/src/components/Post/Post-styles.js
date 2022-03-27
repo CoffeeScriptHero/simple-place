@@ -18,19 +18,6 @@ export const Header = styled.header`
   padding: 15px 0 15px ${POST_PD_LEFT};
 `;
 
-export const Username = styled(Link)`
-  margin-left: 15px;
-  font-family: Quicksand;
-  font-weight: 500;
-  text-decoration: none;
-  color: black;
-  &:hover {
-    text-decoration: ${(props) => props.decoration || "none"};
-  }
-  font-weight: ${(props) => props.weight || "400"};
-  margin: ${(props) => props.margin || "0"};
-`;
-
 export const Main = styled.section``;
 
 export const Footer = styled.section``;

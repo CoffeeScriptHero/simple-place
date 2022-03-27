@@ -5,7 +5,6 @@ import {
   Main,
   Footer,
   Image,
-  Username,
   IconsWrapper,
   LikesNumber,
   LikesText,
@@ -17,6 +16,7 @@ import Icon from "../Icon/Icon";
 import Comments from "../Comments/Comments";
 import CommentForm from "../CommentForm/CommentForm";
 import { sendUserData } from "../../services/UserService";
+import Username from "../Username/Username";
 
 const Post = ({ img, userId, likes, desc, comments }) => {
   const [showDesc, setShowDesc] = useState(true);
@@ -42,10 +42,13 @@ const Post = ({ img, userId, likes, desc, comments }) => {
   return (
     <Article>
       <Header>
-        <ProfileIcon src={profileImg} width={"34px"} height={"34px"} />
-        <Username to={`/${username}`} margin={"0 0 0 10px "} weight={"500"}>
-          {username}
-        </Username>
+        <ProfileIcon
+          src={profileImg}
+          width={"34px"}
+          height={"34px"}
+          username={username}
+        />
+        <Username username={username} margin={"0 0 0 10px "} weight={"500"} />
       </Header>
       <Main>
         <Image src={img}></Image>
@@ -61,13 +64,11 @@ const Post = ({ img, userId, likes, desc, comments }) => {
         </LikesText>
         <Description>
           <Username
+            username={username}
             margin={"0 10px 0 0 "}
             weight={"700"}
-            to={`/${username}`}
             decoration={"underline"}
-          >
-            {username}
-          </Username>
+          />
           {desc.length < 50 && desc}
           {desc.length >= 50 && showDesc && desc.slice(0, 48) + "..."}
           {desc.length >= 50 && !showDesc && desc}

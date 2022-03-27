@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { sendUserData } from "../../services/UserService";
-import { useDispatch } from "react-redux";
-import { userpageOperations } from "../../store/userpage/index.js";
 import Loader from "../../components/Loader/Loader";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import { MainContainer } from "../../App-styles";
+import { InfoWrapper, UserInfo } from "./User-styles";
 
 const User = () => {
   const username = useParams().username;
-  const dispatch = useDispatch();
   const [userExist, setUserExist] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     sendUserData({ username: username }, "api/user/get-userpage")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          dispatch(
-            userpageOperations.setNewUserpage({
-              username: username,
-              profileImg: data.profileImg,
-              subscriptions: data.subscriptions,
-              subscribers: data.subscribers,
-              posts: data.posts,
-            })
-          );
+          setUserData(data);
           setUserExist(true);
         } else {
           setUserExist(false);
@@ -35,18 +26,23 @@ const User = () => {
       });
   }, []);
 
-  if (isLoading && userExist === null) {
+  if (isLoading && !userExist) {
     return <Loader />;
-  } else if (!isLoading && !userExist) {
+  } else if (!isLoading && !userExist && !userData) {
     return <p>Yep. No user!</p>;
   }
 
   return (
     <MainContainer>
-      {/* {isLoading && userExist === null && <Loader />}
-      {!isLoading && !userExist && <p>Yep. No user</p>}
-      {userExist && username} */}
-      {username}
+      <InfoWrapper>
+        <ProfileIcon
+          src={userData.profileImg}
+          width={"150px"}
+          height={"150px"}
+          padding={"0 75px"}
+        />
+        <UserInfo></UserInfo>
+      </InfoWrapper>
     </MainContainer>
   );
 };
