@@ -18,8 +18,3 @@ export const IconsWrapper = styled.div`
   align-items: end;
   width: 150px;
 `;
-
-export const IconLink = styled(Link)`
-  width: 24px;
-  height: 24px;
-`;

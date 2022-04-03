@@ -1,31 +1,28 @@
 import React from "react";
-import { HeaderWrapper, Nav, IconsWrapper, IconLink } from "./Header-styles";
+import { HeaderWrapper, Nav, IconsWrapper } from "./Header-styles";
 import { Logo } from "../../App-styles";
 import { MainContainer } from "../../App-styles";
 import Icon from "../Icon/Icon";
-import { connect } from "react-redux";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
+import { userSelectors } from "../../store/user/index.js";
+import { useSelector } from "react-redux";
 
-const Header = ({ user, profileImg }) => {
-  if (!user) return null;
+const Header = () => {
+  const username = useSelector(userSelectors.getUserInfo()).user;
+  const img = useSelector(userSelectors.getUserInfo()).profileImg;
+
+  if (!username) return null;
+
   return (
     <HeaderWrapper>
       <MainContainer>
         <Nav>
           <Logo>SimplePlace</Logo>
           <IconsWrapper>
-            <IconLink to="/">
-              <Icon type="home" />
-            </IconLink>
-            <IconLink to="/messages">
-              <Icon type="messages" />
-            </IconLink>
-            <IconLink to="/add-post">
-              <Icon type="add" />
-            </IconLink>
-            <IconLink to="/profile">
-              <ProfileIcon src={profileImg} />
-            </IconLink>
+            <Icon path="/" type="home" />
+            <Icon path="/messages" type="messages" />
+            <Icon path="/add-post" type="add" />
+            <ProfileIcon username={username} src={img} />
           </IconsWrapper>
         </Nav>
       </MainContainer>
@@ -33,11 +30,4 @@ const Header = ({ user, profileImg }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-    profileImg: state.user.profileImg,
-  };
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;

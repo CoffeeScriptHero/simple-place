@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { sendUserData } from "../../services/UserService";
+import { getUserPosts } from "../../services/PostsService";
 import Loader from "../../components/Loader/Loader";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
-import { MainContainer } from "../../App-styles";
-import { InfoWrapper, UserInfo } from "./User-styles";
+import {
+  UserContainer,
+  InfoWrapper,
+  Username,
+  UserInfo,
+  InfoText,
+  AccountInfo,
+  Number,
+} from "./User-styles";
+import UserPosts from "../../components/UserPosts/UserPosts";
 
 const User = () => {
   const username = useParams().username;
   const [userExist, setUserExist] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     sendUserData({ username: username }, "api/user/get-userpage")
@@ -24,7 +34,15 @@ const User = () => {
         }
         setIsLoading(false);
       });
-  }, []);
+
+    if (userData) {
+      getUserPosts(userData.id)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message === "allowed") setPosts(data.posts);
+        });
+    }
+  }, [isLoading]);
 
   if (isLoading && !userExist) {
     return <Loader />;
@@ -33,7 +51,7 @@ const User = () => {
   }
 
   return (
-    <MainContainer>
+    <UserContainer>
       <InfoWrapper>
         <ProfileIcon
           src={userData.profileImg}
@@ -41,9 +59,23 @@ const User = () => {
           height={"150px"}
           padding={"0 75px"}
         />
-        <UserInfo></UserInfo>
+        <UserInfo>
+          <Username>{userData.username}</Username>
+          <AccountInfo>
+            <InfoText>
+              <Number>{userData.posts.length}</Number> publications
+            </InfoText>
+            <InfoText>
+              <Number>{userData.subscriptions.length}</Number> subscriptions
+            </InfoText>
+            <InfoText>
+              <Number>{userData.subscribers.length}</Number> subscribers
+            </InfoText>
+          </AccountInfo>
+        </UserInfo>
       </InfoWrapper>
-    </MainContainer>
+      <UserPosts posts={posts} />
+    </UserContainer>
   );
 };
 

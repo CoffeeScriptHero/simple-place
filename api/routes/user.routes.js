@@ -57,15 +57,16 @@ router.post(
           status: 200,
           username: user.username,
           profileImg: user.profileImg,
+          id: user.id,
           subscriptions: user.subscriptions,
           subscribers: user.subscribers,
           posts: user.posts,
         });
       } else {
-        res.status(500).send({ message: "no account" });
+        res.status(400).send({ status: 400, message: "no account" });
       }
     } catch {
-      res.status(500).send({ message: "unexpected error" });
+      res.status(500).send({ status: 500, message: "unexpected error" });
     }
   })
 );

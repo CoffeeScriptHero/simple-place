@@ -43,4 +43,18 @@ router.get(
   })
 );
 
+router.post(
+  "/get-user-posts",
+  asyncMiddleware(async (req, res, next) => {
+    console.log(req.body);
+    const { id } = req.body;
+    const posts = await PostModel.find({ userId: id });
+    if (posts) {
+      res.status(200).json({ message: "allowed", posts });
+    } else {
+      res.status(400).json({ message: "no posts" });
+    }
+  })
+);
+
 module.exports = router;
