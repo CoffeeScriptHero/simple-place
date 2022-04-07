@@ -8,8 +8,8 @@ const Icon = ({ type, onClick, path, ...rest }) => {
   }
   return (
     <Svg onClick={onClick} {...rest}>
-      {path && <IconLink to={path}>{iconJsx()}</IconLink>}
-      {!path && iconJsx()}
+      {path && <IconLink to={path}>{iconJsx({ ...rest })}</IconLink>}
+      {!path && iconJsx({ ...rest })}
     </Svg>
   );
 };

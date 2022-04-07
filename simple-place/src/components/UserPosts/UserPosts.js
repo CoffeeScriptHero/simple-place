@@ -3,18 +3,16 @@ import { GridWrapper } from "./UserPosts-styles";
 import UserPost from "../UserPost/UserPost";
 
 const UserPosts = ({ posts }) => {
-  console.log(posts);
   const postsList = posts.map((p) => (
-    <UserPost key={p.id} img={p.image}></UserPost>
-  ));
+    <UserPost
+      img={p.image}
+      likes={p.likes}
+      comments={p.comments}
+      key={p.id}
+    ></UserPost>
+  )); // добавить колво лайков
 
-  return (
-    <GridWrapper>
-      {postsList}
-      {postsList}
-      {postsList}
-    </GridWrapper>
-  );
+  return <GridWrapper>{postsList}</GridWrapper>;
 };
 
 export default UserPosts;

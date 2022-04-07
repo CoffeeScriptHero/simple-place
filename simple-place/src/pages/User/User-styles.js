@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MainContainer } from "../../App-styles";
+import { Link } from "react-router-dom";
 
 export const UserContainer = styled(MainContainer)`
   width: 935px;
@@ -21,6 +22,14 @@ export const UserInfo = styled.section`
 `;
 
 export const InfoText = styled.span`
+  font-size: ${(props) => props.size || "16px"};
+  font-weight: ${(props) => props.weight || "400"};
+  margin-right: 10px;
+`;
+
+export const LinkText = styled(Link)`
+  text-decoration: none;
+  color: black;
   font-size: ${(props) => props.size || "16px"};
   font-weight: ${(props) => props.weight || "400"};
   &:not(:last-child) {

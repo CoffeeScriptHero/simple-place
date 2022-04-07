@@ -10,10 +10,12 @@ import {
   Username,
   UserInfo,
   InfoText,
+  LinkText,
   AccountInfo,
   Number,
 } from "./User-styles";
 import UserPosts from "../../components/UserPosts/UserPosts";
+import UsersModal from "../../components/UsersModal/UsersModal";
 
 const User = () => {
   const username = useParams().username;
@@ -65,16 +67,17 @@ const User = () => {
             <InfoText>
               <Number>{userData.posts.length}</Number> publications
             </InfoText>
-            <InfoText>
+            <LinkText to={`subscriptions/`}>
               <Number>{userData.subscriptions.length}</Number> subscriptions
-            </InfoText>
-            <InfoText>
+            </LinkText>
+            <LinkText to={`subscribers/`}>
               <Number>{userData.subscribers.length}</Number> subscribers
-            </InfoText>
+            </LinkText>
           </AccountInfo>
         </UserInfo>
       </InfoWrapper>
-      <UserPosts posts={posts} />
+      {userData.posts.length === 0 && <p>No posts</p>}
+      {userData.posts.length !== 0 && <UserPosts posts={posts} />}
     </UserContainer>
   );
 };
