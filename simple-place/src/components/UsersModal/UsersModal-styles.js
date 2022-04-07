@@ -32,3 +32,5 @@ export const ModalText = styled.span`
   font-weight: 600;
   margin: 0 auto;
 `;
+
+export const Wrapper = styled.div``;

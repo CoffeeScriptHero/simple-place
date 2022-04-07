@@ -40,8 +40,8 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route exact path="/" element={user ? <Feed /> : <SignUp />} />
-      <Route exact path="/:username" element={<User />} />
+      <Route path="/" element={user ? <Feed /> : <SignUp />} />
+      <Route path=":username" element={<User />} />
     </Routes>
   );
 };

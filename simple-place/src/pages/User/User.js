@@ -10,19 +10,25 @@ import {
   Username,
   UserInfo,
   InfoText,
-  LinkText,
+  Message,
   AccountInfo,
   Number,
 } from "./User-styles";
 import UserPosts from "../../components/UserPosts/UserPosts";
-import UsersModal from "../../components/UsersModal/UsersModal";
+import { useDispatch } from "react-redux";
+import { usersModalOperations } from "../../store/usersModal";
 
 const User = () => {
   const username = useParams().username;
-  const [userExist, setUserExist] = useState(null);
+  const [userExist, setUserExist] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState([null]);
   const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+
+  const userModalHandler = () => {
+    dispatch(usersModalOperations.setNewShowModal(true));
+  };
 
   useEffect(() => {
     sendUserData({ username: username }, "api/user/get-userpage")
@@ -46,6 +52,11 @@ const User = () => {
     }
   }, [isLoading]);
 
+  if (userData.username !== username && isLoading === false) {
+    setIsLoading(true);
+    setUserExist(false);
+  }
+
   if (isLoading && !userExist) {
     return <Loader />;
   } else if (!isLoading && !userExist && !userData) {
@@ -67,16 +78,16 @@ const User = () => {
             <InfoText>
               <Number>{userData.posts.length}</Number> publications
             </InfoText>
-            <LinkText to={`subscriptions/`}>
+            <InfoText onClick={userModalHandler}>
               <Number>{userData.subscriptions.length}</Number> subscriptions
-            </LinkText>
-            <LinkText to={`subscribers/`}>
+            </InfoText>
+            <InfoText onClick={userModalHandler}>
               <Number>{userData.subscribers.length}</Number> subscribers
-            </LinkText>
+            </InfoText>
           </AccountInfo>
         </UserInfo>
       </InfoWrapper>
-      {userData.posts.length === 0 && <p>No posts</p>}
+      {userData.posts.length === 0 && <Message>There is nothing yet</Message>}
       {userData.posts.length !== 0 && <UserPosts posts={posts} />}
     </UserContainer>
   );

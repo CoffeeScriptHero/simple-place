@@ -56,8 +56,8 @@ const Post = ({ img, userId, likes, desc, comments }) => {
       <Footer>
         <IconsWrapper>
           {/* вынести в глобальные стили */}
-          <Icon margin={"0 10px 0 0"} type="like" />
-          <Icon type="comment" />
+          <Icon pointer margin={"0 10px 0 0"} type="like" />
+          <Icon pointer type="comment" />
         </IconsWrapper>
         <LikesText>
           <LikesNumber>{likes}</LikesNumber> liked

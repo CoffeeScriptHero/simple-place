@@ -20,8 +20,8 @@ const Header = () => {
           <Logo>SimplePlace</Logo>
           <IconsWrapper>
             <Icon path="/" type="home" />
-            <Icon path="/messages" type="messages" />
-            <Icon path="/add-post" type="add" />
+            <Icon path="messages" type="messages" />
+            <Icon path="add-post" type="add" />
             <ProfileIcon username={username} src={img} />
           </IconsWrapper>
         </Nav>

@@ -5,7 +5,7 @@ const ProfileIcon = ({ src, width, height, padding, username }) => {
   return (
     <Wrapper width={width} height={height} padding={padding}>
       {username && (
-        <UserLink to={`/${username}`}>
+        <UserLink to={`${username}`}>
           <Avatar src={src}></Avatar>
         </UserLink>
       )}

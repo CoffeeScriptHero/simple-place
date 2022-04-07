@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { MainContainer } from "../../App-styles";
-import { Link } from "react-router-dom";
 
 export const UserContainer = styled(MainContainer)`
   width: 935px;
@@ -25,15 +24,11 @@ export const InfoText = styled.span`
   font-size: ${(props) => props.size || "16px"};
   font-weight: ${(props) => props.weight || "400"};
   margin-right: 10px;
-`;
-
-export const LinkText = styled(Link)`
-  text-decoration: none;
-  color: black;
-  font-size: ${(props) => props.size || "16px"};
-  font-weight: ${(props) => props.weight || "400"};
   &:not(:last-child) {
     margin-right: 10px;
+  }
+  &:not(:first-child) {
+    cursor: pointer;
   }
 `;
 
@@ -43,4 +38,9 @@ export const Number = styled.span`
 
 export const AccountInfo = styled.div`
   margin: 25px 0 0 0;
+`;
+
+export const Message = styled.span`
+  color: #dbdbdb;
+  margin: 0 auto;
 `;
