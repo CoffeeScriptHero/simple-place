@@ -46,7 +46,6 @@ router.get(
 router.post(
   "/get-user-posts",
   asyncMiddleware(async (req, res, next) => {
-    console.log(req.body);
     const { id } = req.body;
     const posts = await PostModel.find({ userId: id });
     if (posts) {

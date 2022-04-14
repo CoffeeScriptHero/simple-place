@@ -5,6 +5,11 @@ const setShowModal = (isShowModal) => ({
   payload: isShowModal,
 });
 
-const actionsObj = { setShowModal };
+const setModalType = (type) => ({
+  type: types.SET_MODAL_TYPE,
+  payload: type,
+});
+
+const actionsObj = { setShowModal, setModalType };
 
 export default actionsObj;

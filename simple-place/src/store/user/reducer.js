@@ -13,12 +13,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SAVE_USER: {
       return {
-        user: action.payload.user,
-        id: action.payload.id,
-        profileImg: action.payload.profileImg,
-        subscriptions: action.payload.subscriptions,
-        subscribers: action.payload.subscribers,
-        posts: action.payload.posts,
+        ...action.payload,
       };
     }
     default:

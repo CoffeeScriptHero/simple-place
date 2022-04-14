@@ -26,7 +26,6 @@ router.post(
     try {
       const { id } = req.body.data;
       const user = await UserModel.findOne({ id }).exec();
-
       if (user) {
         res.json({
           message: "account exist",
@@ -83,6 +82,31 @@ router.post(
       } else {
         res.status(400).send({ message: "no such user" });
       }
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/get-subscribers",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { id } = req.body;
+      const user = await UserModel.findOne({ id: id }).exec();
+
+      const subscribersDataList = await UserModel.find({
+        id: { $in: user.subscribers },
+      }).exec();
+
+      const subscribers = subscribersDataList.map((s) => ({
+        username: s.username,
+        profileImg: s.profileImg,
+      }));
+
+      console.log(subscribers);
+
+      res.status(200).json({ message: "allowed", subscribers: subscribers });
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }

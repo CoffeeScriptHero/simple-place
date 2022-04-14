@@ -14,7 +14,7 @@ export const TextAreaWrapper = styled.div`
 
 export const TextArea = styled.textarea`
   outline: none;
-  font-family: -apple-system;
+  font-family: Quicksand;
   border: none;
   resize: none;
   overflow-y: ${(props) => (props.isFullText ? "scroll" : "hidden")};

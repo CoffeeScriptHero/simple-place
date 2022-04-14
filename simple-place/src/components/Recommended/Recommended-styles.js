@@ -5,7 +5,7 @@ export const RecommendedWrapper = styled.div`
   width: 300px;
   height: 400px;
   margin-top: 50px;
-  overflow: scroll;
+  overflow-y: auto;
 `;
 
 export const Inscription = styled.span`

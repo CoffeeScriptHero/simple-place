@@ -26,8 +26,9 @@ const User = () => {
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-  const userModalHandler = () => {
+  const userModalHandler = (type) => {
     dispatch(usersModalOperations.setNewShowModal(true));
+    dispatch(usersModalOperations.setNewModalType(type));
   };
 
   useEffect(() => {
@@ -78,11 +79,11 @@ const User = () => {
             <InfoText>
               <Number>{userData.posts.length}</Number> publications
             </InfoText>
-            <InfoText onClick={userModalHandler}>
-              <Number>{userData.subscriptions.length}</Number> subscriptions
-            </InfoText>
-            <InfoText onClick={userModalHandler}>
+            <InfoText onClick={userModalHandler.bind(this, "subscribers")}>
               <Number>{userData.subscribers.length}</Number> subscribers
+            </InfoText>
+            <InfoText onClick={userModalHandler.bind(this, "subscriptions")}>
+              <Number>{userData.subscriptions.length}</Number> subscriptions
             </InfoText>
           </AccountInfo>
         </UserInfo>

@@ -2,6 +2,7 @@ import types from "./types";
 
 const initialState = {
   showModal: false,
+  modalType: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         showModal: action.payload,
+      };
+    }
+    case types.SET_MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.payload,
       };
     }
     default:
