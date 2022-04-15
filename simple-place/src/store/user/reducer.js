@@ -4,8 +4,8 @@ const initialState = {
   user: null,
   id: null,
   profileImg: null,
-  subscriptions: [],
-  subscribers: [],
+  following: [],
+  followers: [],
   posts: [],
 };
 

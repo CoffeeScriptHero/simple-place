@@ -31,8 +31,8 @@ router.post(
           message: "account exist",
           username: user.username,
           profileImg: user.profileImg,
-          subscriptions: user.subscriptions,
-          subscribers: user.subscribers,
+          following: user.following,
+          followers: user.followers,
           posts: user.posts,
         });
       } else {
@@ -57,8 +57,8 @@ router.post(
           username: user.username,
           profileImg: user.profileImg,
           id: user.id,
-          subscriptions: user.subscriptions,
-          subscribers: user.subscribers,
+          following: user.following,
+          followers: user.followers,
           posts: user.posts,
         });
       } else {
@@ -89,24 +89,45 @@ router.post(
 );
 
 router.post(
-  "/get-subscribers",
+  "/get-followers",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { id } = req.body;
-      const user = await UserModel.findOne({ id: id }).exec();
+      const { username } = req.body;
+      const user = await UserModel.findOne({ username: username }).exec();
 
-      const subscribersDataList = await UserModel.find({
-        id: { $in: user.subscribers },
+      const followersDataList = await UserModel.find({
+        id: { $in: user.followers },
       }).exec();
 
-      const subscribers = subscribersDataList.map((s) => ({
+      const followers = followersDataList.map((s) => ({
         username: s.username,
         profileImg: s.profileImg,
       }));
 
-      console.log(subscribers);
+      res.status(200).json({ message: "allowed", followers: followers });
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
 
-      res.status(200).json({ message: "allowed", subscribers: subscribers });
+router.post(
+  "/get-following",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { username } = req.body;
+      const user = await UserModel.findOne({ username: username }).exec();
+
+      const followingDataList = await UserModel.find({
+        id: { $in: user.following },
+      }).exec();
+
+      const following = followingDataList.map((s) => ({
+        username: s.username,
+        profileImg: s.profileImg,
+      }));
+
+      res.status(200).json({ message: "allowed", following: following });
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }

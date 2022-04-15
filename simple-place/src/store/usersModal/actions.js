@@ -10,6 +10,16 @@ const setModalType = (type) => ({
   payload: type,
 });
 
-const actionsObj = { setShowModal, setModalType };
+const getFollowers = (followers) => ({
+  type: types.GET_FOLLOWERS,
+  payload: followers,
+});
+
+const getFollowing = (following) => ({
+  type: types.GET_FOLLOWING,
+  payload: following,
+});
+
+const actionsObj = { setShowModal, setModalType, getFollowers, getFollowing };
 
 export default actionsObj;

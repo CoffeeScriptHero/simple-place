@@ -19,11 +19,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  subscriptions: {
+  following: {
     type: [String],
     required: true,
   },
-  subscribers: {
+  followers: {
     type: [String],
     required: true,
   },

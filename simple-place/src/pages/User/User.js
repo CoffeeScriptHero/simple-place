@@ -29,6 +29,11 @@ const User = () => {
   const userModalHandler = (type) => {
     dispatch(usersModalOperations.setNewShowModal(true));
     dispatch(usersModalOperations.setNewModalType(type));
+    if (type === "followers") {
+      dispatch(usersModalOperations.getFollowers(username));
+    } else {
+      dispatch(usersModalOperations.getFollowing(username));
+    }
   };
 
   useEffect(() => {
@@ -79,11 +84,15 @@ const User = () => {
             <InfoText>
               <Number>{userData.posts.length}</Number> publications
             </InfoText>
-            <InfoText onClick={userModalHandler.bind(this, "subscribers")}>
-              <Number>{userData.subscribers.length}</Number> subscribers
+            <InfoText
+              onClick={userModalHandler.bind(this, "followers", username)}
+            >
+              <Number>{userData.followers.length}</Number> followers
             </InfoText>
-            <InfoText onClick={userModalHandler.bind(this, "subscriptions")}>
-              <Number>{userData.subscriptions.length}</Number> subscriptions
+            <InfoText
+              onClick={userModalHandler.bind(this, "following", username)}
+            >
+              <Number>{userData.following.length}</Number> following
             </InfoText>
           </AccountInfo>
         </UserInfo>

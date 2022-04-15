@@ -16,7 +16,11 @@ import { useRef } from "react";
 
 const UsersModal = () => {
   const dispatch = useDispatch();
+  const type = useSelector(usersModalSelectors.getModalType());
   const showModal = useSelector(usersModalSelectors.getShowModal());
+  const followers = useSelector(usersModalSelectors.getFollowers());
+  const following = useSelector(usersModalSelectors.getFollowing());
+
   const modalWindow = useRef(null);
 
   const closeModal = () => {

@@ -3,6 +3,6 @@ import user from "./user";
 import userpage from "./userpage";
 import usersModal from "./usersModal";
 
-const reducer = combineReducers({ user, userpage, usersModal });
+const reducer = combineReducers({ user, usersModal });
 
 export default reducer;

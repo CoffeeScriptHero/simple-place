@@ -50,8 +50,8 @@ export const SignUpForm = ({}) => {
               user: values.username,
               id: res.id,
               profileImg: res.profileImg,
-              subscriptions: res.subscriptions,
-              subscribers: res.subscribers,
+              following: res.following,
+              followers: res.followers,
               posts: res.posts,
             })
           );

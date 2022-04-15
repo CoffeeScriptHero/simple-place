@@ -3,8 +3,8 @@ import types from "./types";
 const initialState = {
   username: null,
   profileImg: null,
-  subscriptions: [],
-  subscribers: [],
+  following: [],
+  followers: [],
   posts: [],
 };
 
@@ -14,10 +14,11 @@ const reducer = (state = initialState, action) => {
       return {
         username: action.payload.username,
         profileImg: action.payload.profileImg,
-        subscriptions: action.payload.subscriptions,
-        subscribers: action.payload.subscribers,
+        following: action.payload.following,
+        followers: action.payload.followers,
         posts: action.payload.posts,
       };
+      // return Object.assign(state, action.payload);
     }
     case types.SET_USERPAGE_NAME: {
       return {

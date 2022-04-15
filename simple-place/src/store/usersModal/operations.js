@@ -4,20 +4,40 @@ const setNewShowModal = (isShowModal) => (dispatch, getState) => {
   dispatch(actions.setShowModal(isShowModal));
 };
 
-const setNewModalType = (type) => async (dispatch, getState) => {
-  const response = await fetch("/api/user/get-subscribers", {
+const getFollowers = (username) => async (dispatch, getState) => {
+  fetch("/api/user/get-followers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: "7ff1ed10-a52f-11ec-a693-2dd56238e59e" }),
+    body: JSON.stringify({ username }),
   })
     .then((res) => res.json())
     .then((data) => {
-      //поставитьЮзеровДляМодалки(data)
-      // вынести это в отдельный экшн и операцию
-      dispatch(actions.setModalType(type));
+      console.log(data.followers);
+      dispatch(actions.getFollowers(data.followers));
     });
 };
 
-const operationsObj = { setNewShowModal, setNewModalType };
+const getFollowing = (username) => async (dispatch, getState) => {
+  fetch("/api/user/get-following", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch(actions.getFollowing(data.following));
+    });
+};
+
+const setNewModalType = (type) => (dispatch, getState) => {
+  dispatch(actions.setModalType(type));
+};
+
+const operationsObj = {
+  setNewShowModal,
+  setNewModalType,
+  getFollowers,
+  getFollowing,
+};
 
 export default operationsObj;
