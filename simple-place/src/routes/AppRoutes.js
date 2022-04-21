@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendUserData } from "../services/UserService.js";
 import { useEffect } from "react";
 import User from "../pages/User/User.js";
+import UsersModal from "../components/UsersModal/UsersModal.js";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,8 @@ const AppRoutes = () => {
                 user: getCookie("username"),
                 id: getCookie("id"),
                 profileImg: res.profileImg,
-                subscriptions: res.subscriptions,
-                subscribers: res.subscribers,
+                following: res.following,
+                followers: res.followers,
                 posts: res.posts,
               })
             );
@@ -41,7 +42,10 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={user ? <Feed /> : <SignUp />} />
-      <Route path=":username" element={<User />} />
+      <Route path=":username" element={<User />}>
+        <Route path="followers" element={<UsersModal />} />
+        <Route path="following" element={<UsersModal />} />
+      </Route>
     </Routes>
   );
 };

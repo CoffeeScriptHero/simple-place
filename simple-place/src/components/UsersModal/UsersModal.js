@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Wrapper,
   Modal,
@@ -13,14 +13,16 @@ import {
   usersModalSelectors,
 } from "../../store/usersModal/";
 import { useRef } from "react";
+import UserModal from "../UserModal/UserModal";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UsersModal = () => {
-  const dispatch = useDispatch();
   const type = useSelector(usersModalSelectors.getModalType());
   const showModal = useSelector(usersModalSelectors.getShowModal());
-  const followers = useSelector(usersModalSelectors.getFollowers());
-  const following = useSelector(usersModalSelectors.getFollowing());
-
+  const users = useSelector(usersModalSelectors.getUsers());
+  const dispatch = useDispatch();
+  const userpage = useParams().username;
+  const navigate = useNavigate();
   const modalWindow = useRef(null);
 
   const closeModal = () => {
@@ -33,13 +35,23 @@ const UsersModal = () => {
     }
   };
 
+  const usersList = users.map((u) => (
+    <UserModal key={u.username} username={u.username} img={u.profileImg} />
+  ));
+
+  useEffect(() => {
+    if (!showModal) {
+      navigate(`/${userpage}`);
+    }
+  }, []);
+
   return (
     <Wrapper>
       {showModal && (
         <Modal onClick={closeModalOnArea}>
           <ModalContent ref={modalWindow}>
             <ModalHeader>
-              <ModalText>Subscribers</ModalText>
+              <ModalText>{type}</ModalText>
               <Icon
                 pointer
                 type="cross"
@@ -48,6 +60,7 @@ const UsersModal = () => {
                 onClick={closeModal}
               />
             </ModalHeader>
+            {showModal && usersList}
           </ModalContent>
         </Modal>
       )}

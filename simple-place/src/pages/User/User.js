@@ -17,27 +17,31 @@ import {
 import UserPosts from "../../components/UserPosts/UserPosts";
 import { useDispatch } from "react-redux";
 import { usersModalOperations } from "../../store/usersModal";
+import { useNavigate, Outlet } from "react-router-dom";
 
 const User = () => {
-  const username = useParams().username;
   const [userExist, setUserExist] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState([null]);
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const username = useParams().username;
 
   const userModalHandler = (type) => {
     dispatch(usersModalOperations.setNewShowModal(true));
     dispatch(usersModalOperations.setNewModalType(type));
-    if (type === "followers") {
+    if (type === "Followers") {
       dispatch(usersModalOperations.getFollowers(username));
-    } else {
+      navigate("followers");
+    } else if (type === "Following") {
       dispatch(usersModalOperations.getFollowing(username));
+      navigate("following");
     }
   };
 
   useEffect(() => {
-    sendUserData({ username: username }, "api/user/get-userpage")
+    sendUserData({ username: username }, "/api/user/get-userpage")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -85,12 +89,12 @@ const User = () => {
               <Number>{userData.posts.length}</Number> publications
             </InfoText>
             <InfoText
-              onClick={userModalHandler.bind(this, "followers", username)}
+              onClick={userModalHandler.bind(this, "Followers", username)}
             >
               <Number>{userData.followers.length}</Number> followers
             </InfoText>
             <InfoText
-              onClick={userModalHandler.bind(this, "following", username)}
+              onClick={userModalHandler.bind(this, "Following", username)}
             >
               <Number>{userData.following.length}</Number> following
             </InfoText>
@@ -99,6 +103,8 @@ const User = () => {
       </InfoWrapper>
       {userData.posts.length === 0 && <Message>There is nothing yet</Message>}
       {userData.posts.length !== 0 && <UserPosts posts={posts} />}
+      {/* {!isLoading && <Outlet />} */}
+      <Outlet />
     </UserContainer>
   );
 };

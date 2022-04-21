@@ -3,18 +3,16 @@ import types from "./types";
 const initialState = {
   showModal: false,
   modalType: null,
-  followers: [],
-  following: [],
+  users: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_SHOW_MODAL: {
       return {
-        ...state,
-        followers: [],
-        following: [],
+        users: [],
         showModal: action.payload,
+        modalType: null,
       };
     }
     case types.SET_MODAL_TYPE: {
@@ -23,16 +21,10 @@ const reducer = (state = initialState, action) => {
         modalType: action.payload,
       };
     }
-    case types.GET_FOLLOWERS: {
+    case types.GET_USERS: {
       return {
         ...state,
-        followers: action.payload,
-      };
-    }
-    case types.GET_FOLLOWING: {
-      return {
-        ...state,
-        following: action.payload,
+        users: action.payload,
       };
     }
     default:

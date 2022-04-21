@@ -2,12 +2,8 @@ const getShowModal = () => (state) => {
   return state.usersModal.showModal;
 };
 
-const getFollowers = () => (state) => {
-  return state.usersModal.followers;
-};
-
-const getFollowing = () => (state) => {
-  return state.usersModal.following;
+const getUsers = () => (state) => {
+  return state.usersModal.users;
 };
 
 const getModalType = () => (state) => {
@@ -16,7 +12,6 @@ const getModalType = () => (state) => {
 
 export default {
   getShowModal,
-  getFollowers,
-  getFollowing,
+  getUsers,
   getModalType,
 };

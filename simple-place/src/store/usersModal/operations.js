@@ -12,8 +12,7 @@ const getFollowers = (username) => async (dispatch, getState) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.followers);
-      dispatch(actions.getFollowers(data.followers));
+      dispatch(actions.getUsers(data.followers));
     });
 };
 
@@ -25,7 +24,7 @@ const getFollowing = (username) => async (dispatch, getState) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      dispatch(actions.getFollowing(data.following));
+      dispatch(actions.getUsers(data.following));
     });
 };
 
