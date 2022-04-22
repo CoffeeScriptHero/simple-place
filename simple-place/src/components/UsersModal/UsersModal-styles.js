@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div``;
+
 export const Modal = styled.div`
   position: fixed;
   left: 0;
@@ -33,4 +35,4 @@ export const ModalText = styled.span`
   margin: 0 auto;
 `;
 
-export const Wrapper = styled.div``;
+export const CrossWrapper = styled.div``;

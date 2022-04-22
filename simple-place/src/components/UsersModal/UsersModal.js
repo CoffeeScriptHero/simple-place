@@ -5,6 +5,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalText,
+  CrossWrapper,
 } from "./UsersModal-styles";
 import Icon from "../Icon/Icon";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,14 +25,19 @@ const UsersModal = () => {
   const userpage = useParams().username;
   const navigate = useNavigate();
   const modalWindow = useRef(null);
+  const cross = useRef(null);
 
   const closeModal = () => {
     dispatch(usersModalOperations.setNewShowModal(false));
   };
 
   const closeModalOnArea = (e) => {
-    if (e.target !== modalWindow.current) {
+    if (
+      !modalWindow.current.contains(e.target) ||
+      cross.current.contains(e.target)
+    ) {
       closeModal();
+      navigate(`/${userpage}`);
     }
   };
 
@@ -52,13 +58,15 @@ const UsersModal = () => {
           <ModalContent ref={modalWindow}>
             <ModalHeader>
               <ModalText>{type}</ModalText>
-              <Icon
-                pointer
-                type="cross"
-                width={"16px"}
-                height={"16px"}
-                onClick={closeModal}
-              />
+              <CrossWrapper ref={cross}>
+                <Icon
+                  pointer
+                  type="cross"
+                  width={"16px"}
+                  height={"16px"}
+                  onClick={closeModal}
+                />
+              </CrossWrapper>
             </ModalHeader>
             {showModal && usersList}
           </ModalContent>

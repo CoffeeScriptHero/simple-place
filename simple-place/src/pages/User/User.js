@@ -103,7 +103,6 @@ const User = () => {
       </InfoWrapper>
       {userData.posts.length === 0 && <Message>There is nothing yet</Message>}
       {userData.posts.length !== 0 && <UserPosts posts={posts} />}
-      {/* {!isLoading && <Outlet />} */}
       <Outlet />
     </UserContainer>
   );
