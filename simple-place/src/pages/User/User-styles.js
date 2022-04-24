@@ -40,6 +40,19 @@ export const AccountInfo = styled.div`
   margin: 25px 0 0 0;
 `;
 
+export const SubscribeButton = styled.button`
+  width: 140px;
+  background: #5551ff;
+  border: none;
+  color: white;
+  font-family: Quicksand;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 30px 0 0 0;
+`;
+
 export const Message = styled.span`
   color: #dbdbdb;
   margin: 0 auto;

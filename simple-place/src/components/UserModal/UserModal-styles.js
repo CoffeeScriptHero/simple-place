@@ -3,7 +3,11 @@ import styled from "styled-components";
 export const UserWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px 8px;
+  padding: 8px;
+`;
+
+export const UsernameWrapper = styled.div`
+  flex: 3;
 `;
 
 export const Button = styled.button`

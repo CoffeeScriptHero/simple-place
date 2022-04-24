@@ -20,6 +20,7 @@ export const ModalContent = styled.div`
   height: 400px;
   background: white;
   border-radius: 3%;
+  overflow-x: hidden;
 `;
 
 export const ModalHeader = styled.div`
@@ -28,6 +29,12 @@ export const ModalHeader = styled.div`
   padding: 10px 15px;
   display: flex;
   align-items: center;
+`;
+
+export const UsersWrapper = styled.div`
+  height: 358px;
+  overflow-y: auto;
+  border-radius: 3%;
 `;
 
 export const ModalText = styled.span`

@@ -12,11 +12,14 @@ import {
   InfoText,
   Message,
   AccountInfo,
+  SubscribeButton,
   Number,
 } from "./User-styles";
 import UserPosts from "../../components/UserPosts/UserPosts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usersModalOperations } from "../../store/usersModal";
+import { userOperations } from "../../store/user";
+import { userSelectors } from "../../store/user";
 import { useNavigate, Outlet } from "react-router-dom";
 
 const User = () => {
@@ -26,6 +29,7 @@ const User = () => {
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const mainUser = useSelector(userSelectors.getUser());
   const username = useParams().username;
 
   const userModalHandler = (type) => {
@@ -38,6 +42,16 @@ const User = () => {
       dispatch(usersModalOperations.getFollowing(username));
       navigate("following");
     }
+  };
+
+  const followingHandler = () => {
+    dispatch(userOperations.followUser(userData.id));
+    userData.followers.length += 1;
+  };
+
+  const unfollowingHandler = () => {
+    dispatch(userOperations.unfollowUser(userData.id));
+    userData.followers.length -= 1;
   };
 
   useEffect(() => {
@@ -91,14 +105,34 @@ const User = () => {
             <InfoText
               onClick={userModalHandler.bind(this, "Followers", username)}
             >
-              <Number>{userData.followers.length}</Number> followers
+              <Number>
+                {mainUser.user === username && mainUser.followers.length}
+                {mainUser.user !== username && userData.followers.length}
+              </Number>{" "}
+              followers
             </InfoText>
             <InfoText
               onClick={userModalHandler.bind(this, "Following", username)}
             >
-              <Number>{userData.following.length}</Number> following
+              <Number>
+                {mainUser.user === username && mainUser.following.length}
+                {mainUser.user !== username && userData.following.length}
+              </Number>{" "}
+              following
             </InfoText>
           </AccountInfo>
+          {mainUser.user !== username &&
+            !mainUser.following.includes(userData.id) && (
+              <SubscribeButton onClick={followingHandler}>
+                Follow
+              </SubscribeButton>
+            )}
+          {mainUser.user !== username &&
+            mainUser.following.includes(userData.id) && (
+              <SubscribeButton onClick={unfollowingHandler}>
+                Unfollow
+              </SubscribeButton>
+            )}
         </UserInfo>
       </InfoWrapper>
       {userData.posts.length === 0 && <Message>There is nothing yet</Message>}

@@ -12,7 +12,7 @@ import UsersModal from "../components/UsersModal/UsersModal.js";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
-  const user = useSelector(userSelectors.getUserInfo()).user;
+  const user = useSelector(userSelectors.getUser()).user;
 
   useEffect(async () => {
     if (getCookie("id") && user !== false) {

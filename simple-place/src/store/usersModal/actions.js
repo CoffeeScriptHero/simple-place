@@ -10,11 +10,11 @@ const setModalType = (type) => ({
   payload: type,
 });
 
-const getUsers = (users) => ({
-  type: types.GET_USERS,
+const setUsers = (users) => ({
+  type: types.SET_USERS,
   payload: users,
 });
 
-const actionsObj = { setShowModal, setModalType, getUsers };
+const actionsObj = { setShowModal, setModalType, setUsers };
 
 export default actionsObj;

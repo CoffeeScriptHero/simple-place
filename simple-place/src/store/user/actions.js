@@ -10,6 +10,14 @@ const setLogged = (isLogged) => ({
   payload: isLogged,
 });
 
-const actionsObj = { saveUser, setLogged };
+const updateModal = () => ({
+  type: types.UPDATE_MODAL,
+});
+
+const actionsObj = {
+  saveUser,
+  setLogged,
+  updateModal,
+};
 
 export default actionsObj;

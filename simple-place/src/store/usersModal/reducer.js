@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
         modalType: action.payload,
       };
     }
-    case types.GET_USERS: {
+    case types.SET_USERS: {
       return {
         ...state,
         users: action.payload,

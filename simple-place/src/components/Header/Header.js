@@ -8,8 +8,8 @@ import { userSelectors } from "../../store/user/index.js";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const username = useSelector(userSelectors.getUserInfo()).user;
-  const img = useSelector(userSelectors.getUserInfo()).profileImg;
+  const username = useSelector(userSelectors.getUser()).user;
+  const img = useSelector(userSelectors.getUser()).profileImg;
 
   if (!username) return null;
 

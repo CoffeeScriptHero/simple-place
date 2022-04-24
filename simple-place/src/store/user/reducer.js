@@ -16,6 +16,11 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
     }
+    case types.UPDATE_MODAL: {
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }

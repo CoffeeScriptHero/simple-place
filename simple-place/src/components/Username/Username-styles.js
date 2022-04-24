@@ -12,5 +12,4 @@ export const Name = styled(Link)`
   }
   font-weight: ${(props) => props.weight || "400"};
   margin: ${(props) => props.margin || "0"};
-  flex: ${(props) => props.flex || "auto"};
 `;

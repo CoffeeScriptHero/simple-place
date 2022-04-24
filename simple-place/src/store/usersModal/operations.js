@@ -12,7 +12,7 @@ const getFollowers = (username) => async (dispatch, getState) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      dispatch(actions.getUsers(data.followers));
+      dispatch(actions.setUsers(data.followers));
     });
 };
 
@@ -24,8 +24,16 @@ const getFollowing = (username) => async (dispatch, getState) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      dispatch(actions.getUsers(data.following));
+      dispatch(actions.setUsers(data.following));
     });
+};
+
+const deleteUser = (username) => (dispatch, getState) => {
+  const updatedUsers = getState().usersModal.users.filter(
+    (u) => u.username !== username
+  );
+  getState().usersModal.users = updatedUsers;
+  dispatch(actions.setUsers(updatedUsers));
 };
 
 const setNewModalType = (type) => (dispatch, getState) => {
@@ -37,6 +45,7 @@ const operationsObj = {
   setNewModalType,
   getFollowers,
   getFollowing,
+  deleteUser,
 };
 
 export default operationsObj;

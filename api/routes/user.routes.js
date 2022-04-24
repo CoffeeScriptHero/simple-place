@@ -102,6 +102,7 @@ router.post(
       const followers = followersDataList.map((s) => ({
         username: s.username,
         profileImg: s.profileImg,
+        id: s.id,
       }));
 
       res.status(200).json({ message: "allowed", followers: followers });
@@ -125,9 +126,66 @@ router.post(
       const following = followingDataList.map((s) => ({
         username: s.username,
         profileImg: s.profileImg,
+        id: s.id,
       }));
 
       res.status(200).json({ message: "allowed", following: following });
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/follow-user",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { mainId, userId } = req.body;
+      await UserModel.updateOne(
+        { id: mainId },
+        { $push: { following: userId } }
+      );
+      await UserModel.updateOne(
+        { id: userId },
+        { $push: { followers: mainId } }
+      );
+      res.status(200).send({ message: "success" });
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/unfollow-user",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { mainId, userId } = req.body;
+      await UserModel.updateOne(
+        { id: mainId },
+        { $pull: { following: userId } }
+      );
+      await UserModel.updateOne(
+        { id: userId },
+        { $pull: { followers: mainId } }
+      );
+      res.status(200).send({ message: "success" });
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/delete-user",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { mainId, userId } = req.body;
+      await UserModel.updateOne(
+        { id: mainId },
+        { $pull: { followers: userId } }
+      );
+      res.status(200).send({ message: "success" });
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }
