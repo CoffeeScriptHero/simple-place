@@ -17,7 +17,7 @@ const Recommendation = ({ profileImg, username }) => {
           username={username}
           weight={"600"}
           margin={"0 0 0 10px"}
-          font={"roboto"}
+          font={"Segoe UI"}
         />
       </UserWrapper>
       <SubscribeButton>Subscribe</SubscribeButton>

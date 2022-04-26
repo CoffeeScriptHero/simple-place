@@ -5,12 +5,12 @@ export const Svg = styled.span`
   display: block;
   width: ${(props) => props.width || "24px"};
   height: ${(props) => props.height || "24px"};
-  cursor: ${(props) => (props.pointer ? "pointer" : "none")};
+  cursor: ${(props) => (props.pointer ? "pointer" : "default")};
   margin: ${(props) => props.margin || "0"};
 `;
 
 export const IconLink = styled(Link)`
-  width: 24px;
-  height: 24px;
+  width: ${(props) => props.width || "24px"};
+  height: ${(props) => props.height || "24px"};
   z-index: 0;
 `;

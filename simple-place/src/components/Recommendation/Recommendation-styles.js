@@ -18,4 +18,5 @@ export const SubscribeButton = styled.button`
   background: none;
   cursor: pointer;
   color: #5551ff;
+  font-family: Segoe UI;
 `;

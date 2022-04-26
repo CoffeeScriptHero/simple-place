@@ -45,7 +45,7 @@ export const SubscribeButton = styled.button`
   background: #5551ff;
   border: none;
   color: white;
-  font-family: Quicksand;
+  font-family: Segoe UI;
   font-size: 14px;
   border-radius: 2px;
   cursor: pointer;

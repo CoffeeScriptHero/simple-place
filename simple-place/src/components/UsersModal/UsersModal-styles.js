@@ -21,6 +21,7 @@ export const ModalContent = styled.div`
   background: white;
   border-radius: 3%;
   overflow-x: hidden;
+  font-family: Segoe UI;
 `;
 
 export const ModalHeader = styled.div`
@@ -35,6 +36,11 @@ export const UsersWrapper = styled.div`
   height: 358px;
   overflow-y: auto;
   border-radius: 3%;
+  text-align: ${(props) => (props.noUsers ? "center" : "left")};
+  display: ${(props) => (props.noUsers ? "flex" : "block")};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ModalText = styled.span`
@@ -43,3 +49,8 @@ export const ModalText = styled.span`
 `;
 
 export const CrossWrapper = styled.div``;
+
+export const NoPeopleText = styled.span`
+  display: block;
+  margin: 10px 0 70px 0;
+`;

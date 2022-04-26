@@ -3,14 +3,14 @@ import types from "./types";
 const initialState = {
   showModal: false,
   modalType: null,
-  users: [],
+  users: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_SHOW_MODAL: {
       return {
-        users: [],
+        users: null,
         showModal: action.payload,
         modalType: null,
       };

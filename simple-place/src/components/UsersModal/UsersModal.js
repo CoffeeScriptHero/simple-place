@@ -7,8 +7,10 @@ import {
   ModalText,
   UsersWrapper,
   CrossWrapper,
+  NoPeopleText,
 } from "./UsersModal-styles";
 import Icon from "../Icon/Icon";
+import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   usersModalOperations,
@@ -21,11 +23,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UsersModal = () => {
   // -------------Modal
+  const users = useSelector(usersModalSelectors.getUsers());
   const type = useSelector(usersModalSelectors.getModalType());
   const showModal = useSelector(usersModalSelectors.getShowModal());
-  const modalWindow = useRef(null);
-  const cross = useRef(null);
-  const users = useSelector(usersModalSelectors.getUsers());
+  const modalWindowRef = useRef(true);
+  const crossRef = useRef(null);
+  let usersList;
   // ------------------
   // -------------Userpage
   const userpage = useParams().username;
@@ -43,8 +46,8 @@ const UsersModal = () => {
 
   const closeModalOnArea = (e) => {
     if (
-      !modalWindow.current.contains(e.target) ||
-      cross.current.contains(e.target)
+      !modalWindowRef.current.contains(e.target) ||
+      crossRef.current.contains(e.target)
     ) {
       closeModal();
       navigate(`/${userpage}`);
@@ -60,26 +63,28 @@ const UsersModal = () => {
     }
   }, []);
 
-  const usersList = users.map((u) => (
-    <UserModal
-      key={u.id}
-      isMainUser={isMainUser}
-      type={type}
-      username={u.username}
-      id={u.id}
-      mainId={mainUser.id}
-      img={u.profileImg}
-    />
-  ));
+  if (users !== null) {
+    usersList = users.map((u) => (
+      <UserModal
+        key={u.id}
+        isMainUser={isMainUser}
+        type={type}
+        username={u.username}
+        id={u.id}
+        mainId={mainUser.id}
+        img={u.profileImg}
+      />
+    ));
+  }
 
   return (
     <Wrapper>
       {showModal && (
         <Modal onClick={closeModalOnArea}>
-          <ModalContent ref={modalWindow}>
+          <ModalContent ref={modalWindowRef}>
             <ModalHeader>
               <ModalText>{type}</ModalText>
-              <CrossWrapper ref={cross}>
+              <CrossWrapper ref={crossRef}>
                 <Icon
                   pointer
                   type="cross"
@@ -89,7 +94,16 @@ const UsersModal = () => {
                 />
               </CrossWrapper>
             </ModalHeader>
-            <UsersWrapper>{showModal && usersList}</UsersWrapper>
+            {users === null && <Loader />}
+            {users !== null && users.length === 0 && (
+              <UsersWrapper noUsers>
+                <Icon type={"people"} width={"90px"} height={"90px"} />
+                <NoPeopleText>There is no one here, yet</NoPeopleText>
+              </UsersWrapper>
+            )}
+            {users !== null && users.length > 0 && (
+              <UsersWrapper>{showModal && usersList}</UsersWrapper>
+            )}
           </ModalContent>
         </Modal>
       )}
