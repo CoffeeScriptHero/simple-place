@@ -10,7 +10,6 @@ import {
   Username,
   UserInfo,
   InfoText,
-  Message,
   AccountInfo,
   SubscribeButton,
   Number,
@@ -25,7 +24,8 @@ import { useNavigate, Outlet } from "react-router-dom";
 const User = () => {
   const [userExist, setUserExist] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState([null]);
+  const [userData, setUserData] = useState([]);
+  const [postsLoaded, setPostsLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,19 +61,21 @@ const User = () => {
         if (data.status === 200) {
           setUserData(data);
           setUserExist(true);
+          getUserPosts(data.id)
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.message === "allowed") {
+                setPosts(data.posts);
+                setPostsLoaded(true);
+              }
+            });
         } else {
           setUserExist(false);
+          setUserData(null);
+          navigate(`/${username}`);
         }
         setIsLoading(false);
       });
-
-    if (userData) {
-      getUserPosts(userData.id)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.message === "allowed") setPosts(data.posts);
-        });
-    }
   }, [isLoading]);
 
   if (userData.username !== username && isLoading === false) {
@@ -100,7 +102,7 @@ const User = () => {
           <Username>{userData.username}</Username>
           <AccountInfo>
             <InfoText>
-              <Number>{userData.posts.length}</Number> publications
+              <Number>{posts.length}</Number> publications
             </InfoText>
             <InfoText
               onClick={userModalHandler.bind(this, "Followers", username)}
@@ -135,8 +137,7 @@ const User = () => {
             )}
         </UserInfo>
       </InfoWrapper>
-      {userData.posts.length === 0 && <Message>There is nothing yet</Message>}
-      {userData.posts.length !== 0 && <UserPosts posts={posts} />}
+      <UserPosts posts={posts} postsLoaded={postsLoaded} />
       <Outlet />
     </UserContainer>
   );

@@ -9,6 +9,7 @@ import { sendUserData } from "../services/UserService.js";
 import { useEffect } from "react";
 import User from "../pages/User/User.js";
 import UsersModal from "../components/UsersModal/UsersModal.js";
+import PostModal from "../components/PostModal/PostModal.js";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const AppRoutes = () => {
       <Route path=":username" element={<User />}>
         <Route path="followers" element={<UsersModal />} />
         <Route path="following" element={<UsersModal />} />
+        <Route path="p/:id" element={<PostModal />} />
       </Route>
     </Routes>
   );

@@ -18,6 +18,7 @@ const Recommended = () => {
   const usersList = users.map((u) => (
     <Recommendation
       key={u.id}
+      id={u.id}
       profileImg={u.profileImg}
       username={u.username}
     />

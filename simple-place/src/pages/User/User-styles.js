@@ -52,8 +52,3 @@ export const SubscribeButton = styled.button`
   padding: 5px 10px;
   margin: 30px 0 0 0;
 `;
-
-export const Message = styled.span`
-  color: #dbdbdb;
-  margin: 0 auto;
-`;

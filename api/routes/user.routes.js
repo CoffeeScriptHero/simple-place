@@ -50,7 +50,6 @@ router.post(
     try {
       const { username } = req.body.data;
       const user = await UserModel.findOne({ username }).exec();
-
       if (user) {
         res.json({
           status: 200,
