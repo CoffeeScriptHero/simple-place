@@ -8,6 +8,10 @@ const setUserLogged = (isLogged) => (dispatch, getState) => {
   dispatch(actions.setLogged(isLogged));
 };
 
+const setVisitedUser = (username) => (dispatch, getState) => {
+  dispatch(actions.setVisitedUser(username));
+};
+
 const followUser = (id) => async (dispatch, getState) => {
   fetch("/api/user/follow-user", {
     method: "POST",
@@ -48,6 +52,7 @@ const deleteUser = (id) => async (dispatch, getState) => {
 const operationsObj = {
   setNewUser,
   setUserLogged,
+  setVisitedUser,
   followUser,
   unfollowUser,
   deleteUser,

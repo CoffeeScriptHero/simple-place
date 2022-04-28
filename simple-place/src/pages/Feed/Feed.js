@@ -1,4 +1,3 @@
-import UsersThoughts from "../../components/UsersThoughts/UsersThoughts";
 import { Main, FeedContainer } from "./Feed-styles";
 import Posts from "../../components/Posts/Posts";
 import SideContent from "../../components/SideContent/SideContent";

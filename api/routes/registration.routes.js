@@ -33,8 +33,8 @@ router.post(
         message: "allowed",
         id: id,
         profileImg: profileImg,
-        subscriptions: [],
-        subscribers: [],
+        following: [],
+        followers: [],
         posts: [],
       });
     } catch {
@@ -55,8 +55,8 @@ router.post(
             message: "allowed",
             id: user.id,
             profileImg: user.profileImg,
-            subscriptions: user.subscriptions,
-            subscribers: user.subscribers,
+            following: user.following,
+            followers: user.followers,
             posts: user.posts,
           });
         }
