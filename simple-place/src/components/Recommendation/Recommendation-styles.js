@@ -8,11 +8,6 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const UserWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const SubscribeButton = styled.button`
   border: none;
   background: none;

@@ -1,7 +1,7 @@
 import types from "./types";
 
 const initialState = {
-  showModal: false,
+  showModal: true,
   modalType: null,
   users: null,
 };

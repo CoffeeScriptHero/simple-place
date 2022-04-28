@@ -1,10 +1,9 @@
 import React from "react";
-import { Wrapper, UserWrapper, SubscribeButton } from "./Recommendation-styles";
-import ProfileIcon from "../ProfileIcon/ProfileIcon";
-import Username from "../Username/Username";
+import { Wrapper, SubscribeButton } from "./Recommendation-styles";
 import { userOperations } from "../../store/user";
 import { userSelectors } from "../../store/user";
 import { useSelector, useDispatch } from "react-redux";
+import UserWrapper from "../UserWrapper/UserWrapper";
 
 const Recommendation = ({ id, profileImg, username }) => {
   const following = useSelector(userSelectors.getUser()).following;
@@ -20,20 +19,12 @@ const Recommendation = ({ id, profileImg, username }) => {
 
   return (
     <Wrapper>
-      <UserWrapper>
-        <ProfileIcon
-          src={profileImg}
-          width={"36px"}
-          height={"36px"}
-          username={username}
-        />
-        <Username
-          username={username}
-          weight={"600"}
-          margin={"0 0 0 10px"}
-          font={"Segoe UI"}
-        />
-      </UserWrapper>
+      <UserWrapper
+        profileImg={profileImg}
+        username={username}
+        size={"36px"}
+        weight={"600"}
+      />
       {!following.includes(id) && (
         <SubscribeButton onClick={followingHandler}>Follow</SubscribeButton>
       )}

@@ -11,7 +11,7 @@ import {
 import FormInput from "../FormInput/FormInput.js";
 import { signUpSchema, logInSchema } from "./Yup.js";
 import { useState } from "react";
-import { sendUserData } from "../../services/UserService.js";
+import { receiveData } from "../../services/UserService.js";
 import { getCookie, setCookie } from "../../services/CookiesService.js";
 import { userOperations } from "../../store/user";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ export const SignUpForm = ({}) => {
       password: values.password,
     };
     const entryType = showLogIn ? "signup" : "login";
-    sendUserData(userData, `/api/registration/${entryType}`)
+    receiveData(userData, `/api/registration/${entryType}`)
       .then((res) => {
         return res.json();
       })

@@ -1,7 +1,7 @@
 import { getCookie } from "./CookiesService";
 import { userOperations } from "../store/user";
 
-export const sendUserData = async (data, request) => {
+export const receiveData = async (data, request) => {
   const response = await fetch(request, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ export const checkUserLogged = async () => {
   const id = getCookie("id");
   let isLogged = false;
   if (id) {
-    await sendUserData({ id }, "/api/user/check-user")
+    await receiveData({ id }, "/api/user/check-user")
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "allowed") isLogged = true;
@@ -28,7 +28,7 @@ export const setUserData = async (dispatch, navigate, user) => {
     const isLogged = await checkUserLogged();
 
     if (isLogged) {
-      sendUserData({ id: getCookie("id") }, "/api/user/get-user-data")
+      receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
         .then((res) => res.json())
         .then((res) => {
           dispatch(
@@ -44,9 +44,8 @@ export const setUserData = async (dispatch, navigate, user) => {
           );
         });
     } else {
-      console.log("dsd");
+      navigate("/");
       dispatch(userOperations.setNewUser({ user: false, id: false }));
-      // navigate("/");
     }
   }
 };

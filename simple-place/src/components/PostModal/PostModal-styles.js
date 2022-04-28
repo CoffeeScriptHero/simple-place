@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const PD_LEFT = "16px";
+
 export const Wrapper = styled.div``;
 
 export const Modal = styled.div`
@@ -16,7 +18,21 @@ export const Modal = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  width: 400px;
-  height: 400px;
-  background: white;
+  display: flex;
+`;
+
+export const ImageWrapper = styled.div`
+  width: 851px;
+  height: 851px;
+  background: #000;
+`;
+
+export const PostContent = styled.div`
+  width: 500px;
+  height: 851px;
+  background: #fff;
+`;
+
+export const Header = styled.header`
+  padding: 15px 0 15px ${PD_LEFT};
 `;

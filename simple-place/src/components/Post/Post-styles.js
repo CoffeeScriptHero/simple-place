@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-const POST_PD_LEFT = "16px";
+const PD_LEFT = "16px";
 //post padding-left distance (description, icons, likes, etc..)
 
 export const Article = styled.article`
@@ -13,9 +12,7 @@ export const Article = styled.article`
 `;
 
 export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  padding: 15px 0 15px ${POST_PD_LEFT};
+  padding: 15px 0 15px ${PD_LEFT};
 `;
 
 export const Main = styled.section``;
@@ -31,19 +28,19 @@ export const Image = styled.img.attrs((props) => ({
 
 export const IconsWrapper = styled.div`
   display: flex;
-  padding: 6px ${POST_PD_LEFT} 8px;
+  padding: 6px ${PD_LEFT} 8px;
 `;
 
 export const LikesNumber = styled.span``;
 
 export const LikesText = styled.span`
   display: block;
-  padding: 10px ${POST_PD_LEFT};
+  padding: 10px ${PD_LEFT};
   font-weight: 700;
 `;
 
 export const Description = styled.span`
-  padding-left: ${POST_PD_LEFT};
+  padding-left: ${PD_LEFT};
   display: block;
   overflow-x: hidden;
 `;

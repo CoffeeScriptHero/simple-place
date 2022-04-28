@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { sendUserData } from "../../services/UserService";
+import { receiveData } from "../../services/UserService";
 import { getUserPosts } from "../../services/PostsService";
 import Loader from "../../components/Loader/Loader";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
@@ -55,7 +55,7 @@ const User = () => {
   };
 
   useEffect(() => {
-    sendUserData({ username: username }, "/api/user/get-userpage")
+    receiveData({ username: username }, "/api/user/get-userpage")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -70,8 +70,10 @@ const User = () => {
               }
             });
         } else {
+          setPosts([]);
+          setUserData([]);
+          setPostsLoaded(false);
           setUserExist(false);
-          setUserData(null);
           navigate(`/${username}`);
         }
         setIsLoading(false);
@@ -81,6 +83,7 @@ const User = () => {
   if (userData.username !== username && isLoading === false) {
     setIsLoading(true);
     setUserExist(false);
+    setUserData([]);
   }
 
   if (isLoading && !userExist) {
