@@ -14,7 +14,7 @@ export const checkUserLogged = async () => {
   const id = getCookie("id");
   let isLogged = false;
   if (id) {
-    await receiveData({ id }, "/api/user/check-user")
+    await receiveData({ id }, "/api/user/check-main-user")
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "allowed") isLogged = true;
@@ -49,6 +49,16 @@ export const setUserData = async (dispatch, navigate, user) => {
     }
   }
 };
+
+// export const checkUserExist = async (username) => {
+//   const res = await fetch("/api/user/check-user-exist", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ username: username }),
+//   });
+
+//   console.log(res);
+// };
 
 // export const someFunc = async (data) => {
 //   const response = await fetch("/api/post/add-post", {

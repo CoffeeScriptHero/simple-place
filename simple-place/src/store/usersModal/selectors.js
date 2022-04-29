@@ -1,7 +1,3 @@
-const getShowModal = () => (state) => {
-  return state.usersModal.showModal;
-};
-
 const getUsers = () => (state) => {
   return state.usersModal.users;
 };
@@ -11,7 +7,6 @@ const getModalType = () => (state) => {
 };
 
 export default {
-  getShowModal,
   getUsers,
   getModalType,
 };

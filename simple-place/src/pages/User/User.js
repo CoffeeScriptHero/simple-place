@@ -24,7 +24,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 const User = () => {
   const [userExist, setUserExist] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
@@ -33,7 +33,6 @@ const User = () => {
   const username = useParams().username;
 
   const userModalHandler = (type) => {
-    dispatch(usersModalOperations.setNewShowModal(true));
     dispatch(usersModalOperations.setNewModalType(type));
     if (type === "Followers") {
       dispatch(usersModalOperations.getFollowers(username));
@@ -70,8 +69,8 @@ const User = () => {
               }
             });
         } else {
-          setPosts([]);
-          setUserData([]);
+          setPosts(null);
+          setUserData(null);
           setPostsLoaded(false);
           setUserExist(false);
           navigate(`/${username}`);
@@ -80,16 +79,16 @@ const User = () => {
       });
   }, [isLoading]);
 
-  if (userData.username !== username && isLoading === false) {
-    setIsLoading(true);
-    setUserExist(false);
-    setUserData([]);
-  }
-
   if (isLoading && !userExist) {
     return <Loader />;
   } else if (!isLoading && !userExist && !userData) {
     return <p>Yep. No user!</p>;
+  }
+
+  if (userData.username !== username && isLoading === false) {
+    setIsLoading(true);
+    setUserExist(false);
+    setUserData(null);
   }
 
   return (

@@ -1,9 +1,5 @@
 import actions from "./actions";
 
-const setNewShowModal = (isShowModal) => (dispatch, getState) => {
-  dispatch(actions.setShowModal(isShowModal));
-};
-
 const getFollowers = (username) => async (dispatch, getState) => {
   fetch("/api/user/get-followers", {
     method: "POST",
@@ -41,7 +37,6 @@ const setNewModalType = (type) => (dispatch, getState) => {
 };
 
 const operationsObj = {
-  setNewShowModal,
   setNewModalType,
   getFollowers,
   getFollowing,
