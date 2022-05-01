@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { Form, TextAreaWrapper, TextArea, Submit } from "./CommentForm-styles";
 
-const CommentForm = () => {
+const CommentForm = ({ comments }) => {
   const textRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [isFullText, setIsFullText] = useState(false);
@@ -30,7 +30,17 @@ const CommentForm = () => {
           onInput={textHandler}
           isFullText={isFullText}
         ></TextArea>
-        <Submit isActive={isActive}>Publish</Submit>
+        <Submit
+          isActive={isActive}
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   console.log(comments);
+          //   comments.push({ denka: textRef.current.value });
+          //   console.log(comments);
+          // }}
+        >
+          Publish
+        </Submit>
       </TextAreaWrapper>
     </Form>
   );

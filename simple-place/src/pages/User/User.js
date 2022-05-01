@@ -20,6 +20,7 @@ import { usersModalOperations } from "../../store/usersModal";
 import { userOperations } from "../../store/user";
 import { userSelectors } from "../../store/user";
 import { useNavigate, Outlet } from "react-router-dom";
+import NotFound from "../NotFound/NotFound";
 
 const User = () => {
   const [userExist, setUserExist] = useState(false);
@@ -82,7 +83,7 @@ const User = () => {
   if (isLoading && !userExist) {
     return <Loader />;
   } else if (!isLoading && !userExist && !userData) {
-    return <p>Yep. No user!</p>;
+    return <NotFound />;
   }
 
   if (userData.username !== username && isLoading === false) {

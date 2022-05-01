@@ -14,6 +14,7 @@ const UserPosts = ({ posts, postsLoaded }) => {
       img={p.image}
       likes={p.likes}
       comments={p.comments}
+      id={p.id}
       key={p.id}
     ></UserPost>
   ));

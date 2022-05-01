@@ -3,8 +3,8 @@ import types from "./types";
 const initialState = {
   user: null,
   id: null,
-  visitedUser: null,
   profileImg: null,
+  pageNotFound: false,
   following: [],
   followers: [],
   posts: [],
@@ -17,10 +17,10 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
     }
-    case types.SET_VISITED_USER: {
+    case types.SET_NOT_FOUND: {
       return {
         ...state,
-        visitedUser: action.payload,
+        pageNotFound: action.payload,
       };
     }
     case types.UPDATE_MODAL: {

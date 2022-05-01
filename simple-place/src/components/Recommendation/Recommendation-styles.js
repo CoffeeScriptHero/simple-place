@@ -7,11 +7,3 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-export const SubscribeButton = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: #5551ff;
-  font-family: Segoe UI;
-`;

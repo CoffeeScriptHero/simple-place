@@ -7,11 +7,17 @@ import {
   InfoText,
 } from "./UserPost-styles";
 import Icon from "../Icon/Icon";
+import { useNavigate } from "react-router-dom";
 
-const UserPost = ({ img, likes, comments }) => {
+const UserPost = ({ id, img, likes, comments }) => {
+  const navigate = useNavigate();
+
+  const postModalHandler = () => {
+    navigate(`p/${id}`);
+  };
   return (
     <Wrapper>
-      <PostPreview img={img}></PostPreview>
+      <PostPreview img={img} onClick={postModalHandler}></PostPreview>
       <Stat>
         <PostInfo>
           <Icon type="like" stroke={"white"} color={"white"}></Icon>

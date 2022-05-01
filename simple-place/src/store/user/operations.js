@@ -4,12 +4,12 @@ const setNewUser = (userInfo) => (dispatch, getState) => {
   dispatch(actions.saveUser(userInfo));
 };
 
-const setUserLogged = (isLogged) => (dispatch, getState) => {
-  dispatch(actions.setLogged(isLogged));
+const setNotFound = (isNotFound) => (dispatch, getState) => {
+  dispatch(actions.setNotFound(isNotFound));
 };
 
-const setVisitedUser = (username) => (dispatch, getState) => {
-  dispatch(actions.setVisitedUser(username));
+const setUserLogged = (isLogged) => (dispatch, getState) => {
+  dispatch(actions.setLogged(isLogged));
 };
 
 const followUser = (id) => async (dispatch, getState) => {
@@ -51,8 +51,8 @@ const deleteUser = (id) => async (dispatch, getState) => {
 
 const operationsObj = {
   setNewUser,
+  setNotFound,
   setUserLogged,
-  setVisitedUser,
   followUser,
   unfollowUser,
   deleteUser,

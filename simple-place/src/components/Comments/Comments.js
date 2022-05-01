@@ -3,7 +3,8 @@ import { CommentsWrapper } from "./Comments-styles";
 import { ShowAll } from "./Comments-styles";
 
 const Comments = ({ showAll, comments }) => {
-  //   const commentsList = 3;
+  // const commentsList = comments.map((c))
+
   return (
     <CommentsWrapper>
       {comments.length >= 1 && !showAll && (

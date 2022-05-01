@@ -5,14 +5,14 @@ const saveUser = (userInfo) => ({
   payload: userInfo,
 });
 
+const setNotFound = (isNotFound) => ({
+  type: types.SET_NOT_FOUND,
+  payload: isNotFound,
+});
+
 const setLogged = (isLogged) => ({
   type: types.SET_LOGGED,
   payload: isLogged,
-});
-
-const setVisitedUser = (username) => ({
-  type: types.SET_VISITED_USER,
-  payload: username,
 });
 
 const updateModal = () => ({
@@ -23,7 +23,7 @@ const actionsObj = {
   saveUser,
   setLogged,
   updateModal,
-  setVisitedUser,
+  setNotFound,
 };
 
 export default actionsObj;

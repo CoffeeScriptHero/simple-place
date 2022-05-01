@@ -56,4 +56,21 @@ router.post(
   })
 );
 
+router.post(
+  "/get-post",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { id } = req.body;
+      const post = await PostModel.findOne({ id: id });
+      if (post) {
+        res.status(200).json({ message: "allowed", post: post });
+      } else {
+        res.status(400).json({ message: "no posts" });
+      }
+    } catch {
+      res.status(500).json({ message: "error" });
+    }
+  })
+);
+
 module.exports = router;

@@ -1,10 +1,14 @@
 import types from "./types";
 
-const setShowModal = (isShowModal) => ({
-  type: types.SET_SHOW_MODAL,
-  payload: isShowModal,
+const setPostInfo = (postInfo) => ({
+  type: types.SET_POST_INFO,
+  payload: postInfo,
 });
 
-const actionsObj = { setShowModal };
+const clearPostInfo = () => ({
+  type: types.CLEAR_POST_INFO,
+});
+
+const actionsObj = { setPostInfo, clearPostInfo };
 
 export default actionsObj;

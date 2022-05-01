@@ -1,7 +1,7 @@
-const SET_SHOW_MODAL = "simple-place/usersModal/SET_SHOW_MODAL";
+const SET_POST_INFO = "simple-place/postModal/SET_POST_INFO";
 
-const typesObj = {
-  SET_SHOW_MODAL,
-};
+const CLEAR_POST_INFO = "simple-place/postModal/CLEAR_POST_INFO";
+
+const typesObj = { SET_POST_INFO, CLEAR_POST_INFO };
 
 export default typesObj;

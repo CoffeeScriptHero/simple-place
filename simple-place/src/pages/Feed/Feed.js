@@ -1,15 +1,15 @@
-import { Main, FeedContainer } from "./Feed-styles";
+import { FeedContainer } from "./Feed-styles";
 import Posts from "../../components/Posts/Posts";
 import SideContent from "../../components/SideContent/SideContent";
+import { Outlet } from "react-router-dom";
 
 const Feed = () => {
   return (
-    <Main>
-      <FeedContainer>
-        <Posts />
-        <SideContent />
-      </FeedContainer>
-    </Main>
+    <FeedContainer>
+      <Posts />
+      <SideContent />
+      <Outlet />
+    </FeedContainer>
   );
 };
 

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../pages/User/User.js";
 import UsersModal from "../components/UsersModal/UsersModal.js";
 import PostModal from "../components/PostModal/PostModal.js";
+import NotFound from "../pages/NotFound/NotFound.js";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,15 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Feed /> : <SignUp />} />
+      <Route path="/" element={user ? <Feed /> : <SignUp />}>
+        <Route path="p/:id" element={<PostModal />} />
+      </Route>
       <Route path=":username" element={<User />}>
         <Route path="followers" element={<UsersModal />} />
         <Route path="following" element={<UsersModal />} />
         <Route path="p/:id" element={<PostModal />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

@@ -36,7 +36,7 @@ export const setUserData = async (dispatch, navigate, user) => {
               user: getCookie("username"),
               id: getCookie("id"),
               profileImg: res.profileImg,
-              visitedUser: null,
+              pageNotFound: false,
               following: res.following,
               followers: res.followers,
               posts: res.posts,

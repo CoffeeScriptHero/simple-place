@@ -15,3 +15,11 @@ export const Logo = styled.span`
   font-family: Quicksand;
   font-weight: bold;
 `;
+
+export const SubscribeButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #5551ff;
+  font-family: Segoe UI;
+`;

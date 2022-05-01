@@ -11,9 +11,10 @@ const UserWrapper = ({
   fontSize = "16px",
   weight = "500",
   size = "34px",
+  flex = "none",
 }) => {
   return (
-    <Wrapper>
+    <Wrapper flex={flex}>
       <ProfileIcon
         src={profileImg}
         width={size}

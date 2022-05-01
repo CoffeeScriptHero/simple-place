@@ -1,5 +1,6 @@
 import React from "react";
-import { Wrapper, SubscribeButton } from "./Recommendation-styles";
+import { Wrapper } from "./Recommendation-styles";
+import { SubscribeButton } from "../../App-styles";
 import { userOperations } from "../../store/user";
 import { userSelectors } from "../../store/user";
 import { useSelector, useDispatch } from "react-redux";

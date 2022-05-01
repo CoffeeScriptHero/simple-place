@@ -1,11 +1,13 @@
 import actions from "./actions";
 
-const setNewShowModal = (isShowModal) => (dispatch, getState) => {
-  dispatch(actions.setShowModal(isShowModal));
+const setPostInfo = (postInfo) => (dispatch, getState) => {
+  dispatch(actions.setPostInfo(postInfo));
 };
 
-const operationsObj = {
-  setNewShowModal,
+const clearPostInfo = () => (dispatch, getState) => {
+  dispatch(actions.clearPostInfo());
 };
+
+const operationsObj = { setPostInfo, clearPostInfo };
 
 export default operationsObj;

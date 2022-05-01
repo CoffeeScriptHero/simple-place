@@ -34,5 +34,6 @@ export const PostContent = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 15px 0 15px ${PD_LEFT};
+  padding: 15px 35px 15px ${PD_LEFT};
+  display: flex;
 `;

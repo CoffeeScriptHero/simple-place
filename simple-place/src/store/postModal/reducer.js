@@ -1,19 +1,31 @@
 import types from "./types";
 
 const initialState = {
-  showModal: true,
+  username: null,
+  profileImg: null,
+  image: null,
+  likes: null,
+  comments: [],
+  description: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_SHOW_MODAL: {
+    case types.SET_POST_INFO: {
       return {
-        users: null,
-        showModal: action.payload,
-        modalType: null,
+        ...action.payload,
       };
     }
-
+    case types.CLEAR_POST_INFO: {
+      return {
+        username: null,
+        profileImg: null,
+        image: null,
+        likes: null,
+        comments: [],
+        description: null,
+      };
+    }
     default:
       return state;
   }

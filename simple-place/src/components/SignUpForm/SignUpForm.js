@@ -50,6 +50,7 @@ export const SignUpForm = ({}) => {
               user: values.username,
               id: res.id,
               profileImg: res.profileImg,
+              pageNotFound: false,
               following: res.following,
               followers: res.followers,
               posts: res.posts,

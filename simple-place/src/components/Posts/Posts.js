@@ -9,6 +9,7 @@ const Posts = () => {
   const postsList = posts.map((p) => (
     <Post
       key={p.id}
+      id={p.id}
       img={p.image}
       userId={p.userId}
       likes={p.likes}

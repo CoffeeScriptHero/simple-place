@@ -1,7 +1,5 @@
-const getShowModal = () => (state) => {
-  return state.postModal.showModal;
+const getModalInfo = () => (state) => {
+  return state.postModal;
 };
 
-export default {
-  getShowModal,
-};
+export default { getModalInfo };
