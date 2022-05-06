@@ -1,12 +1,14 @@
 import { useRef, useEffect, useState } from "react";
 import {
   Wrapper,
-  Modal,
+  PostModalWrapper,
   ModalContent,
   ImageWrapper,
   PostContent,
-  Header,
+  PostHeader,
+  PostBody,
 } from "./PostModal-styles";
+// import { Modal } from "../../App-styles";
 import { SubscribeButton } from "../../App-styles";
 import UserWrapper from "../UserWrapper/UserWrapper";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -15,6 +17,7 @@ import { receiveData } from "../../services/UserService";
 import { useSelector, useDispatch } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
 import Comments from "../Comments/Comments";
+import UsersModal from "../UsersModal/UsersModal";
 import CommentForm from "../CommentForm/CommentForm";
 
 const PostModal = () => {
@@ -24,16 +27,17 @@ const PostModal = () => {
   const [postData, setPostData] = useState(
     useSelector(postModalSelectors.getModalInfo())
   );
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(postData);
-
   const closeModal = () => {
-    const mainPath = path.replace(`/p/${postId}`, "");
-    dispatch(postModalOperations.clearPostInfo());
-    if (mainPath !== "") navigate(`${mainPath}`);
-    else navigate("/");
+    if (!showModal) {
+      const mainPath = path.replace(`/p/${postId}`, "");
+      dispatch(postModalOperations.clearPostInfo());
+      if (mainPath !== "") navigate(`${mainPath}`);
+      else navigate("/");
+    }
   };
 
   const closeModalOnArea = (e) => {
@@ -75,21 +79,29 @@ const PostModal = () => {
 
   return (
     <Wrapper>
-      <Modal onClick={closeModalOnArea}>
+      <PostModalWrapper onClick={closeModalOnArea}>
         <ModalContent ref={modalRef}>
           <ImageWrapper></ImageWrapper>
           <PostContent>
-            <Header>
+            <PostHeader>
               <UserWrapper
-                flex={"1"}
+                flex="1"
                 profileImg={postData.profileImg}
                 username={postData.username}
               />
               <SubscribeButton>Follow</SubscribeButton>
-            </Header>
+            </PostHeader>
+            <PostBody>
+              <Comments
+                showAll
+                comments={postData.comments}
+                setShowModal={setShowModal}
+              />
+            </PostBody>
           </PostContent>
         </ModalContent>
-      </Modal>
+        {showModal && <UsersModal setShowModal={setShowModal} />}
+      </PostModalWrapper>
     </Wrapper>
   );
 };

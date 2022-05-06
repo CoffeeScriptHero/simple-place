@@ -155,6 +155,28 @@ router.post(
 );
 
 router.post(
+  "/get-liked",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { users } = req.body;
+      console.log(users);
+      const usersList = await UserModel.find({ id: { $in: users } }).exec();
+
+      // const users = usersList.map((u) => ({
+      //   username: s.username,
+      //   profileImg: s.profileImg,
+      //   id: s.id,
+      // }));
+      console.log(usersList);
+
+      res.status(200).json({ message: "allowed", following: following });
+    } catch {
+      res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
   "/follow-user",
   asyncMiddleware(async (req, res, next) => {
     try {

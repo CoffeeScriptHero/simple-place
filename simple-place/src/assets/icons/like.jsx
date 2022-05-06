@@ -1,8 +1,8 @@
-export const like = ({ stroke, color }) => (
+export const like = ({ stroke, color, width = "25.5", height = "24" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="25.5"
-    height="24"
+    width={width}
+    height={height}
     viewBox="0 0 24 24"
   >
     <path

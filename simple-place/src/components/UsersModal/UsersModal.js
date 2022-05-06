@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Wrapper,
-  Modal,
   ModalContent,
   ModalHeader,
   ModalText,
@@ -9,6 +8,7 @@ import {
   CrossWrapper,
   NoPeopleText,
 } from "./UsersModal-styles";
+import { Modal } from "../../App-styles";
 import Icon from "../Icon/Icon";
 import Loader from "../Loader/Loader";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ import { useRef } from "react";
 import UserModal from "../UserModal/UserModal";
 import { useNavigate, useParams } from "react-router-dom";
 
-const UsersModal = () => {
+const UsersModal = ({ setShowModal = null }) => {
   // -------------Modal
   const users = useSelector(usersModalSelectors.getUsers());
   const type = useSelector(usersModalSelectors.getModalType());
@@ -36,7 +36,11 @@ const UsersModal = () => {
   //
 
   const closeModal = () => {
-    navigate(`/${userpage}`);
+    if (setShowModal !== null) {
+      setShowModal(false);
+    } else {
+      navigate(`/${userpage}`);
+    }
   };
 
   const closeModalOnArea = (e) => {

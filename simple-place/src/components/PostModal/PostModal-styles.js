@@ -1,10 +1,11 @@
 import styled from "styled-components";
+// import { Modal } from "../../App-styles";
 
 const PD_LEFT = "16px";
 
 export const Wrapper = styled.div``;
 
-export const Modal = styled.div`
+export const PostModalWrapper = styled.div`
   position: fixed;
   left: 0;
   top: 0;
@@ -14,7 +15,7 @@ export const Modal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 4;
 `;
 
 export const ModalContent = styled.div`
@@ -23,17 +24,24 @@ export const ModalContent = styled.div`
 
 export const ImageWrapper = styled.div`
   width: 851px;
-  height: 851px;
+  // height: 851px;
+  height: 710px;
   background: #000;
 `;
 
 export const PostContent = styled.div`
   width: 500px;
-  height: 851px;
+  // height: 851px;
+  height: 710px;
   background: #fff;
 `;
 
-export const Header = styled.header`
+export const PostHeader = styled.header`
   padding: 15px 35px 15px ${PD_LEFT};
   display: flex;
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+`;
+
+export const PostBody = styled.div`
+  padding: 16px 25px 16px 16px;
 `;
