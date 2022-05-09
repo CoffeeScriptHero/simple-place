@@ -8,7 +8,6 @@ import {
   PostHeader,
   PostBody,
 } from "./PostModal-styles";
-// import { Modal } from "../../App-styles";
 import { SubscribeButton } from "../../App-styles";
 import UserWrapper from "../UserWrapper/UserWrapper";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -18,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
 import { userSelectors } from "../../store/user";
 import Comments from "../Comments/Comments";
+import Comment from "../Comment/Comment";
 import UsersModal from "../UsersModal/UsersModal";
 import CommentForm from "../CommentForm/CommentForm";
 
@@ -29,7 +29,6 @@ const PostModal = () => {
     useSelector(postModalSelectors.getModalInfo())
   );
   const [showModal, setShowModal] = useState(false);
-  // const [updateComments, setUpdateComments] = useState(false);
   const mainUsername = useSelector(userSelectors.getUser()).user;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,7 +67,6 @@ const PostModal = () => {
                     profileImg: data.profileImg,
                   };
                 });
-                // setUpdateComments(false);
               });
           } else {
             navigate("/");
@@ -98,11 +96,17 @@ const PostModal = () => {
               )}
             </PostHeader>
             <PostBody>
+              <Comment
+                mainUserId={postData.userId}
+                username={postData.username}
+                profileImg={postData.profileImg}
+                text={postData.description}
+                isDescription={true}
+              />
               <Comments
                 showAll
                 comments={postData.comments}
                 setShowModal={setShowModal}
-                postId={postData.id}
               />
             </PostBody>
           </PostContent>

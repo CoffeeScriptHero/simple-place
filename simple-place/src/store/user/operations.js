@@ -4,18 +4,6 @@ const setNewUser = (userInfo) => (dispatch, getState) => {
   dispatch(actions.saveUser(userInfo));
 };
 
-const setNotFound = (isNotFound) => (dispatch, getState) => {
-  dispatch(actions.setNotFound(isNotFound));
-};
-
-const setUserLogged = (isLogged) => (dispatch, getState) => {
-  dispatch(actions.setLogged(isLogged));
-};
-
-// const logOut = () => (dispatch, getState) => {
-//   dispatch(actions.setNotFound(isNotFound));
-// };
-
 const followUser = (id) => async (dispatch, getState) => {
   fetch("/api/user/follow-user", {
     method: "POST",
@@ -55,8 +43,6 @@ const deleteUser = (id) => async (dispatch, getState) => {
 
 const operationsObj = {
   setNewUser,
-  setNotFound,
-  setUserLogged,
   followUser,
   unfollowUser,
   deleteUser,

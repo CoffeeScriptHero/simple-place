@@ -10,15 +10,6 @@ const setLogged = (isLogged) => ({
   payload: isLogged,
 });
 
-const logOut = () => ({
-  type: types.LOG_OUT,
-});
-
-const setNotFound = (isNotFound) => ({
-  type: types.SET_NOT_FOUND,
-  payload: isNotFound,
-});
-
 const updateModal = () => ({
   type: types.UPDATE_MODAL,
 });
@@ -26,9 +17,7 @@ const updateModal = () => ({
 const actionsObj = {
   saveUser,
   setLogged,
-  logOut,
   updateModal,
-  setNotFound,
 };
 
 export default actionsObj;

@@ -24,15 +24,15 @@ const getFollowing = (username) => async (dispatch, getState) => {
     });
 };
 
-const getLiked = (postId, likes, username) => async (dispatch, getState) => {
+const getLiked = (id, type) => async (dispatch, getState) => {
   fetch("/api/post/get-liked", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ postId, likes, username }),
+    body: JSON.stringify({ id, type }),
   })
     .then((res) => res.json())
     .then((data) => {
-      dispatch(actions.setUsers(data.users));
+      dispatch(actions.setUsers(data.liked));
     });
 };
 

@@ -87,6 +87,7 @@ const User = () => {
   }
 
   if (userData.username !== username && isLoading === false) {
+    setPostsLoaded(false);
     setIsLoading(true);
     setUserExist(false);
     setUserData(null);

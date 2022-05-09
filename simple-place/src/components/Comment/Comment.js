@@ -11,25 +11,22 @@ import {
 } from "./Comment-styles";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
-import { updateCommentLikes } from "../../services/PostsService";
-import { receiveData } from "../../services/UserService";
+import { updateLikes } from "../../services/PostsService";
 
 const Comment = ({
   commentId,
   mainUserId,
-  // userId,
   username,
   profileImg,
   text,
-  likes,
+  likes = [],
   modalHandler,
+  isDescription = false,
 }) => {
   const [isFilled, setIsFilled] = useState(
     likes.includes(mainUserId) ? true : false
   );
   const [likesArr, setLikesArr] = useState(likes);
-  // const [username, setUsername] = useState(null);
-  // const [img, setImg] = useState(null);
 
   const likeHandler = () => {
     setIsFilled((prevState) => !prevState);
@@ -40,17 +37,8 @@ const Comment = ({
       likes.splice(userIndex, userIndex + 1);
     }
     setLikesArr(likes);
-    updateCommentLikes(commentId, likes, username);
+    updateLikes(commentId, likes, "comment");
   };
-
-  // useEffect(() => {
-  //   receiveData({ id: userId }, "/api/user/get-user-data")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUsername(data.username);
-  //       setImg(data.profileImg);
-  //     });
-  // }, []);
 
   return (
     <CommentWrapper>
@@ -65,19 +53,21 @@ const Comment = ({
           fontSize="14px"
         />
         <Text>{text}</Text>
-        <LikeWrapper>
-          <Icon
-            type="like"
-            width="12.5"
-            height="11"
-            pointer
-            stroke={isFilled ? "red" : "black"}
-            color={isFilled ? "red" : "none"}
-            onClick={likeHandler}
-          />
-        </LikeWrapper>
-        {likesArr.length > 0 && (
-          <LikesText onClick={modalHandler.bind(this, likesArr, username)}>
+        {!isDescription && (
+          <LikeWrapper>
+            <Icon
+              type="like"
+              width="12.5"
+              height="11"
+              pointer
+              stroke={isFilled ? "red" : "black"}
+              color={isFilled ? "red" : "none"}
+              onClick={likeHandler}
+            />
+          </LikeWrapper>
+        )}
+        {likesArr.length > 0 && !isDescription && (
+          <LikesText onClick={modalHandler.bind(this, commentId)}>
             {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
           </LikesText>
         )}

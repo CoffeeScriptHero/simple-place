@@ -30,10 +30,10 @@ export const createComment = async (postId, userId, text) => {
   return response;
 };
 
-export const updateCommentLikes = async (commentId, likes) => {
-  await fetch("/api/post/update-comment-likes", {
+export const updateLikes = async (id, likes, type) => {
+  await fetch("/api/post/update-likes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ commentId, likes }),
+    body: JSON.stringify({ id, likes, type }),
   });
 };

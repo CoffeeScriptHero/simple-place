@@ -18,7 +18,7 @@ const PostSchema = new Schema({
   },
   comments: [CommentSchema],
   likes: {
-    type: Number,
+    type: [String],
     required: true,
   },
   image: {

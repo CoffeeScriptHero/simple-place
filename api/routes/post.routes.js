@@ -77,16 +77,25 @@ router.post(
 );
 
 router.post(
-  "/update-comment-likes",
+  "/update-likes",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { commentId, likes } = req.body;
+      const { id, likes, type } = req.body;
 
-      if (commentId) {
-        await PostModel.updateOne(
-          { "comments._id": commentId },
-          { $set: { "comments.$.likes": likes } }
-        );
+      if (id) {
+        if (type === "comment") {
+          await CommentModel.updateOne({ _id: id }, { $set: { likes } });
+
+          await PostModel.updateOne(
+            { "comments._id": id },
+            { $set: { "comments.$.likes": likes } }
+          );
+        }
+
+        if (type === "post") {
+          await PostModel.updateOne({ id }, { $set: { likes } });
+        }
+
         res.status(200).json({ message: "allowed" });
       } else {
         res.status(400).json({ message: "no post" });
@@ -101,18 +110,33 @@ router.post(
   "/get-liked",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { postId, username } = req.body;
+      const { id, type } = req.body;
 
-      const usersList = await UserModel.find({ id: { $in: users } }).exec();
+      if (id) {
+        let usersList;
 
-      // const users = usersList.map((u) => ({
-      //   username: s.username,
-      //   profileImg: s.profileImg,
-      //   id: s.id,
-      // }));
-      console.log(usersList);
+        if (type === "comment") {
+          const comment = await CommentModel.findOne({ _id: id, type });
 
-      res.status(200).json({ message: "allowed", following: following });
+          usersList = await UserModel.find({
+            id: { $in: comment.likes },
+          });
+        }
+
+        if (type === "post") {
+          const post = await PostModel.findOne({ id });
+
+          usersList = await UserModel.find({ id: { $in: post.likes } });
+        }
+
+        const users = usersList.map((u) => ({
+          username: u.username,
+          profileImg: u.profileImg,
+          id: u.id,
+        }));
+
+        res.status(200).json({ message: "allowed", liked: users });
+      }
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }
@@ -137,7 +161,11 @@ router.post(
         });
         await PostModel.updateOne(
           { id: postId },
-          { $push: { comments: comment } }
+          {
+            $push: {
+              comments: comment,
+            },
+          }
         );
         const post = await PostModel.findOne({ id: postId }).exec();
         res.status(200).json({ comments: post.comments });

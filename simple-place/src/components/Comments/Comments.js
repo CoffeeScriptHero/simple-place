@@ -6,13 +6,18 @@ import { userSelectors } from "../../store/user";
 import { useSelector, useDispatch } from "react-redux";
 import { usersModalOperations } from "../../store/usersModal";
 
-const Comments = ({ showAll, comments, setShowModal, postId }) => {
+const Comments = ({
+  showAll,
+  comments,
+  setShowModal,
+  postModalHandler = null,
+}) => {
   const mainUserId = useSelector(userSelectors.getUser()).id;
   const dispatch = useDispatch();
 
-  const modalHandler = (likes, username) => {
+  const modalHandler = (commentId) => {
     dispatch(usersModalOperations.setNewModalType("Likes"));
-    dispatch(usersModalOperations.getLiked(postId, likes, username));
+    dispatch(usersModalOperations.getLiked(commentId, "comment"));
     setShowModal(true);
   };
 
@@ -32,7 +37,9 @@ const Comments = ({ showAll, comments, setShowModal, postId }) => {
   return (
     <CommentsWrapper>
       {comments.length >= 1 && !showAll && (
-        <ShowAll>Show all comments ({comments.length})</ShowAll>
+        <ShowAll onClick={postModalHandler}>
+          Show all comments ({comments.length})
+        </ShowAll>
       )}
       {comments.length >= 1 && showAll && commentsList}
     </CommentsWrapper>

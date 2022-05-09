@@ -20,13 +20,27 @@ import UserWrapper from "../UserWrapper/UserWrapper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postModalOperations } from "../../store/postModal";
+import { updateLikes } from "../../services/PostsService";
 
-const Post = ({ id, img, userId, likes, desc, postComments }) => {
+const Post = ({
+  img,
+  userId,
+  postId,
+  mainUserId,
+  likes,
+  desc,
+  postComments,
+  modalHandler,
+}) => {
   const [showDesc, setShowDesc] = useState(true);
   const [userData, setUserData] = useState({
     username: null,
     profileImg: null,
   });
+  const [isFilled, setIsFilled] = useState(
+    likes.includes(mainUserId) ? true : false
+  );
+  const [likesArr, setLikesArr] = useState(likes);
   const [comments, setComments] = useState(postComments);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,12 +59,24 @@ const Post = ({ id, img, userId, likes, desc, postComments }) => {
         username: userData.username,
         profileImg: userData.profileImg,
         image: img,
-        likes: likes,
+        likes: likesArr,
         comments: comments,
         description: desc,
       })
     );
-    navigate(`p/${id}`);
+    navigate(`p/${postId}`);
+  };
+
+  const likeHandler = () => {
+    setIsFilled((prevState) => !prevState);
+    if (!isFilled) {
+      likes.push(mainUserId);
+    } else {
+      const userIndex = likes.indexOf(mainUserId);
+      likes.splice(userIndex, userIndex + 1);
+    }
+    setLikesArr(likes);
+    updateLikes(postId, likes, "post");
   };
 
   const showMoreHandler = (e) => {
@@ -74,12 +100,29 @@ const Post = ({ id, img, userId, likes, desc, postComments }) => {
       <Footer>
         <IconsWrapper>
           {/* вынести в глобальные стили */}
-          <Icon pointer margin={"0 10px 0 0"} type="like" />
+          <Icon
+            pointer
+            margin={"0 10px 0 0"}
+            type="like"
+            stroke={isFilled ? "red" : "black"}
+            color={isFilled ? "red" : "none"}
+            onClick={likeHandler}
+          />
           <Icon pointer type="comment" onClick={postModalHandler} />
         </IconsWrapper>
-        <LikesText>
-          <LikesNumber>{likes}</LikesNumber> liked
-        </LikesText>
+        {likes.length === 0 && (
+          <LikesText>
+            Be the first to{" "}
+            <LikesText bold inline>
+              like it
+            </LikesText>
+          </LikesText>
+        )}
+        {likes.length > 0 && (
+          <LikesText bold pointer onClick={modalHandler.bind(this, postId)}>
+            {likesArr.length} liked
+          </LikesText>
+        )}
         <Description>
           <Username
             username={userData.username}
@@ -98,8 +141,9 @@ const Post = ({ id, img, userId, likes, desc, postComments }) => {
           showAll={false}
           comments={comments}
           setComments={setComments}
+          postModalHandler={postModalHandler}
         />
-        <CommentForm postId={id} setComments={setComments} />
+        <CommentForm postId={postId} setComments={setComments} />
       </Footer>
     </Article>
   );

@@ -21,7 +21,7 @@ const UserPost = ({ id, img, likes, comments }) => {
       <Stat>
         <PostInfo>
           <Icon type="like" stroke={"white"} color={"white"}></Icon>
-          <InfoText>{likes}</InfoText>
+          <InfoText>{likes.length}</InfoText>
         </PostInfo>
         <PostInfo>
           <Icon type="previewcomment" stroke={"white"} color={"white"}></Icon>

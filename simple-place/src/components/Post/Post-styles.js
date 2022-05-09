@@ -8,7 +8,7 @@ export const Article = styled.article`
   min-height: 550px;
   max-height: 1500px;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-  margin-bottom: 300px;
+  margin-bottom: 20px;
 `;
 
 export const Header = styled.header`
@@ -34,9 +34,10 @@ export const IconsWrapper = styled.div`
 export const LikesNumber = styled.span``;
 
 export const LikesText = styled.span`
-  display: block;
-  padding: 10px ${PD_LEFT};
-  font-weight: 700;
+  display: ${(props) => (props.inline ? "inline-block" : "block")};
+  padding: ${(props) => (props.inline ? `0` : `10px ${PD_LEFT}`)};
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
+  cursor: ${(props) => (props.pointer ? "pointer" : "default")};
 `;
 
 export const Description = styled.span`

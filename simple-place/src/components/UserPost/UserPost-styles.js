@@ -26,8 +26,9 @@ export const PostPreview = styled.img.attrs((props) => ({
 
 export const Stat = styled.div`
   position: absolute;
-  top: 45%;
-  margin-left: 85px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 25px;
   display: none;
   pointer-events: none;
