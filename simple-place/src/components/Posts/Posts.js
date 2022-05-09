@@ -14,7 +14,7 @@ const Posts = () => {
       userId={p.userId}
       likes={p.likes}
       desc={p.description}
-      comments={p.comments}
+      postComments={p.comments}
     />
   ));
 

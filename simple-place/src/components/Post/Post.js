@@ -21,12 +21,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postModalOperations } from "../../store/postModal";
 
-const Post = ({ id, img, userId, likes, desc, comments }) => {
+const Post = ({ id, img, userId, likes, desc, postComments }) => {
   const [showDesc, setShowDesc] = useState(true);
   const [userData, setUserData] = useState({
     username: null,
     profileImg: null,
   });
+  const [comments, setComments] = useState(postComments);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -93,8 +94,12 @@ const Post = ({ id, img, userId, likes, desc, comments }) => {
             <ShowMore onClick={showMoreHandler}>more</ShowMore>
           )}
         </Description>
-        <Comments showAll={false} comments={comments} />
-        <CommentForm comments={comments} />
+        <Comments
+          showAll={false}
+          comments={comments}
+          setComments={setComments}
+        />
+        <CommentForm postId={id} setComments={setComments} />
       </Footer>
     </Article>
   );

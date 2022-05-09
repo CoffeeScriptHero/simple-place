@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import Username from "../Username/Username";
 import {
@@ -6,23 +6,30 @@ import {
   ContentWrapper,
   Text,
   LikeWrapper,
+  ProfileImgWrapper,
   LikesText,
 } from "./Comment-styles";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
+import { updateCommentLikes } from "../../services/PostsService";
+import { receiveData } from "../../services/UserService";
 
 const Comment = ({
+  commentId,
   mainUserId,
-  img,
+  // userId,
   username,
+  profileImg,
   text,
-  likes = [],
+  likes,
   modalHandler,
 }) => {
   const [isFilled, setIsFilled] = useState(
     likes.includes(mainUserId) ? true : false
   );
   const [likesArr, setLikesArr] = useState(likes);
+  // const [username, setUsername] = useState(null);
+  // const [img, setImg] = useState(null);
 
   const likeHandler = () => {
     setIsFilled((prevState) => !prevState);
@@ -33,11 +40,23 @@ const Comment = ({
       likes.splice(userIndex, userIndex + 1);
     }
     setLikesArr(likes);
+    updateCommentLikes(commentId, likes, username);
   };
+
+  // useEffect(() => {
+  //   receiveData({ id: userId }, "/api/user/get-user-data")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUsername(data.username);
+  //       setImg(data.profileImg);
+  //     });
+  // }, []);
 
   return (
     <CommentWrapper>
-      <ProfileIcon src={img} width="34px" height="34px" />
+      <ProfileImgWrapper>
+        <ProfileIcon src={profileImg} width="34px" height="34px" />
+      </ProfileImgWrapper>
       <ContentWrapper>
         <Username
           username={username}
@@ -57,12 +76,12 @@ const Comment = ({
             onClick={likeHandler}
           />
         </LikeWrapper>
+        {likesArr.length > 0 && (
+          <LikesText onClick={modalHandler.bind(this, likesArr, username)}>
+            {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
+          </LikesText>
+        )}
       </ContentWrapper>
-      {likesArr.length > 0 && (
-        <LikesText onClick={modalHandler}>
-          {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
-        </LikesText>
-      )}
     </CommentWrapper>
   );
 };

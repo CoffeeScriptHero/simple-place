@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { Form, TextAreaWrapper, TextArea, Submit } from "./CommentForm-styles";
+import { useSelector } from "react-redux";
+import { userSelectors } from "../../store/user";
+import { createComment } from "../../services/PostsService";
 
-const CommentForm = ({ comments }) => {
+const CommentForm = ({ postId, setComments }) => {
   const textRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [isFullText, setIsFullText] = useState(false);
+  const userId = useSelector(userSelectors.getUser()).id;
 
   const textHandler = () => {
     if (textRef.current.scrollHeight <= 89) {
@@ -21,6 +25,17 @@ const CommentForm = ({ comments }) => {
     }
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    createComment(postId, userId, textRef.current.value)
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data.comments);
+      });
+    textRef.current.value = "";
+    setIsActive(false);
+  };
+
   return (
     <Form>
       <TextAreaWrapper>
@@ -30,15 +45,7 @@ const CommentForm = ({ comments }) => {
           onInput={textHandler}
           isFullText={isFullText}
         ></TextArea>
-        <Submit
-          isActive={isActive}
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   console.log(comments);
-          //   comments.push({ denka: textRef.current.value });
-          //   console.log(comments);
-          // }}
-        >
+        <Submit isActive={isActive} onClick={submitHandler.bind(this)}>
           Publish
         </Submit>
       </TextAreaWrapper>

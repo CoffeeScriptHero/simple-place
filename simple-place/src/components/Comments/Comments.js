@@ -6,23 +6,25 @@ import { userSelectors } from "../../store/user";
 import { useSelector, useDispatch } from "react-redux";
 import { usersModalOperations } from "../../store/usersModal";
 
-const Comments = ({ showAll, comments, setShowModal }) => {
+const Comments = ({ showAll, comments, setShowModal, postId }) => {
   const mainUserId = useSelector(userSelectors.getUser()).id;
   const dispatch = useDispatch();
 
-  const modalHandler = (users) => {
+  const modalHandler = (likes, username) => {
     dispatch(usersModalOperations.setNewModalType("Likes"));
-    dispatch(usersModalOperations.getLiked(users));
+    dispatch(usersModalOperations.getLiked(postId, likes, username));
     setShowModal(true);
   };
 
   const commentsList = comments.map((c) => (
     <Comment
-      key={c.img}
+      key={c._id}
+      commentId={c._id}
       mainUserId={mainUserId}
       text={c.text}
-      img={c.img}
       username={c.username}
+      profileImg={c.profileImg}
+      likes={c.likes}
       modalHandler={modalHandler}
     />
   ));

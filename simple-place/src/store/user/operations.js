@@ -12,6 +12,10 @@ const setUserLogged = (isLogged) => (dispatch, getState) => {
   dispatch(actions.setLogged(isLogged));
 };
 
+// const logOut = () => (dispatch, getState) => {
+//   dispatch(actions.setNotFound(isNotFound));
+// };
+
 const followUser = (id) => async (dispatch, getState) => {
   fetch("/api/user/follow-user", {
     method: "POST",

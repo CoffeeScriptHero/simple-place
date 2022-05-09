@@ -12,6 +12,7 @@ export const receiveData = async (data, request) => {
 
 export const checkUserLogged = async () => {
   const id = getCookie("id");
+
   let isLogged = false;
   if (id) {
     await receiveData({ id }, "/api/user/check-main-user")
@@ -23,30 +24,28 @@ export const checkUserLogged = async () => {
   return isLogged;
 };
 
-export const setUserData = async (dispatch, navigate, user) => {
-  if (getCookie("id") && user !== false) {
-    const isLogged = await checkUserLogged();
+export const setUserData = async (dispatch, navigate) => {
+  const isLogged = await checkUserLogged();
 
-    if (isLogged) {
-      receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
-        .then((res) => res.json())
-        .then((res) => {
-          dispatch(
-            userOperations.setNewUser({
-              user: getCookie("username"),
-              id: getCookie("id"),
-              profileImg: res.profileImg,
-              pageNotFound: false,
-              following: res.following,
-              followers: res.followers,
-              posts: res.posts,
-            })
-          );
-        });
-    } else {
-      navigate("/");
-      dispatch(userOperations.setNewUser({ user: false, id: false }));
-    }
+  if (isLogged) {
+    receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(
+          userOperations.setNewUser({
+            user: getCookie("username"),
+            id: getCookie("id"),
+            profileImg: res.profileImg,
+            pageNotFound: false,
+            following: res.following,
+            followers: res.followers,
+            posts: res.posts,
+          })
+        );
+      });
+  } else {
+    dispatch(userOperations.setNewUser({ user: null, id: null }));
+    navigate("/");
   }
 };
 

@@ -16,6 +16,7 @@ import { getPost } from "../../services/PostsService";
 import { receiveData } from "../../services/UserService";
 import { useSelector, useDispatch } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
+import { userSelectors } from "../../store/user";
 import Comments from "../Comments/Comments";
 import UsersModal from "../UsersModal/UsersModal";
 import CommentForm from "../CommentForm/CommentForm";
@@ -28,6 +29,8 @@ const PostModal = () => {
     useSelector(postModalSelectors.getModalInfo())
   );
   const [showModal, setShowModal] = useState(false);
+  // const [updateComments, setUpdateComments] = useState(false);
+  const mainUsername = useSelector(userSelectors.getUser()).user;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -65,6 +68,7 @@ const PostModal = () => {
                     profileImg: data.profileImg,
                   };
                 });
+                // setUpdateComments(false);
               });
           } else {
             navigate("/");
@@ -89,13 +93,16 @@ const PostModal = () => {
                 profileImg={postData.profileImg}
                 username={postData.username}
               />
-              <SubscribeButton>Follow</SubscribeButton>
+              {mainUsername !== postData.username && (
+                <SubscribeButton>Follow</SubscribeButton>
+              )}
             </PostHeader>
             <PostBody>
               <Comments
                 showAll
                 comments={postData.comments}
                 setShowModal={setShowModal}
+                postId={postData.id}
               />
             </PostBody>
           </PostContent>

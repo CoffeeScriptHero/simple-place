@@ -4,7 +4,7 @@ import Feed from "../pages/Feed/Feed.js";
 import { userSelectors } from "../store/user/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../services/UserService.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "../pages/User/User.js";
 import UsersModal from "../components/UsersModal/UsersModal.js";
@@ -17,7 +17,7 @@ const AppRoutes = () => {
   const user = useSelector(userSelectors.getUser()).user;
 
   useEffect(() => {
-    setUserData(dispatch, navigate, user);
+    setUserData(dispatch, navigate);
   }, []);
 
   return (

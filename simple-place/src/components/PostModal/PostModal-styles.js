@@ -23,15 +23,26 @@ export const ModalContent = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  width: 851px;
-  // height: 851px;
-  height: 710px;
+  @media (min-width: 1400px) {
+    width: 851px;
+    height: 851px;
+  }
+  @media (max-width: 1400px) {
+    width: 851px;
+    height: 710px;
+  }
   background: #000;
 `;
 
 export const PostContent = styled.div`
-  width: 500px;
-  // height: 851px;
+  @media (min-width: 1400px) {
+    width: 500px;
+    height: 851px;
+  }
+  @media (max-width: 1400px) {
+    width: 500px;
+    height: 710px;
+  }
   height: 710px;
   background: #fff;
 `;
@@ -43,5 +54,5 @@ export const PostHeader = styled.header`
 `;
 
 export const PostBody = styled.div`
-  padding: 16px 25px 16px 16px;
+  padding: 16px 35px 16px 16px;
 `;
