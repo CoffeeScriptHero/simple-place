@@ -10,10 +10,28 @@ export const receiveData = async (data, request) => {
   return response;
 };
 
+export const setUserData = async (dispatch) => {
+  receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
+    .then((res) => res.json())
+    .then((res) => {
+      dispatch(
+        userOperations.setNewUser({
+          user: getCookie("username"),
+          id: getCookie("id"),
+          profileImg: res.profileImg,
+          pageNotFound: false,
+          following: res.following,
+          followers: res.followers,
+          posts: res.posts,
+        })
+      );
+    });
+};
+
 export const checkUserLogged = async () => {
   const id = getCookie("id");
-
   let isLogged = false;
+
   if (id) {
     await receiveData({ id }, "/api/user/check-main-user")
       .then((res) => res.json())
@@ -21,32 +39,8 @@ export const checkUserLogged = async () => {
         if (res.message === "allowed") isLogged = true;
       });
   }
+
   return isLogged;
-};
-
-export const setUserData = async (dispatch, navigate) => {
-  const isLogged = await checkUserLogged();
-
-  if (isLogged) {
-    receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(
-          userOperations.setNewUser({
-            user: getCookie("username"),
-            id: getCookie("id"),
-            profileImg: res.profileImg,
-            pageNotFound: false,
-            following: res.following,
-            followers: res.followers,
-            posts: res.posts,
-          })
-        );
-      });
-  } else {
-    dispatch(userOperations.setNewUser({ user: null, id: null }));
-    navigate("/");
-  }
 };
 
 // export const checkUserExist = async (username) => {
