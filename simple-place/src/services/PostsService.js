@@ -37,3 +37,22 @@ export const updateLikes = async (id, likes, type) => {
     body: JSON.stringify({ id, likes, type }),
   });
 };
+
+export const likeHandler = (
+  setIsFilled,
+  isFilled,
+  setLikesArr,
+  likes,
+  postId,
+  mainUserId
+) => {
+  setIsFilled((prevState) => !prevState);
+  if (!isFilled) {
+    likes.push(mainUserId);
+  } else {
+    const userIndex = likes.indexOf(mainUserId);
+    likes.splice(userIndex, userIndex + 1);
+  }
+  setLikesArr(likes);
+  updateLikes(postId, likes, "post");
+};

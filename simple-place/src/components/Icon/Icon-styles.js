@@ -7,6 +7,7 @@ export const Svg = styled.span`
   height: ${(props) => props.height || "24px"};
   cursor: ${(props) => (props.pointer ? "pointer" : "default")};
   margin: ${(props) => props.margin || "0"};
+  padding: ${(props) => props.padding || "0"};
 `;
 
 export const IconLink = styled(Link)`

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import { Modal } from "../../App-styles";
 
 const PD_LEFT = "16px";
 
@@ -23,6 +22,7 @@ export const ModalContent = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
   @media (min-width: 1400px) {
     width: 851px;
     height: 851px;
@@ -32,6 +32,17 @@ export const ImageWrapper = styled.div`
     height: 710px;
   }
   background: #000;
+`;
+
+export const Image = styled.img.attrs((props) => ({
+  src: props.src || "#",
+}))`
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const PostContent = styled.div`
@@ -54,5 +65,15 @@ export const PostHeader = styled.header`
 `;
 
 export const PostBody = styled.div`
-  padding: 16px 35px 16px 16px;
+  padding: 16px 35px 16px ${PD_LEFT};
+  height: 600px;
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-y: scroll;
 `;
+
+export const PostFooter = styled.div``;

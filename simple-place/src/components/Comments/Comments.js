@@ -1,6 +1,5 @@
 import React from "react";
-import { CommentsWrapper } from "./Comments-styles";
-import { ShowAll } from "./Comments-styles";
+import { CommentsWrapper, ShowAll } from "./Comments-styles";
 import Comment from "../Comment/Comment";
 import { userSelectors } from "../../store/user";
 import { useSelector, useDispatch } from "react-redux";

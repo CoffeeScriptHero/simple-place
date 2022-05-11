@@ -7,6 +7,8 @@ import {
   PostContent,
   PostHeader,
   PostBody,
+  PostFooter,
+  Image,
 } from "./PostModal-styles";
 import { SubscribeButton } from "../../App-styles";
 import UserWrapper from "../UserWrapper/UserWrapper";
@@ -20,6 +22,11 @@ import Comments from "../Comments/Comments";
 import Comment from "../Comment/Comment";
 import UsersModal from "../UsersModal/UsersModal";
 import CommentForm from "../CommentForm/CommentForm";
+import Icon from "../Icon/Icon";
+import { getCookie } from "../../services/CookiesService";
+import LikesSection from "../LikesSection/LikesSection";
+import { modalHandler } from "../../services/UsersModalService";
+import { likeHandler } from "../../services/PostsService";
 
 const PostModal = () => {
   const modalRef = useRef(null);
@@ -28,7 +35,13 @@ const PostModal = () => {
   const [postData, setPostData] = useState(
     useSelector(postModalSelectors.getModalInfo())
   );
+  const [comments, setComments] = useState(
+    postData.comments ? postData.comments : []
+  );
   const [showModal, setShowModal] = useState(false);
+  const mainUserId = getCookie("id");
+  const [isFilled, setIsFilled] = useState(false);
+  const [likesArr, setLikesArr] = useState([]);
   const mainUsername = useSelector(userSelectors.getUser()).user;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,6 +70,9 @@ const PostModal = () => {
             setPostData((prevState) => {
               return { ...prevState, ...data.post };
             });
+            setIsFilled(data.post.likes.includes(mainUserId) ? true : false);
+            setComments(data.post.comments);
+            setLikesArr(data.post.likes);
             receiveData({ id: data.post.userId }, "/api/user/get-user-data")
               .then((res) => res.json())
               .then((data) => {
@@ -72,6 +88,9 @@ const PostModal = () => {
             navigate("/");
           }
         });
+    } else {
+      setIsFilled(postData.likes.includes(mainUserId) ? true : false);
+      setLikesArr(postData.likes);
     }
   }, []);
 
@@ -83,7 +102,9 @@ const PostModal = () => {
     <Wrapper>
       <PostModalWrapper onClick={closeModalOnArea}>
         <ModalContent ref={modalRef}>
-          <ImageWrapper></ImageWrapper>
+          <ImageWrapper>
+            <Image src={postData.image}></Image>
+          </ImageWrapper>
           <PostContent>
             <PostHeader>
               <UserWrapper
@@ -105,10 +126,41 @@ const PostModal = () => {
               />
               <Comments
                 showAll
-                comments={postData.comments}
+                comments={comments}
                 setShowModal={setShowModal}
               />
             </PostBody>
+            <PostFooter>
+              <Icon
+                type="like"
+                pointer
+                padding={"15px 35px 15px 16px"}
+                stroke={isFilled ? "red" : "black"}
+                color={isFilled ? "red" : "none"}
+                onClick={likeHandler.bind(
+                  this,
+                  setIsFilled,
+                  isFilled,
+                  setLikesArr,
+                  likesArr,
+                  postId,
+                  mainUserId
+                )}
+              />
+              <LikesSection
+                inline
+                padding={"0 35px 0 16px"}
+                likes={likesArr}
+                id={postId}
+                handler={modalHandler.bind(
+                  this,
+                  dispatch,
+                  postId,
+                  setShowModal
+                )}
+              />
+              <CommentForm isModal postId={postId} setComments={setComments} />
+            </PostFooter>
           </PostContent>
         </ModalContent>
         {showModal && <UsersModal setShowModal={setShowModal} />}

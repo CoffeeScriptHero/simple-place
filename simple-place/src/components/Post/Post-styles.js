@@ -31,15 +31,6 @@ export const IconsWrapper = styled.div`
   padding: 6px ${PD_LEFT} 8px;
 `;
 
-export const LikesNumber = styled.span``;
-
-export const LikesText = styled.span`
-  display: ${(props) => (props.inline ? "inline-block" : "block")};
-  padding: ${(props) => (props.inline ? `0` : `10px ${PD_LEFT}`)};
-  font-weight: ${(props) => (props.bold ? "700" : "400")};
-  cursor: ${(props) => (props.pointer ? "pointer" : "default")};
-`;
-
 export const Description = styled.span`
   padding-left: ${PD_LEFT};
   display: block;

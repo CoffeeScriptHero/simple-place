@@ -5,14 +5,15 @@ import { useSelector } from "react-redux";
 import { userSelectors } from "../../store/user";
 import { createComment } from "../../services/PostsService";
 
-const CommentForm = ({ postId, setComments }) => {
+const CommentForm = ({ postId, setComments, isModal = false }) => {
   const textRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [isFullText, setIsFullText] = useState(false);
   const userId = useSelector(userSelectors.getUser()).id;
+  const maxSize = isModal ? 40 : 89;
 
   const textHandler = () => {
-    if (textRef.current.scrollHeight <= 89) {
+    if (textRef.current.scrollHeight <= maxSize) {
       textRef.current.style.height = textRef.current.scrollHeight - 4 + "px";
       if (isFullText) setIsFullText(false);
     } else if (!isFullText) {
@@ -45,7 +46,11 @@ const CommentForm = ({ postId, setComments }) => {
           onInput={textHandler}
           isFullText={isFullText}
         ></TextArea>
-        <Submit isActive={isActive} onClick={submitHandler.bind(this)}>
+        <Submit
+          isModal={isModal}
+          isActive={isActive}
+          onClick={submitHandler.bind(this)}
+        >
           Publish
         </Submit>
       </TextAreaWrapper>
