@@ -7,3 +7,4 @@ export { previewcomment } from "./previewcomment";
 export { cross } from "./cross";
 export { people } from "./people";
 export { framephoto } from "./framephoto";
+export { smile } from "./smile";

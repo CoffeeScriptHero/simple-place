@@ -5,6 +5,18 @@ export const Form = styled.form`
   height: 100%;
 `;
 
+export const SmileWrapper = styled.div`
+  position: absolute;
+  top: ${(props) => (props.isModal ? "12px" : "none")};
+  left: 8px;
+`;
+
+export const PickerWrapper = styled.div`
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+`;
+
 export const TextAreaWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -20,10 +32,10 @@ export const TextArea = styled.textarea`
   resize: none;
   overflow-y: ${(props) => (props.isFullText ? "scroll" : "hidden")};
   box-sizing: border-box;
-  margin-left: 16px;
+  margin-left: 30px;
   width: 83%;
   font-size: 14px;
-  height: 19px;
+  height: 22px;
 `;
 
 export const Submit = styled.button.attrs((props) => ({

@@ -17,7 +17,7 @@ import { getPost } from "../../services/PostsService";
 import { receiveData } from "../../services/UserService";
 import { useSelector, useDispatch } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
-import { userSelectors } from "../../store/user";
+import { userOperations, userSelectors } from "../../store/user";
 import Comments from "../Comments/Comments";
 import Comment from "../Comment/Comment";
 import UsersModal from "../UsersModal/UsersModal";
@@ -43,6 +43,7 @@ const PostModal = () => {
   const [isFilled, setIsFilled] = useState(false);
   const [likesArr, setLikesArr] = useState([]);
   const mainUsername = useSelector(userSelectors.getUser()).user;
+  const following = useSelector(userSelectors.getUser()).following;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,12 +62,23 @@ const PostModal = () => {
     }
   };
 
+  const followingHandler = () => {
+    dispatch(userOperations.followUser(postData.userId));
+  };
+
+  const unfollowingHandler = () => {
+    dispatch(userOperations.unfollowUser(postData.userId));
+  };
+
+  console.log(postData);
+
   useEffect(() => {
     if (postData.username === null) {
       getPost(postId)
         .then((res) => res.json())
         .then((data) => {
           if (data.post) {
+            console.log(data.post);
             setPostData((prevState) => {
               return { ...prevState, ...data.post };
             });
@@ -112,9 +124,18 @@ const PostModal = () => {
                 profileImg={postData.profileImg}
                 username={postData.username}
               />
-              {mainUsername !== postData.username && (
-                <SubscribeButton>Follow</SubscribeButton>
-              )}
+              {mainUsername !== postData.username &&
+                !following.includes(postData.userId) && (
+                  <SubscribeButton onClick={followingHandler}>
+                    Follow
+                  </SubscribeButton>
+                )}
+              {mainUsername !== postData.username &&
+                following.includes(postData.userId) && (
+                  <SubscribeButton onClick={unfollowingHandler}>
+                    Unfollow
+                  </SubscribeButton>
+                )}
             </PostHeader>
             <PostBody>
               <Comment

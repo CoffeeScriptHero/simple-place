@@ -60,6 +60,7 @@ const Post = ({
         profileImg: userData.profileImg,
         image: img,
         likes: likesArr,
+        userId: userId,
         comments: comments,
         description: desc,
       })
