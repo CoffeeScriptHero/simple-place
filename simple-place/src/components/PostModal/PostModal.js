@@ -40,8 +40,12 @@ const PostModal = () => {
   );
   const [showModal, setShowModal] = useState(false);
   const mainUserId = getCookie("id");
-  const [isFilled, setIsFilled] = useState(false);
-  const [likesArr, setLikesArr] = useState([]);
+  const [isFilled, setIsFilled] = useState(
+    postData.likes ? postData.likes.includes(mainUserId) : false
+  );
+  const [likesArr, setLikesArr] = useState(
+    postData.likes ? postData.likes : []
+  );
   const mainUsername = useSelector(userSelectors.getUser()).user;
   const following = useSelector(userSelectors.getUser()).following;
   const navigate = useNavigate();
@@ -70,15 +74,12 @@ const PostModal = () => {
     dispatch(userOperations.unfollowUser(postData.userId));
   };
 
-  console.log(postData);
-
   useEffect(() => {
     if (postData.username === null) {
       getPost(postId)
         .then((res) => res.json())
         .then((data) => {
           if (data.post) {
-            console.log(data.post);
             setPostData((prevState) => {
               return { ...prevState, ...data.post };
             });
@@ -87,6 +88,7 @@ const PostModal = () => {
             setLikesArr(data.post.likes);
             receiveData({ id: data.post.userId }, "/api/user/get-user-data")
               .then((res) => res.json())
+
               .then((data) => {
                 setPostData((prevState) => {
                   return {
@@ -148,6 +150,9 @@ const PostModal = () => {
               <Comments
                 showAll
                 comments={comments}
+                userId={postData.userId}
+                postId={postId}
+                setComments={setComments}
                 setShowModal={setShowModal}
               />
             </PostBody>
@@ -180,7 +185,11 @@ const PostModal = () => {
                   setShowModal
                 )}
               />
-              <CommentForm isModal postId={postId} setComments={setComments} />
+              <CommentForm
+                isModal={true}
+                postId={postId}
+                setComments={setComments}
+              />
             </PostFooter>
           </PostContent>
         </ModalContent>

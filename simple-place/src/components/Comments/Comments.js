@@ -1,18 +1,19 @@
-import React from "react";
 import { CommentsWrapper, ShowAll } from "./Comments-styles";
 import Comment from "../Comment/Comment";
-import { userSelectors } from "../../store/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { usersModalOperations } from "../../store/usersModal";
+import { getCookie } from "../../services/CookiesService";
 
 const Comments = ({
   showAll,
   comments,
   setShowModal,
+  setComments = null,
+  postId = null,
   postModalHandler = null,
 }) => {
-  const mainUserId = useSelector(userSelectors.getUser()).id;
   const dispatch = useDispatch();
+  const mainUserId = getCookie("id");
 
   const modalHandler = (commentId) => {
     dispatch(usersModalOperations.setNewModalType("Likes"));
@@ -24,11 +25,15 @@ const Comments = ({
     <Comment
       key={c._id}
       commentId={c._id}
-      mainUserId={mainUserId}
       text={c.text}
+      likes={c.likes}
       username={c.username}
       profileImg={c.profileImg}
-      likes={c.likes}
+      setComments={setComments}
+      mainUserId={mainUserId}
+      userId={c.userId}
+      postId={postId}
+      comments={comments}
       modalHandler={modalHandler}
     />
   ));

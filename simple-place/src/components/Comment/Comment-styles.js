@@ -24,11 +24,11 @@ export const LikeWrapper = styled.div`
   top: 5px;
 `;
 
-export const LikesText = styled.span`
+export const AdditionalText = styled.span`
   position: absolute;
   font-size: 13.5px;
   bottom: -18px;
-  left: 55px;
+  left: ${(props) => (props.remove ? "380px" : "55px")};
   color: rgba(var(--f52, 142, 142, 142), 1);
   cursor: pointer;
 `;

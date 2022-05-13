@@ -38,6 +38,15 @@ export const updateLikes = async (id, likes, type) => {
   });
 };
 
+export const removeComment = async (postId, commentId, comments) => {
+  const response = await fetch("/api/post/remove-comment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ postId, commentId, comments }),
+  });
+  return response;
+};
+
 export const likeHandler = (
   setIsFilled,
   isFilled,

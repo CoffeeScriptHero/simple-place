@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import Username from "../Username/Username";
 import {
@@ -7,22 +6,29 @@ import {
   Text,
   LikeWrapper,
   ProfileImgWrapper,
-  LikesText,
+  AdditionalText,
 } from "./Comment-styles";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
-import { updateLikes } from "../../services/PostsService";
+import { removeComment, updateLikes } from "../../services/PostsService";
+import { useDispatch } from "react-redux";
+import { postModalOperations } from "../../store/postModal";
 
 const Comment = ({
   commentId,
   mainUserId,
   username,
+  setComments,
   profileImg,
+  comments,
+  userId,
+  postId,
   text,
   likes = [],
   modalHandler,
   isDescription = false,
 }) => {
+  const dispatch = useDispatch();
   const [isFilled, setIsFilled] = useState(
     likes.includes(mainUserId) ? true : false
   );
@@ -38,6 +44,15 @@ const Comment = ({
     }
     setLikesArr(likes);
     updateLikes(commentId, likes, "comment");
+  };
+
+  const removeCommentHandler = () => {
+    removeComment(postId, commentId, comments)
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data.comments);
+        dispatch(postModalOperations.updateComments(data.comments));
+      });
   };
 
   return (
@@ -67,9 +82,14 @@ const Comment = ({
           </LikeWrapper>
         )}
         {likesArr.length > 0 && !isDescription && (
-          <LikesText onClick={modalHandler.bind(this, commentId)}>
+          <AdditionalText onClick={modalHandler.bind(this, commentId)}>
             {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
-          </LikesText>
+          </AdditionalText>
+        )}
+        {(mainUserId === userId || postId === mainUserId) && (
+          <AdditionalText remove onClick={removeCommentHandler}>
+            remove
+          </AdditionalText>
         )}
       </ContentWrapper>
     </CommentWrapper>

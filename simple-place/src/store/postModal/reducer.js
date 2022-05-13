@@ -6,7 +6,8 @@ const initialState = {
   image: null,
   likes: null,
   userId: null,
-  comments: [],
+  postId: null,
+  comments: null,
   description: null,
 };
 
@@ -24,8 +25,15 @@ const reducer = (state = initialState, action) => {
         image: null,
         likes: null,
         userId: null,
+        postId: null,
         comments: [],
         description: null,
+      };
+    }
+    case types.UPDATE_COMMENTS: {
+      return {
+        ...state,
+        comments: action.payload,
       };
     }
     default:

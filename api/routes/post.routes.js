@@ -3,6 +3,7 @@ const PostModel = require("../models/PostModel");
 const CommentModel = require("../models/CommentModel").commentModel;
 const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const UserModel = require("../models/UserModel");
+const { findOne } = require("../models/PostModel");
 
 router.post(
   "/add-post",
@@ -169,6 +170,32 @@ router.post(
         );
         const post = await PostModel.findOne({ id: postId }).exec();
         res.status(200).json({ comments: post.comments });
+      } else {
+        res.sendStatus(400);
+      }
+    } catch {
+      res.sendStatus(500);
+    }
+  })
+);
+
+router.post(
+  "/remove-comment",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { postId, commentId, comments } = req.body;
+
+      if (postId && commentId && comments) {
+        const updatedComments = comments.filter((c) => c._id !== commentId);
+
+        await PostModel.updateOne(
+          { id: postId },
+          { $set: { comments: updatedComments } }
+        );
+
+        await CommentModel.deleteOne({ _id: commentId });
+
+        res.status(200).json({ comments: updatedComments });
       } else {
         res.sendStatus(400);
       }

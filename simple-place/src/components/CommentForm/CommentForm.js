@@ -7,13 +7,15 @@ import {
   TextArea,
   Submit,
 } from "./CommentForm-styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelectors } from "../../store/user";
 import { createComment } from "../../services/PostsService";
+import { postModalOperations } from "../../store/postModal";
 import Icon from "../Icon/Icon";
 import Picker from "emoji-picker-react";
 
-const CommentForm = ({ postId, setComments, isModal = false }) => {
+const CommentForm = ({ postId, setComments, isModal }) => {
+  const dispatch = useDispatch();
   const textRef = useRef(null);
   const pickerRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
@@ -61,6 +63,7 @@ const CommentForm = ({ postId, setComments, isModal = false }) => {
       .then((res) => res.json())
       .then((data) => {
         setComments(data.comments);
+        dispatch(postModalOperations.updateComments(data.comments));
       });
     textRef.current.value = "";
     setIsActive(false);

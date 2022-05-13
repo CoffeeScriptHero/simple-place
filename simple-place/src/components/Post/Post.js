@@ -16,8 +16,8 @@ import { receiveData } from "../../services/UserService";
 import Username from "../Username/Username";
 import UserWrapper from "../UserWrapper/UserWrapper";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { postModalOperations } from "../../store/postModal";
+import { useDispatch, useSelector } from "react-redux";
+import { postModalOperations, postModalSelectors } from "../../store/postModal";
 import { likeHandler } from "../../services/PostsService";
 import LikesSection from "../LikesSection/LikesSection";
 import { modalHandler } from "../../services/UsersModalService";
@@ -41,17 +41,21 @@ const Post = ({
   const [likesArr, setLikesArr] = useState(likes);
   const [isFilled, setIsFilled] = useState(liked);
   const [comments, setComments] = useState(postComments);
+  const postInfo = useSelector(postModalSelectors.getModalInfo());
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (postInfo.comments && postInfo.postId === postId) {
+      setComments(postInfo.comments);
+    }
     setIsFilled(liked);
     receiveData({ id: userId }, "/api/user/get-user-data")
       .then((res) => res.json())
       .then((data) => {
         setUserData({ username: data.username, profileImg: data.profileImg });
       });
-  }, [liked]);
+  }, [postInfo.comments, liked]);
 
   const postModalHandler = () => {
     dispatch(
@@ -61,6 +65,7 @@ const Post = ({
         image: img,
         likes: likesArr,
         userId: userId,
+        postId: postId,
         comments: comments,
         description: desc,
       })
@@ -129,10 +134,13 @@ const Post = ({
         <Comments
           showAll={false}
           comments={comments}
-          setComments={setComments}
           postModalHandler={postModalHandler}
         />
-        <CommentForm postId={postId} setComments={setComments} />
+        <CommentForm
+          isModal={false}
+          postId={postId}
+          setComments={setComments}
+        />
       </Footer>
     </Article>
   );
