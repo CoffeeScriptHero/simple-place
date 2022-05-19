@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `;
 
 export const LikesText = styled.span`
-  display: ${(props) => (props.inline ? "inline-block" : "block")};
+  display: inline-block;
   padding: ${(props) => (props.inline ? `0` : `10px 16px`)};
   font-weight: ${(props) => (props.bold ? "700" : "400")};
   cursor: ${(props) => (props.pointer ? "pointer" : "default")};
