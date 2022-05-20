@@ -33,4 +33,5 @@ export const UploadButton = styled.button`
   border-radius: 3%;
   width: 160px;
   height: 30px;
+  margin-bottom: 30px;
 `;

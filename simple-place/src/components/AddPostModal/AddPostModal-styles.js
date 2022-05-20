@@ -1,17 +1,10 @@
 import styled from "styled-components";
+import { Modal } from "../../App-styles";
 
 export const Wrapper = styled.div``;
 
-export const AddPostModalWrapper = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+export const AddPostModalWrapper = styled(Modal)`
   background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 4;
 `;
 

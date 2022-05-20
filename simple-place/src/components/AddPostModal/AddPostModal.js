@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import AddPostDescription from "../AddPostDescription/AddPostDescription";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Icon from "../Icon/Icon";
 import UploadImageWrapper from "../UploadImageWrapper/UploadImageWrapper";
 import {
@@ -14,6 +15,7 @@ import {
 const AddPostModal = ({ setShowModal }) => {
   const [images, setImages] = useState([]);
   const [stage, setStage] = useState(1);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   // 1 stage - user suggested to select photo
   // 2 stage - photo selected, Next button - - > to stage 3, arrow - - > to stage 3
   // 3 stage - description, Next button - - > publish, arrow - - > to stage 2
@@ -23,11 +25,11 @@ const AddPostModal = ({ setShowModal }) => {
     setShowModal(false);
   };
 
-  const closeModalOnArea = (e) => {
-    if (!modalRef.current.contains(e.target)) {
-      closeModal();
-    }
-  };
+  // const closeModalOnArea = (e) => {
+  //   if (!modalRef.current.contains(e.target)) {
+  //     closeModal();
+  //   }
+  // };
 
   const incrementStage = () => {
     stage === 3 ? setShowModal(false) : setStage((prevState) => prevState + 1);
@@ -39,7 +41,7 @@ const AddPostModal = ({ setShowModal }) => {
   };
 
   return (
-    <Wrapper onClick={closeModalOnArea}>
+    <Wrapper onClick={() => setShowConfirmModal(true)}>
       <AddPostModalWrapper>
         <ModalContent ref={modalRef}>
           <ModalHeader>
@@ -74,8 +76,17 @@ const AddPostModal = ({ setShowModal }) => {
         right="30px"
         type="cross"
         pointer
-        onClick={closeModal}
+        onClick={() => setShowConfirmModal(true)}
       />
+      {showConfirmModal && (
+        <ConfirmationModal
+          title="Discard post?"
+          warning="If you leave, your edits won't be saved."
+          btnText="Discard"
+          setShowConfirmModal={setShowConfirmModal}
+          setShowModal={setShowModal}
+        />
+      )}
     </Wrapper>
   );
 };
