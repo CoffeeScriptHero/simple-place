@@ -1,16 +1,9 @@
 import React from "react";
 import { Name } from "./Username-styles";
-import { useDispatch } from "react-redux";
 
-const Username = ({ username, decoration, weight, margin, fontSize }) => {
+const Username = ({ username, ...rest }) => {
   return (
-    <Name
-      decoration={decoration}
-      weight={weight}
-      margin={margin}
-      fontSize={fontSize}
-      to={`/${username}`}
-    >
+    <Name {...rest} to={`/${username}`}>
       {username}
     </Name>
   );

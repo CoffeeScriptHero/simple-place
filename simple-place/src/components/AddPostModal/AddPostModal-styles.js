@@ -11,17 +11,11 @@ export const AddPostModalWrapper = styled(Modal)`
 `;
 
 export const ModalContent = styled.div`
-  // width: 545px;
-  // height: 580px;
   background: white;
-  border-radius: 3%;
+  border-radius: 12px;
   overflow: hidden;
-  // @media (min-width: 1200px) {
-  //   min-width: 680px;
-  //   min-height: 720px;
-  // }
   width: ${(props) => (props.sizes.width ? props.sizes.width : "545px")};
-  height: ${(props) => (props.sizes.width ? props.sizes.width : "580px")};
+  height: ${(props) => (props.sizes.height ? props.sizes.height : "580px")};
 `;
 
 export const ModalHeader = styled.header`
@@ -44,7 +38,10 @@ export const NextButton = styled.button`
   font-weight: 700;
   color: #5551ff;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   background: none;
   cursor: pointer;
+  display: block;
+  text-align: right;
+  padding: ${(props) => props.padding || "0"};
 `;

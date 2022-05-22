@@ -9,7 +9,7 @@ export const Svg = styled.span`
   margin: ${(props) => props.margin || "0"};
   padding: ${(props) => props.padding || "0"};
   position: ${(props) => props.position || "static"};
-  z-index: ${(props) => props.zIndex || "1"};
+  z-index: ${(props) => props.zIndex || "0"};
   top: ${(props) => props.top || "0"};
   right: ${(props) => props.right || "0"};
 `;

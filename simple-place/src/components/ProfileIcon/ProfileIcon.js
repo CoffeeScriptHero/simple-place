@@ -1,9 +1,9 @@
 import React from "react";
 import { Wrapper, Avatar, UserLink } from "./ProfileIcon-styles";
 
-const ProfileIcon = ({ src, width, height, padding, username }) => {
+const ProfileIcon = ({ src, username, ...rest }) => {
   return (
-    <Wrapper width={width} height={height} padding={padding}>
+    <Wrapper {...rest}>
       {username && (
         <UserLink to={`/${username}`}>
           <Avatar src={src}></Avatar>

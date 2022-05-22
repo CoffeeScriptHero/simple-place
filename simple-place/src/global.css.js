@@ -76,6 +76,11 @@ body {
       url(${SegoeWoff400}) format("woff");
     font-weight: normal;
   }  
+
+  // @font-face{
+  //   font-family: "San Francisco";
+  //   src: local(")
+  // }
 `;
 
 export default GlobalCSS;

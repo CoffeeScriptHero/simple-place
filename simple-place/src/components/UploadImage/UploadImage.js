@@ -9,14 +9,14 @@ import {
 import ImageUploading from "react-images-uploading";
 import Icon from "../Icon/Icon";
 
-const UploadImage = ({ images, setImages, setStage }) => {
+const UploadImage = ({ images, setImages, setStage, width = null }) => {
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
     setStage(2);
   };
 
   return (
-    <UploadImgWrapper>
+    <UploadImgWrapper width={width + "px"}>
       {images.length > 0 && (
         <ImageWrapper>
           <Image src={images[0].data_url}></Image>

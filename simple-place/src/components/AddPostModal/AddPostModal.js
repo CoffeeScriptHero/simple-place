@@ -22,25 +22,19 @@ const AddPostModal = ({ setShowModal }) => {
   });
   const [stage, setStage] = useState(1);
   // 1 stage - user suggested to select photo
-  // 2 stage - photo selected, Next button - - > to stage 3, arrow - - > to stage 3
-  // 3 stage - description, Next button - - > publish, arrow - - > to stage 2
+  // 2 stage - photo selected, left arrow - - > to stage 3, Next button - - > to stage 3
+  // 3 stage - description, , left arrow - - > to stage 2, Next button - - > publish
   const modalRef = useRef(null);
   const cancelButton = useRef(null);
 
   const setSizeWidth = (stage) => {
     if (stage === 2) {
       setSizes((prevState) => {
-        return {
-          ...prevState,
-          width: isDesktopRes ? "1080px" : "900px",
-        };
+        return { ...prevState, width: isDesktopRes ? "1020px" : "885px" };
       });
     } else {
       setSizes((prevState) => {
-        return {
-          ...prevState,
-          width: isDesktopRes ? "680px" : "545px",
-        };
+        return { ...prevState, width: isDesktopRes ? "680px" : "580px" };
       });
     }
   };
@@ -56,12 +50,12 @@ const AddPostModal = ({ setShowModal }) => {
   };
 
   const incrementStage = () => {
-    setSizeWidth(stage);
+    if (stage === 2) setSizeWidth(2);
     stage === 3 ? setShowModal(false) : setStage((prevState) => prevState + 1);
   };
 
   const decrementStage = () => {
-    setSizeWidth(stage);
+    if (stage === 3) setSizeWidth(3);
     if (stage === 2) setImages([]);
     setStage((prevState) => prevState - 1);
   };
@@ -83,10 +77,13 @@ const AddPostModal = ({ setShowModal }) => {
             )}
             <HeaderTitle>Create new post</HeaderTitle>
             {images.length > 0 && (
-              <NextButton onClick={incrementStage}>Next</NextButton>
+              <NextButton onClick={incrementStage}>
+                {stage !== 3 && "Next"}
+                {stage === 3 && "Publish"}
+              </NextButton>
             )}
           </ModalHeader>
-          {(stage == 1 || stage == 2) && (
+          {stage !== 3 && (
             <UploadImage
               images={images}
               setImages={setImages}
@@ -99,8 +96,10 @@ const AddPostModal = ({ setShowModal }) => {
                 images={images}
                 setImages={setImages}
                 setStage={setStage}
+                width={parseInt(sizes.width) - 340}
+                // whole modal width on 3 stage - description wrapper width
               />
-              <AddPostDescription />
+              <AddPostDescription incrementStage={incrementStage} />
             </Wrapper>
           )}
         </ModalContent>

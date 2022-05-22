@@ -10,17 +10,12 @@ const UserWrapper = ({
   fontSize = "16px",
   weight = "500",
   size = "34px",
-  flex = "none",
   isComment = false,
+  ...rest
 }) => {
   return (
-    <Wrapper flex={flex} isComment={isComment}>
-      <ProfileIcon
-        src={profileImg}
-        width={size}
-        height={size}
-        username={username}
-      />
+    <Wrapper isComment={isComment} {...rest}>
+      <ProfileIcon src={profileImg} width={size} height={size} />
       <Username
         username={username}
         margin={margin}
