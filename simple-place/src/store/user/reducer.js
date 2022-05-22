@@ -21,6 +21,12 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     }
+    case types.ADD_POST: {
+      return {
+        ...state,
+        posts: state.posts.push(action.payload),
+      };
+    }
     default:
       return state;
   }

@@ -12,8 +12,8 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Icon from "../Icon/Icon";
 import UploadImage from "../UploadImage/UploadImage";
 import { createPost } from "../../services/PostsService";
-import { useSelector } from "react-redux";
-import { userSelectors } from "../../store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelectors, userOperations } from "../../store/user";
 
 const AddPostModal = ({ setShowModal }) => {
   const isDesktopRes = window.screen.width >= 1200;
@@ -27,6 +27,7 @@ const AddPostModal = ({ setShowModal }) => {
   // 1 stage - user suggested to select photo
   // 2 stage - photo selected, left arrow - - > to stage 3, Next button - - > to stage 3
   // 3 stage - description, , left arrow - - > to stage 2, Next button - - > publish
+  const dispatch = useDispatch();
   const user = useSelector(userSelectors.getUser());
   const textArea = useRef(null);
   const modalRef = useRef(null);
@@ -63,7 +64,10 @@ const AddPostModal = ({ setShowModal }) => {
         imageFile: images[0],
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+          console.log(data);
+          dispatch(userOperations.addPost(data));
+        });
       setShowModal(false);
     } else {
       setStage((prevState) => prevState + 1);

@@ -4,9 +4,12 @@ import Post from "../Post/Post";
 import { getAllPosts } from "../../services/PostsService";
 import UsersModal from "../UsersModal/UsersModal";
 import { getCookie } from "../../services/CookiesService";
+import { userSelectors } from "../../store/user";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
   const mainUserId = getCookie("id");
+  const user = useSelector(userSelectors.getUser());
   const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -31,9 +34,9 @@ const Posts = () => {
         return res.json();
       })
       .then((data) => {
-        setPosts(data.posts);
+        setPosts(data.posts.reverse());
       });
-  }, []);
+  }, [user]);
 
   return (
     <Section>

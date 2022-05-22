@@ -32,6 +32,7 @@ const User = () => {
   const navigate = useNavigate();
   const mainUser = useSelector(userSelectors.getUser());
   const username = useParams().username;
+  const user = useSelector(userSelectors.getUser());
 
   const userModalHandler = (type) => {
     dispatch(usersModalOperations.setNewModalType(type));
@@ -78,7 +79,7 @@ const User = () => {
         }
         setIsLoading(false);
       });
-  }, [isLoading]);
+  }, [isLoading, user]);
 
   if (isLoading && !userExist) {
     return <Loader />;

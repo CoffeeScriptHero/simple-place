@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   height: ${(props) => props.height || "auto"};
+  margin-bottom: 20px;
 `;
 
 export const NoUserWrapper = styled.div`

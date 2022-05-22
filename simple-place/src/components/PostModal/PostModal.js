@@ -140,13 +140,15 @@ const PostModal = () => {
                 )}
             </PostHeader>
             <PostBody>
-              <Comment
-                mainUserId={postData.userId}
-                username={postData.username}
-                profileImg={postData.profileImg}
-                text={postData.description}
-                isDescription={true}
-              />
+              {postData.description && (
+                <Comment
+                  mainUserId={postData.userId}
+                  username={postData.username}
+                  profileImg={postData.profileImg}
+                  text={postData.description}
+                  isDescription={true}
+                />
+              )}
               <Comments
                 showAll
                 comments={comments}

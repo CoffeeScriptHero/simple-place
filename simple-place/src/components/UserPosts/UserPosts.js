@@ -31,7 +31,7 @@ const UserPosts = ({ posts, postsLoaded }) => {
           </NoUserWrapper>
         </Wrapper>
       )}
-      {posts.length > 0 && <PostsWrapper>{postsList}</PostsWrapper>}
+      {posts.length > 0 && <PostsWrapper>{postsList.reverse()}</PostsWrapper>}
     </Wrapper>
   );
 };

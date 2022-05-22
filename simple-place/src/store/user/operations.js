@@ -41,11 +41,16 @@ const deleteUser = (id) => async (dispatch, getState) => {
   });
 };
 
+const addPost = (post) => (dispatch, getState) => {
+  dispatch(actions.addPost(post));
+};
+
 const operationsObj = {
   setNewUser,
   followUser,
   unfollowUser,
   deleteUser,
+  addPost,
 };
 
 export default operationsObj;

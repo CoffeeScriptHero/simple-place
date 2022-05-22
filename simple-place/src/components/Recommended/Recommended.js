@@ -6,6 +6,19 @@ import Recommendation from "../Recommendation/Recommendation";
 
 const Recommended = () => {
   const [users, setUsers] = useState([]);
+  const emojisArray = [
+    "☕",
+    "🌈",
+    "🤴🏻",
+    "💪",
+    "🐳",
+    "🌸",
+    "🌌",
+    "🎨",
+    "🏄🏻",
+    "🃏",
+    "🎵",
+  ];
 
   useEffect(() => {
     receiveData({ id: getCookie("id") }, "/api/user/get-all-users")
@@ -26,7 +39,12 @@ const Recommended = () => {
 
   return (
     <RecommendedWrapper>
-      <Inscription>Recommended for you &#127752; </Inscription>
+      {users.length > 0 && (
+        <Inscription>
+          Recommended for you{" "}
+          {emojisArray[Math.floor(Math.random() * emojisArray.length)]}
+        </Inscription>
+      )}
       {usersList}
     </RecommendedWrapper>
   );
