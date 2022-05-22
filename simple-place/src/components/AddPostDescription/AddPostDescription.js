@@ -14,9 +14,8 @@ import { useSelector } from "react-redux";
 import { userSelectors } from "../../store/user";
 import Picker from "emoji-picker-react";
 
-const AddPostDescription = ({ incrementStage }) => {
+const AddPostDescription = ({ incrementStage, textArea }) => {
   const { user, profileImg } = useSelector(userSelectors.getUser());
-  const textArea = useRef(null);
   const picker = useRef(null);
   const [showPicker, setShowPicker] = useState(false);
 

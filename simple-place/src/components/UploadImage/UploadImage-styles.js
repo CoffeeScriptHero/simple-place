@@ -13,7 +13,6 @@ export const InnerUploadWrapper = styled.div``;
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  background: red;
 `;
 
 export const Image = styled.img.attrs((props) => ({

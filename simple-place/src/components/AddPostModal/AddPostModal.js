@@ -1,8 +1,4 @@
 import React, { useRef, useState } from "react";
-import AddPostDescription from "../AddPostDescription/AddPostDescription";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
-import Icon from "../Icon/Icon";
-import UploadImage from "../UploadImage/UploadImage";
 import {
   Wrapper,
   AddPostModalWrapper,
@@ -11,6 +7,13 @@ import {
   NextButton,
   HeaderTitle,
 } from "./AddPostModal-styles";
+import AddPostDescription from "../AddPostDescription/AddPostDescription";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import Icon from "../Icon/Icon";
+import UploadImage from "../UploadImage/UploadImage";
+import { createPost } from "../../services/PostsService";
+import { useSelector } from "react-redux";
+import { userSelectors } from "../../store/user";
 
 const AddPostModal = ({ setShowModal }) => {
   const isDesktopRes = window.screen.width >= 1200;
@@ -24,6 +27,8 @@ const AddPostModal = ({ setShowModal }) => {
   // 1 stage - user suggested to select photo
   // 2 stage - photo selected, left arrow - - > to stage 3, Next button - - > to stage 3
   // 3 stage - description, , left arrow - - > to stage 2, Next button - - > publish
+  const user = useSelector(userSelectors.getUser());
+  const textArea = useRef(null);
   const modalRef = useRef(null);
   const cancelButton = useRef(null);
 
@@ -49,9 +54,20 @@ const AddPostModal = ({ setShowModal }) => {
     }
   };
 
-  const incrementStage = () => {
+  const incrementStage = async () => {
     if (stage === 2) setSizeWidth(2);
-    stage === 3 ? setShowModal(false) : setStage((prevState) => prevState + 1);
+    if (stage === 3) {
+      createPost({
+        description: textArea.current.value,
+        userId: user.id,
+        imageFile: images[0],
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      setShowModal(false);
+    } else {
+      setStage((prevState) => prevState + 1);
+    }
   };
 
   const decrementStage = () => {
@@ -99,7 +115,10 @@ const AddPostModal = ({ setShowModal }) => {
                 width={parseInt(sizes.width) - 340}
                 // whole modal width on 3 stage - description wrapper width
               />
-              <AddPostDescription incrementStage={incrementStage} />
+              <AddPostDescription
+                incrementStage={incrementStage}
+                textArea={textArea}
+              />
             </Wrapper>
           )}
         </ModalContent>

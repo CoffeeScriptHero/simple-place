@@ -47,6 +47,15 @@ export const removeComment = async (postId, commentId, comments) => {
   return response;
 };
 
+export const createPost = async (data) => {
+  const response = await fetch("/api/post/add-post", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data }),
+  });
+  return response;
+};
+
 export const likeHandler = (
   setIsFilled,
   isFilled,

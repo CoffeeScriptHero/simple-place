@@ -20,25 +20,6 @@ router.post(
   })
 );
 
-// router.post(
-//   "/check-user-exist",
-//   asyncMiddleware(async (req, res, next) => {
-//     try {
-//       const { username } = req.body;
-
-//       const user = await UserModel.findOne({ username }).exec();
-
-//       if (user) {
-//         res.status(200).send({ message: "allowed" });
-//       } else {
-//         res.status(500).send({ message: "denied" });
-//       }
-//     } catch {
-//       res.status(500).send({ message: "unexpected error" });
-//     }
-//   })
-// );
-
 router.post(
   "/get-user-data",
   asyncMiddleware(async (req, res, next) => {

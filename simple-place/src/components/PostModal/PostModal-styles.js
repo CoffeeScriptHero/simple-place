@@ -32,17 +32,16 @@ export const ImageWrapper = styled.div`
     height: 710px;
   }
   background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `;
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src || "#",
 }))`
-  object-fit: cover;
   width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export const PostContent = styled.div`

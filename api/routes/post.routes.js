@@ -3,30 +3,46 @@ const PostModel = require("../models/PostModel");
 const CommentModel = require("../models/CommentModel").commentModel;
 const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const UserModel = require("../models/UserModel");
-const { findOne } = require("../models/PostModel");
+const { v1: uuidv1 } = require("uuid");
+const { cloudinary } = require("../utils/cloudinary");
+
+const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
+const CLOUDINARY_POSTS_PRESET = process.env.CLOUDINARY_POSTS_PRESET;
 
 router.post(
   "/add-post",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { id, description, userId, comments, likes, image } = req.body.data;
+      const { description, userId, imageFile } = req.body.data;
+
+      const postId = uuidv1().slice(0, 8);
+      const base64EncodedImage = imageFile.data_url;
+
+      const uploadedResponse = await cloudinary.uploader.upload(
+        base64EncodedImage,
+        {
+          upload_preset: CLOUDINARY_POSTS_PRESET,
+          public_id: postId,
+        }
+      );
+
       await PostModel.create({
-        id: id,
+        id: postId,
         description: description,
         userId: userId,
-        comments: comments,
-        likes: likes,
-        image: image,
+        comments: [],
+        likes: [],
+        image: uploadedResponse.url,
       });
 
       res.status(200).json({
         message: "allowed",
-        id: id,
+        id: postId,
         description: description,
         userId: userId,
         comments: comments,
         likes: likes,
-        image: image,
+        image: uploadedResponse.url,
       });
     } catch {
       res.status(500).json({ message: "unexpected error" });
