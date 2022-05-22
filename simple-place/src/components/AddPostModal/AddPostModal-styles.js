@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Modal } from "../../App-styles";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  display: ${(props) => props.display || "block"};
+`;
 
 export const AddPostModalWrapper = styled(Modal)`
   background-color: rgba(0, 0, 0, 0.8);
@@ -9,11 +11,17 @@ export const AddPostModalWrapper = styled(Modal)`
 `;
 
 export const ModalContent = styled.div`
-  width: 545px;
-  height: 580px;
+  // width: 545px;
+  // height: 580px;
   background: white;
   border-radius: 3%;
   overflow: hidden;
+  // @media (min-width: 1200px) {
+  //   min-width: 680px;
+  //   min-height: 720px;
+  // }
+  width: ${(props) => (props.sizes.width ? props.sizes.width : "545px")};
+  height: ${(props) => (props.sizes.width ? props.sizes.width : "580px")};
 `;
 
 export const ModalHeader = styled.header`
@@ -21,12 +29,14 @@ export const ModalHeader = styled.header`
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px;
 `;
 
 export const HeaderTitle = styled.h1`
   font-weight: 700;
-  margin: 0 auto;
+  margin: 0;
+  width: 100%;
   font-size: 17.5px;
 `;
 

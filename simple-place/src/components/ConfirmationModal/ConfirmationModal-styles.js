@@ -11,6 +11,8 @@ export const ModalContent = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
 `;
 
 export const TextWrapper = styled.div`
@@ -36,12 +38,17 @@ export const ConfirmationWarning = styled.span`
 `;
 
 export const ConfirmationButton = styled.button`
-  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-  font-weight: ${(props) => props.weight || "400"};
+  font-weight: ${(props) => (props.discard ? "700" : "400")};
   color: ${(props) =>
     props.discard ? "rgba(var(--i30,237,73,86),1)" : "black"};
+  border: none;
+  cursor: pointer;
+  border-top: ${(props) =>
+    props.discard ? "1px solid rgba(var(--b6a, 219, 219, 219), 1)" : "none"};
+  border-bottom: ${(props) =>
+    props.discard ? "1px solid rgba(var(--b6a, 219, 219, 219), 1)" : "none"};
   padding: 4px 8px;
+  font-size: 14px;
   text-align: center;
   min-height: 48px;
   background: white;

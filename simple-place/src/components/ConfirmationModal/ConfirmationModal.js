@@ -12,6 +12,7 @@ const ConfirmationModal = ({
   title,
   warning,
   btnText,
+  cancelButton,
   setShowConfirmModal,
   setShowModal,
 }) => {
@@ -23,8 +24,17 @@ const ConfirmationModal = ({
             <ConfirmationTitle>{title}</ConfirmationTitle>
             <ConfirmationWarning>{warning}</ConfirmationWarning>
           </TextWrapper>
-          <ConfirmationButton discard>{btnText}</ConfirmationButton>
-          <ConfirmationButton>Cancel</ConfirmationButton>
+          <ConfirmationButton discard onClick={() => setShowModal(false)}>
+            {btnText}
+          </ConfirmationButton>
+          <ConfirmationButton
+            ref={cancelButton}
+            onClick={() => {
+              setShowConfirmModal(false);
+            }}
+          >
+            Cancel
+          </ConfirmationButton>
         </ModalContent>
       </ConfirmationModalWrapper>
     </Wrapper>

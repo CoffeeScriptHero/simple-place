@@ -2,26 +2,32 @@ import styled from "styled-components";
 
 export const UploadImgWrapper = styled.div`
   display: flex;
-  height: 540px;
+  height: calc(100% - 44px);
   align-items: center;
   justify-content: center;
   overflow: hidden;
 `;
 
-export const InnerUploadWrapper = styled.div`
-  text-align: center;
-`;
+export const InnerUploadWrapper = styled.div``;
 
 export const ImageWrapper = styled.div`
-  position: relative;
-  object-fit: contain;
+  width: 100%;
 `;
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src || "#",
-  width: "100%",
 }))`
-  max-height: 540px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-weight: 700;
+  display: block;
+  text-align: center;
 `;
 
 export const UploadButton = styled.button`

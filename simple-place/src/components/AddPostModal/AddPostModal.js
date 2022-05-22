@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import AddPostDescription from "../AddPostDescription/AddPostDescription";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Icon from "../Icon/Icon";
-import UploadImageWrapper from "../UploadImageWrapper/UploadImageWrapper";
+import UploadImage from "../UploadImage/UploadImage";
 import {
   Wrapper,
   AddPostModalWrapper,
@@ -13,40 +13,67 @@ import {
 } from "./AddPostModal-styles";
 
 const AddPostModal = ({ setShowModal }) => {
+  const isDesktopRes = window.screen.width >= 1200;
   const [images, setImages] = useState([]);
-  const [stage, setStage] = useState(1);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [sizes, setSizes] = useState({
+    width: isDesktopRes ? "680px" : "545px",
+    height: isDesktopRes ? "720px" : "580px",
+  });
+  const [stage, setStage] = useState(1);
   // 1 stage - user suggested to select photo
   // 2 stage - photo selected, Next button - - > to stage 3, arrow - - > to stage 3
   // 3 stage - description, Next button - - > publish, arrow - - > to stage 2
   const modalRef = useRef(null);
+  const cancelButton = useRef(null);
 
-  const closeModal = () => {
-    setShowModal(false);
+  const setSizeWidth = (stage) => {
+    if (stage === 2) {
+      setSizes((prevState) => {
+        return {
+          ...prevState,
+          width: isDesktopRes ? "1080px" : "900px",
+        };
+      });
+    } else {
+      setSizes((prevState) => {
+        return {
+          ...prevState,
+          width: isDesktopRes ? "680px" : "545px",
+        };
+      });
+    }
   };
 
-  // const closeModalOnArea = (e) => {
-  //   if (!modalRef.current.contains(e.target)) {
-  //     closeModal();
-  //   }
-  // };
+  const closeModalOnArea = (e) => {
+    if (
+      !modalRef.current.contains(e.target) &&
+      e.target.textContent !== "Cancel"
+    ) {
+      if (stage === 1) setShowModal(false);
+      else setShowConfirmModal(true);
+    }
+  };
 
   const incrementStage = () => {
+    setSizeWidth(stage);
     stage === 3 ? setShowModal(false) : setStage((prevState) => prevState + 1);
   };
 
   const decrementStage = () => {
+    setSizeWidth(stage);
     if (stage === 2) setImages([]);
     setStage((prevState) => prevState - 1);
   };
 
   return (
-    <Wrapper onClick={() => setShowConfirmModal(true)}>
+    <Wrapper onClick={closeModalOnArea}>
       <AddPostModalWrapper>
-        <ModalContent ref={modalRef}>
+        <ModalContent ref={modalRef} sizes={sizes}>
           <ModalHeader>
             {stage > 1 && (
               <Icon
+                padding="0 25px 0 0"
                 width="21px"
                 height="21px"
                 type="leftarrow"
@@ -60,13 +87,22 @@ const AddPostModal = ({ setShowModal }) => {
             )}
           </ModalHeader>
           {(stage == 1 || stage == 2) && (
-            <UploadImageWrapper
+            <UploadImage
               images={images}
               setImages={setImages}
               setStage={setStage}
             />
           )}
-          {stage == 3 && <AddPostDescription />}
+          {stage == 3 && (
+            <Wrapper display="flex">
+              <UploadImage
+                images={images}
+                setImages={setImages}
+                setStage={setStage}
+              />
+              <AddPostDescription />
+            </Wrapper>
+          )}
         </ModalContent>
       </AddPostModalWrapper>
       <Icon
@@ -83,6 +119,7 @@ const AddPostModal = ({ setShowModal }) => {
           title="Discard post?"
           warning="If you leave, your edits won't be saved."
           btnText="Discard"
+          cancelButton={cancelButton}
           setShowConfirmModal={setShowConfirmModal}
           setShowModal={setShowModal}
         />
