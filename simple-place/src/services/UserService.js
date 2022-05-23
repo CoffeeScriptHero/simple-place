@@ -43,6 +43,15 @@ export const checkUserLogged = async () => {
   return isLogged;
 };
 
+export const changeUsername = async (data) => {
+  const response = await fetch("/api/user/change-username", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data }),
+  });
+  return response;
+};
+
 // export const checkUserExist = async (username) => {
 //   const res = await fetch("/api/user/check-user-exist", {
 //     method: "POST",

@@ -45,12 +45,18 @@ const addPost = (post) => (dispatch, getState) => {
   dispatch(actions.addPost(post));
 };
 
+const updateUsername = (username) => (dispatch, getState) => {
+  console.log("UPDATED FINALLY?");
+  dispatch(actions.updateUsername(username));
+};
+
 const operationsObj = {
   setNewUser,
   followUser,
   unfollowUser,
   deleteUser,
   addPost,
+  updateUsername,
 };
 
 export default operationsObj;

@@ -12,8 +12,38 @@ export const InfoWrapper = styled.div`
   border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
 `;
 
-export const Username = styled.span`
-  font-size: 28px;
+export const Username = styled.div.attrs((props) => ({
+  contentEditable: props.editableUsername ? true : false,
+}))`
+  font-size: 26px;
+  max-height: 40px;
+  width: 300px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  &[contenteditable="true"] {
+    white-space: nowrap;
+    width: 300px;
+    overflow: hidden;
+    outline: 2px double #5551ff;
+  }
+  &[contenteditable="true"] br {
+    display: none;
+  }
+  &[contenteditable="true"] * {
+    display: inline;
+    white-space: nowrap;
+  }
+`;
+
+export const UsernameWrapper = styled.div`
+  position: relative;
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-size: 14px;
+  position: absolute;
+  bottom: -22px;
 `;
 
 export const UserInfo = styled.section`

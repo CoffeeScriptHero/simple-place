@@ -12,6 +12,7 @@ export const Svg = styled.span`
   z-index: ${(props) => props.zIndex || "0"};
   top: ${(props) => props.top || "0"};
   right: ${(props) => props.right || "0"};
+  bottom: ${(props) => props.bottom || "auto"};
 `;
 
 export const IconLink = styled(Link)`

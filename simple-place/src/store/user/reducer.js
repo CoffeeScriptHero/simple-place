@@ -27,6 +27,12 @@ const reducer = (state = initialState, action) => {
         posts: state.posts.push(action.payload),
       };
     }
+    case types.UPDATE_USERNAME: {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    }
     default:
       return state;
   }

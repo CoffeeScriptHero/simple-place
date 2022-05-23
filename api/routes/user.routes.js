@@ -1,5 +1,6 @@
 const router = require("./main");
 const UserModel = require("../models/UserModel");
+const PostModel = require("../models/PostModel");
 const asyncMiddleware = require("../middlewares/asyncMiddleware");
 
 router.post(
@@ -187,6 +188,42 @@ router.post(
       res.status(200).send({ message: "success" });
     } catch {
       res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/change-username",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { newUsername, userId } = req.body.data;
+
+      if (newUsername === undefined || userId === undefined) throw new Error();
+
+      const user = await UserModel.findOne({ username: newUsername });
+
+      if (user) {
+        res.status(400).send({
+          status: 400,
+          message: "A user with this login already exists",
+        });
+      } else {
+        await UserModel.updateOne(
+          { id: userId },
+          { $set: { username: newUsername } }
+        );
+
+        await PostModel.updateMany(
+          { "comments._userId": userId },
+          { $set: { "comments.$.username": newUsername } }
+        );
+
+        res
+          .status(200)
+          .send({ status: 200, username: newUsername, message: "success" });
+      }
+    } catch {
+      res.status(500).send({ message: "Something went wrong. Try again" });
     }
   })
 );

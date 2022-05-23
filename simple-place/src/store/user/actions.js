@@ -19,11 +19,17 @@ const addPost = (post) => ({
   payload: post,
 });
 
+const updateUsername = (username) => ({
+  type: types.UPDATE_USERNAME,
+  payload: username,
+});
+
 const actionsObj = {
   saveUser,
   setLogged,
   updateModal,
   addPost,
+  updateUsername,
 };
 
 export default actionsObj;
