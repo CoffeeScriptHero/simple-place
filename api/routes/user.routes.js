@@ -214,8 +214,9 @@ router.post(
         );
 
         await PostModel.updateMany(
-          { "comments._userId": userId },
-          { $set: { "comments.$.username": newUsername } }
+          { "comments.commentUserId": userId },
+          { $set: { "comments.$[c].username": newUsername } },
+          { arrayFilters: [{ "c.commentUserId": userId }] }
         );
 
         res

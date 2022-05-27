@@ -10,6 +10,7 @@ const Comments = ({
   setShowModal,
   setComments = null,
   postId = null,
+  userId = null,
   postModalHandler = null,
 }) => {
   const dispatch = useDispatch();
@@ -23,16 +24,17 @@ const Comments = ({
 
   const commentsList = comments.map((c) => (
     <Comment
-      key={c._id}
-      commentId={c._id}
+      key={c.commentId}
+      commentId={c.commentId}
       text={c.text}
-      likes={c.likes}
+      likes={c.commentLikes}
       username={c.username}
       profileImg={c.profileImg}
       setComments={setComments}
       mainUserId={mainUserId}
-      userId={c.userId}
+      commentUserId={c.commentUserId}
       postId={postId}
+      userId={userId}
       comments={comments}
       modalHandler={modalHandler}
     />

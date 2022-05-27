@@ -22,7 +22,6 @@ const Header = () => {
           <Logo>SimplePlace</Logo>
           <IconsWrapper>
             <Icon path="/" type="home" />
-            <Icon path="messages" type="messages" />
             <Icon pointer type="add" onClick={() => setShowModal(!showModal)} />
             <ProfileIcon username={username} src={img} />
           </IconsWrapper>

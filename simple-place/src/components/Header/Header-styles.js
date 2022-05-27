@@ -16,5 +16,5 @@ export const IconsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  width: 150px;
+  width: 100px;
 `;

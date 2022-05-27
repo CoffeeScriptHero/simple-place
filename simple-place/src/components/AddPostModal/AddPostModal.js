@@ -65,7 +65,6 @@ const AddPostModal = ({ setShowModal }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           dispatch(userOperations.addPost(data));
         });
       setShowModal(false);

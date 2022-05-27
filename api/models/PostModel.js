@@ -16,11 +16,18 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
-  comments: [CommentSchema],
-  likes: {
-    type: [String],
-    required: true,
-  },
+  // comments: [CommentSchema],
+  comments: [
+    {
+      commentId: String,
+      commentUserId: String,
+      text: String,
+      username: String,
+      profileImg: String,
+      commentLikes: [String],
+    },
+  ],
+  likes: [String],
   image: {
     type: String,
     required: true,

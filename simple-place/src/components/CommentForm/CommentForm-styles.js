@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Form = styled.form`
-  margin-top: 20px;
+  margin-top: ${(props) => props.marginTop || "20px"};
   height: 100%;
 `;
 

@@ -117,26 +117,32 @@ const Post = ({
           id={postId}
           handler={modalHandler.bind(this, dispatch, postId, setShowModal)}
         />
-        <Description>
-          <Username
-            username={userData.username}
-            margin={"0 10px 0 0 "}
-            weight={"700"}
-            decoration={"underline"}
-          />
-          {desc.length < 50 && desc}
-          {desc.length >= 50 && showDesc && desc.slice(0, 48) + "..."}
-          {desc.length >= 50 && !showDesc && desc}
-          {desc.length >= 50 && (
-            <ShowMore onClick={showMoreHandler}>more</ShowMore>
-          )}
-        </Description>
+        {desc.length > 0 && (
+          <Description>
+            <Username
+              username={userData.username}
+              margin={"0 10px 0 0 "}
+              weight={"700"}
+              decoration={"underline"}
+            />
+            {desc.length < 50 && desc}
+            {desc.length >= 50 && showDesc && desc.slice(0, 48) + "..."}
+            {desc.length >= 50 && !showDesc && desc}
+            {desc.length >= 50 && (
+              <ShowMore onClick={showMoreHandler}>more</ShowMore>
+            )}
+          </Description>
+        )}
+
         <Comments
           showAll={false}
           comments={comments}
           postModalHandler={postModalHandler}
         />
         <CommentForm
+          marginTop={
+            desc.length !== 0 || comments.length !== 0 ? "20px" : "5px"
+          }
           isModal={false}
           postId={postId}
           setComments={setComments}

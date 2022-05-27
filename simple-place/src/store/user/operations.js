@@ -46,7 +46,6 @@ const addPost = (post) => (dispatch, getState) => {
 };
 
 const updateUsername = (username) => (dispatch, getState) => {
-  console.log("UPDATED FINALLY?");
   dispatch(actions.updateUsername(username));
 };
 

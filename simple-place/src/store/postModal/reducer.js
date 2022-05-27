@@ -5,8 +5,8 @@ const initialState = {
   profileImg: null,
   image: null,
   likes: null,
+  id: null,
   userId: null,
-  postId: null,
   comments: null,
   description: null,
 };
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
         image: null,
         likes: null,
         userId: null,
-        postId: null,
+        id: null,
         comments: [],
         description: null,
       };

@@ -14,7 +14,7 @@ import { postModalOperations } from "../../store/postModal";
 import Icon from "../Icon/Icon";
 import Picker from "emoji-picker-react";
 
-const CommentForm = ({ postId, setComments, isModal }) => {
+const CommentForm = ({ postId, setComments, isModal, ...rest }) => {
   const dispatch = useDispatch();
   const textArea = useRef(null);
   const picker = useRef(null);
@@ -73,7 +73,7 @@ const CommentForm = ({ postId, setComments, isModal }) => {
   });
 
   return (
-    <Form>
+    <Form {...rest}>
       <TextAreaWrapper>
         {showPicker && (
           <PickerWrapper ref={picker}>

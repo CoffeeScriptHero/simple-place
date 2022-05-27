@@ -1,12 +1,10 @@
 const router = require("./main");
 const PostModel = require("../models/PostModel");
-const CommentModel = require("../models/CommentModel").commentModel;
 const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const UserModel = require("../models/UserModel");
 const { v1: uuidv1 } = require("uuid");
 const { cloudinary } = require("../utils/cloudinary");
 
-const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
 const CLOUDINARY_POSTS_PRESET = process.env.CLOUDINARY_POSTS_PRESET;
 
 router.post(
@@ -17,6 +15,8 @@ router.post(
 
       const postId = uuidv1().slice(0, 8);
       const base64EncodedImage = imageFile.data_url;
+
+      console.log(postId);
 
       const uploadedResponse = await cloudinary.uploader.upload(
         base64EncodedImage,
@@ -40,8 +40,8 @@ router.post(
         id: postId,
         description: description,
         userId: userId,
-        comments: comments,
-        likes: likes,
+        comments: [],
+        likes: [],
         image: uploadedResponse.url,
       });
     } catch {
@@ -101,12 +101,12 @@ router.post(
 
       if (id) {
         if (type === "comment") {
-          await CommentModel.updateOne({ _id: id }, { $set: { likes } });
-
           await PostModel.updateOne(
-            { "comments._id": id },
-            { $set: { "comments.$.likes": likes } }
+            { "comments.commentId": id },
+            { $set: { "comments.$.commentLikes": likes } }
           );
+
+          console.log(id, likes);
         }
 
         if (type === "post") {
@@ -133,10 +133,22 @@ router.post(
         let usersList;
 
         if (type === "comment") {
-          const comment = await CommentModel.findOne({ _id: id, type });
+          const comments = await PostModel.findOne(
+            {
+              "comments.commentId": id,
+            },
+            {
+              _id: 0,
+              comments: 1,
+            }
+          );
+
+          const comment = comments.comments.filter(
+            (c) => c.commentId === id
+          )[0];
 
           usersList = await UserModel.find({
-            id: { $in: comment.likes },
+            id: { $in: comment.commentLikes },
           });
         }
 
@@ -155,7 +167,7 @@ router.post(
         res.status(200).json({ message: "allowed", liked: users });
       }
     } catch {
-      res.status(500).send({ message: "unexpected error" });
+      res.status(500).send({ message: "unexpected error", liked: [] });
     }
   })
 );
@@ -166,16 +178,19 @@ router.post(
     try {
       const { postId, userId, text } = req.body;
 
+      const commentId = uuidv1();
+
       const user = await UserModel.findOne({ id: userId }).exec();
 
       if (user) {
-        const comment = await CommentModel.create({
-          userId,
+        const comment = {
+          commentId,
+          commentUserId: userId,
           text,
           username: user.username,
           profileImg: user.profileImg,
-          likes: [],
-        });
+          commentLikes: [],
+        };
         await PostModel.updateOne(
           { id: postId },
           {
@@ -202,14 +217,14 @@ router.post(
       const { postId, commentId, comments } = req.body;
 
       if (postId && commentId && comments) {
-        const updatedComments = comments.filter((c) => c._id !== commentId);
+        const updatedComments = comments.filter(
+          (c) => c.commentId !== commentId
+        );
 
         await PostModel.updateOne(
           { id: postId },
           { $set: { comments: updatedComments } }
         );
-
-        await CommentModel.deleteOne({ _id: commentId });
 
         res.status(200).json({ comments: updatedComments });
       } else {

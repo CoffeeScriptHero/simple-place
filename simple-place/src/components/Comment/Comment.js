@@ -21,8 +21,9 @@ const Comment = ({
   setComments,
   profileImg,
   comments,
-  userId,
+  commentUserId,
   postId,
+  userId,
   text,
   likes = [],
   modalHandler,
@@ -86,7 +87,7 @@ const Comment = ({
             {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
           </AdditionalText>
         )}
-        {(mainUserId === userId || postId === mainUserId) && (
+        {(mainUserId === commentUserId || userId === mainUserId) && (
           <AdditionalText remove onClick={removeCommentHandler}>
             remove
           </AdditionalText>

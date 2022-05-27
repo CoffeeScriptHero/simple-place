@@ -70,7 +70,7 @@ const User = () => {
     if (editableUsername === true) {
       if (!usernameRegex.test(newUsername)) {
         setErrorText("Hmm, that login doesn't look right.");
-      } else if (!(newUsername.length > 4 && newUsername.length <= 20)) {
+      } else if (!(newUsername.length >= 4 && newUsername.length <= 20)) {
         setErrorText("Min 4 characters and 20 max required");
       } else {
         changeUsername({ newUsername, userId: user.id })
