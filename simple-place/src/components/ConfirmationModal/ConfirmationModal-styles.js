@@ -39,14 +39,11 @@ export const ConfirmationWarning = styled.span`
 
 export const ConfirmationButton = styled.button`
   font-weight: ${(props) => (props.discard ? "700" : "400")};
-  color: ${(props) =>
-    props.discard ? "rgba(var(--i30,237,73,86),1)" : "black"};
+  color: ${(props) => props.color || "black"};
   border: none;
   cursor: pointer;
-  border-top: ${(props) =>
-    props.discard ? "1px solid rgba(var(--b6a, 219, 219, 219), 1)" : "none"};
-  border-bottom: ${(props) =>
-    props.discard ? "1px solid rgba(var(--b6a, 219, 219, 219), 1)" : "none"};
+  border-top: ${(props) => props.borderColor || "none"};
+  border-bottom: ${(props) => props.borderColor || "none"};
   padding: 4px 8px;
   font-size: 14px;
   text-align: center;

@@ -8,17 +8,16 @@ import {
   HeaderTitle,
 } from "./AddPostModal-styles";
 import AddPostDescription from "../AddPostDescription/AddPostDescription";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import Icon from "../Icon/Icon";
 import UploadImage from "../UploadImage/UploadImage";
 import { createPost } from "../../services/PostsService";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelectors, userOperations } from "../../store/user";
+import { confirmationModalOperations } from "../../store/confirmationModal";
 
 const AddPostModal = ({ setShowModal }) => {
   const isDesktopRes = window.screen.width >= 1200;
   const [images, setImages] = useState([]);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [sizes, setSizes] = useState({
     width: isDesktopRes ? "680px" : "545px",
     height: isDesktopRes ? "720px" : "580px",
@@ -31,7 +30,6 @@ const AddPostModal = ({ setShowModal }) => {
   const user = useSelector(userSelectors.getUser());
   const textArea = useRef(null);
   const modalRef = useRef(null);
-  const cancelButton = useRef(null);
 
   const setSizeWidth = (stage) => {
     if (stage === 2) {
@@ -45,13 +43,29 @@ const AddPostModal = ({ setShowModal }) => {
     }
   };
 
+  const showConfirmationModal = () => {
+    dispatch(
+      confirmationModalOperations.customizeModal({
+        title: "Discard post?",
+        warning: "If you leave, your edits won't be saved.",
+        actionBtnText: "Discard",
+        actionBtnHandler: () => {
+          dispatch(confirmationModalOperations.setShowModal(false));
+          dispatch(confirmationModalOperations.clearModal());
+          setShowModal(false);
+        },
+      })
+    );
+    dispatch(confirmationModalOperations.setShowModal(true));
+  };
+
   const closeModalOnArea = (e) => {
     if (
       !modalRef.current.contains(e.target) &&
       e.target.textContent !== "Cancel"
     ) {
       if (stage === 1) setShowModal(false);
-      else setShowConfirmModal(true);
+      else showConfirmationModal();
     }
   };
 
@@ -133,18 +147,8 @@ const AddPostModal = ({ setShowModal }) => {
         right="30px"
         type="cross"
         pointer
-        onClick={() => setShowConfirmModal(true)}
+        onClick={closeModalOnArea}
       />
-      {showConfirmModal && (
-        <ConfirmationModal
-          title="Discard post?"
-          warning="If you leave, your edits won't be saved."
-          btnText="Discard"
-          cancelButton={cancelButton}
-          setShowConfirmModal={setShowConfirmModal}
-          setShowModal={setShowModal}
-        />
-      )}
     </Wrapper>
   );
 };

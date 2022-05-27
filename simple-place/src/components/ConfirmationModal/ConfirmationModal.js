@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Wrapper,
   ConfirmationModalWrapper,
@@ -7,36 +9,60 @@ import {
   ConfirmationWarning,
   ConfirmationButton,
 } from "./ConfirmationModal-styles";
+import {
+  confirmationModalSelectors,
+  confirmationModalOperations,
+} from "../../store/confirmationModal/index.js";
+import { Outlet } from "react-router-dom";
 
-const ConfirmationModal = ({
-  title,
-  warning,
-  btnText,
-  cancelButton,
-  setShowConfirmModal,
-  setShowModal,
-}) => {
+const ConfirmationModal = () => {
+  const dispatch = useDispatch();
+  const modal = useRef(null);
+  const modalInfo = useSelector(confirmationModalSelectors.getModalInfo());
+
+  const cancelHandler = () => {
+    dispatch(confirmationModalOperations.setShowModal(false));
+  };
+
+  const closeModalOnArea = (e) => {
+    if (!modal.current.contains(e.target)) {
+      dispatch(confirmationModalOperations.setShowModal(false));
+    }
+  };
+
+  if (!modalInfo.showModal) return null;
+
   return (
-    <Wrapper>
+    <Wrapper onClick={closeModalOnArea}>
       <ConfirmationModalWrapper>
-        <ModalContent>
+        <ModalContent ref={modal}>
           <TextWrapper>
-            <ConfirmationTitle>{title}</ConfirmationTitle>
-            <ConfirmationWarning>{warning}</ConfirmationWarning>
+            <ConfirmationTitle>{modalInfo.title}</ConfirmationTitle>
+            {modalInfo.warning && (
+              <ConfirmationWarning>{modalInfo.warning}</ConfirmationWarning>
+            )}
           </TextWrapper>
-          <ConfirmationButton discard onClick={() => setShowModal(false)}>
-            {btnText}
-          </ConfirmationButton>
+          {modalInfo.extraBtnText && (
+            <ConfirmationButton
+              borderColor="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
+              onClick={modalInfo.extraBtnHandler}
+            >
+              {modalInfo.extraBtnText}
+            </ConfirmationButton>
+          )}
           <ConfirmationButton
-            ref={cancelButton}
-            onClick={() => {
-              setShowConfirmModal(false);
-            }}
+            borderColor="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
+            color="rgba(var(--i30,237,73,86),1)"
+            onClick={modalInfo.actionBtnHandler}
           >
+            {modalInfo.actionBtnText}
+          </ConfirmationButton>
+          <ConfirmationButton onClick={cancelHandler}>
             Cancel
           </ConfirmationButton>
         </ModalContent>
       </ConfirmationModalWrapper>
+      <Outlet />
     </Wrapper>
   );
 };

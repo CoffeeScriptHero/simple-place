@@ -13,21 +13,19 @@ router.post(
     try {
       const { description, userId, imageFile } = req.body.data;
 
-      const postId = uuidv1().slice(0, 8);
+      const POST_ID = uuidv1().slice(0, 8);
       const base64EncodedImage = imageFile.data_url;
-
-      console.log(postId);
 
       const uploadedResponse = await cloudinary.uploader.upload(
         base64EncodedImage,
         {
           upload_preset: CLOUDINARY_POSTS_PRESET,
-          public_id: postId,
+          public_id: POST_ID,
         }
       );
 
       await PostModel.create({
-        id: postId,
+        id: POST_ID,
         description: description,
         userId: userId,
         comments: [],
@@ -37,7 +35,7 @@ router.post(
 
       res.status(200).json({
         message: "allowed",
-        id: postId,
+        id: POST_ID,
         description: description,
         userId: userId,
         comments: [],
@@ -105,8 +103,6 @@ router.post(
             { "comments.commentId": id },
             { $set: { "comments.$.commentLikes": likes } }
           );
-
-          console.log(id, likes);
         }
 
         if (type === "post") {

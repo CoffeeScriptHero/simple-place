@@ -25,6 +25,7 @@ import { userSelectors } from "../../store/user";
 import { useNavigate, Outlet } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import { setCookie } from "../../services/CookiesService";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 
 const User = () => {
   const [userExist, setUserExist] = useState(false);
@@ -34,6 +35,7 @@ const User = () => {
   const [posts, setPosts] = useState([]);
   const [editableUsername, setEditableUsername] = useState(false);
   const [errorText, setErrorText] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const usernameRef = useRef(null);
@@ -147,6 +149,7 @@ const User = () => {
           width={"150px"}
           height={"150px"}
           padding={"0 75px"}
+          // onCli
         />
         <UserInfo>
           <UsernameWrapper>
@@ -219,6 +222,7 @@ const User = () => {
         </UserInfo>
       </InfoWrapper>
       <UserPosts posts={posts} postsLoaded={postsLoaded} />
+      {/* <ConfirmationModal /> */}
       <Outlet />
     </UserContainer>
   );

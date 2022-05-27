@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const CommentSchema = require("./CommentModel").commentSchema;
 
 const Schema = mongoose.Schema;
 
@@ -16,7 +15,6 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
-  // comments: [CommentSchema],
   comments: [
     {
       commentId: String,
