@@ -24,9 +24,9 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
     }
-    case types.CLEAR_MODAL: {
+    case types.CLOSE_MODAL: {
       return {
-        ...state,
+        showModal: false,
         title: null,
         warning: null,
         actionBtnText: null,

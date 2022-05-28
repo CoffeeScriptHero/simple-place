@@ -23,7 +23,7 @@ const Header = () => {
           <IconsWrapper>
             <Icon path="/" type="home" />
             <Icon pointer type="add" onClick={() => setShowModal(!showModal)} />
-            <ProfileIcon username={username} src={img} />
+            <ProfileIcon username={username} src={img} cursor="pointer" />
           </IconsWrapper>
         </Nav>
       </MainContainer>

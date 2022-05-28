@@ -3,11 +3,13 @@ import { Modal } from "../../App-styles";
 
 export const Wrapper = styled.div``;
 
-export const ConfirmationModalWrapper = styled(Modal)``;
+export const ConfirmationModalWrapper = styled(Modal)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
 
 export const ModalContent = styled.div`
   width: 400px;
-  height: 201px;
+  max-height: 222px;
   background: white;
   display: flex;
   flex-direction: column;
@@ -42,8 +44,8 @@ export const ConfirmationButton = styled.button`
   color: ${(props) => props.color || "black"};
   border: none;
   cursor: pointer;
-  border-top: ${(props) => props.borderColor || "none"};
-  border-bottom: ${(props) => props.borderColor || "none"};
+  border-top: ${(props) => props.borderTop || "none"};
+  border-bottom: ${(props) => props.borderBottom || "none"};
   padding: 4px 8px;
   font-size: 14px;
   text-align: center;

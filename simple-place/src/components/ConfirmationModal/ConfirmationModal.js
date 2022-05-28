@@ -13,12 +13,15 @@ import {
   confirmationModalSelectors,
   confirmationModalOperations,
 } from "../../store/confirmationModal/index.js";
-import { Outlet } from "react-router-dom";
+import ImageUploading from "react-images-uploading";
+import { changeProfileImg } from "../../services/UserService";
+import { userOperations, userSelectors } from "../../store/user";
 
 const ConfirmationModal = () => {
   const dispatch = useDispatch();
   const modal = useRef(null);
   const modalInfo = useSelector(confirmationModalSelectors.getModalInfo());
+  const { id, profileImg } = useSelector(userSelectors.getUser());
 
   const cancelHandler = () => {
     dispatch(confirmationModalOperations.setShowModal(false));
@@ -26,8 +29,19 @@ const ConfirmationModal = () => {
 
   const closeModalOnArea = (e) => {
     if (!modal.current.contains(e.target)) {
-      dispatch(confirmationModalOperations.setShowModal(false));
+      dispatch(confirmationModalOperations.closeModal());
     }
+  };
+
+  const onChange = (imageList, addUpdateIndex) => {
+    dispatch(confirmationModalOperations.closeModal());
+    changeProfileImg({ userId: id, imageFile: imageList[0] })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          dispatch(userOperations.updateProfilePic(data.image));
+        }
+      });
   };
 
   if (!modalInfo.showModal) return null;
@@ -43,15 +57,26 @@ const ConfirmationModal = () => {
             )}
           </TextWrapper>
           {modalInfo.extraBtnText && (
-            <ConfirmationButton
-              borderColor="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
-              onClick={modalInfo.extraBtnHandler}
+            <ImageUploading
+              onChange={onChange}
+              maxNumber={1}
+              dataURLKey="data_url"
             >
-              {modalInfo.extraBtnText}
-            </ConfirmationButton>
+              {({ onImageUpload, dragProps }) => (
+                <ConfirmationButton
+                  borderTop="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
+                  color="#5551ff"
+                  onClick={onImageUpload}
+                  {...dragProps}
+                >
+                  {modalInfo.extraBtnText}
+                </ConfirmationButton>
+              )}
+            </ImageUploading>
           )}
           <ConfirmationButton
-            borderColor="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
+            borderTop="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
+            borderBottom="1px solid rgba(var(--b6a, 219, 219, 219), 1)"
             color="rgba(var(--i30,237,73,86),1)"
             onClick={modalInfo.actionBtnHandler}
           >
@@ -62,7 +87,6 @@ const ConfirmationModal = () => {
           </ConfirmationButton>
         </ModalContent>
       </ConfirmationModalWrapper>
-      <Outlet />
     </Wrapper>
   );
 };

@@ -46,7 +46,8 @@ const PostModal = () => {
   const [likesArr, setLikesArr] = useState(
     postData.likes ? postData.likes : []
   );
-  const mainUsername = useSelector(userSelectors.getUser()).user;
+  const mainUser = useSelector(userSelectors.getUser());
+  const mainUsername = mainUser.user;
   const following = useSelector(userSelectors.getUser()).following;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -106,7 +107,7 @@ const PostModal = () => {
       setIsFilled(postData.likes.includes(mainUserId) ? true : false);
       setLikesArr(postData.likes);
     }
-  }, []);
+  }, [mainUser.profileImg]);
 
   if (postData.username === null) {
     return null;

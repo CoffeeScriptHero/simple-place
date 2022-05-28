@@ -15,7 +15,13 @@ const UserWrapper = ({
 }) => {
   return (
     <Wrapper isComment={isComment} {...rest}>
-      <ProfileIcon src={profileImg} width={size} height={size} />
+      <ProfileIcon
+        cursor="pointer"
+        username={username}
+        src={profileImg}
+        width={size}
+        height={size}
+      />
       <Username
         username={username}
         margin={margin}

@@ -33,6 +33,12 @@ const reducer = (state = initialState, action) => {
         user: action.payload,
       };
     }
+    case types.UPDATE_PROFILE_PIC: {
+      return {
+        ...state,
+        profileImg: action.payload,
+      };
+    }
     default:
       return state;
   }

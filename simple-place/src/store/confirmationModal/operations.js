@@ -8,10 +8,10 @@ const customizeModal = (modalSettings) => (dispatch, getState) => {
   dispatch(actions.customizeModal(modalSettings));
 };
 
-const clearModal = () => (dispatch, getState) => {
-  dispatch(actions.clearModal());
+const closeModal = () => (dispatch, getState) => {
+  dispatch(actions.closeModal());
 };
 
-const operationsObj = { setShowModal, customizeModal, clearModal };
+const operationsObj = { setShowModal, customizeModal, closeModal };
 
 export default operationsObj;

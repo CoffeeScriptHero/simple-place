@@ -10,10 +10,10 @@ const customizeModal = (modalSettings) => ({
   payload: modalSettings,
 });
 
-const clearModal = () => ({
-  type: types.CLEAR_MODAL,
+const closeModal = () => ({
+  type: types.CLOSE_MODAL,
 });
 
-const actionsObj = { setShowModal, customizeModal, clearModal };
+const actionsObj = { setShowModal, customizeModal, closeModal };
 
 export default actionsObj;

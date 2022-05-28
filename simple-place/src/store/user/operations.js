@@ -49,6 +49,10 @@ const updateUsername = (username) => (dispatch, getState) => {
   dispatch(actions.updateUsername(username));
 };
 
+const updateProfilePic = (profilePic) => (dispatch, getState) => {
+  dispatch(actions.updateProfilePic(profilePic));
+};
+
 const operationsObj = {
   setNewUser,
   followUser,
@@ -56,6 +60,7 @@ const operationsObj = {
   deleteUser,
   addPost,
   updateUsername,
+  updateProfilePic,
 };
 
 export default operationsObj;

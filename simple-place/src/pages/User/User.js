@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { receiveData, changeUsername } from "../../services/UserService";
+import {
+  receiveData,
+  changeUsername,
+  deleteProfileImg,
+} from "../../services/UserService";
 import { getUserPosts } from "../../services/PostsService";
 import Loader from "../../components/Loader/Loader";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
@@ -25,7 +29,7 @@ import { userSelectors } from "../../store/user";
 import { useNavigate, Outlet } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import { setCookie } from "../../services/CookiesService";
-import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
+import { confirmationModalOperations } from "../../store/confirmationModal";
 
 const User = () => {
   const [userExist, setUserExist] = useState(false);
@@ -35,14 +39,13 @@ const User = () => {
   const [posts, setPosts] = useState([]);
   const [editableUsername, setEditableUsername] = useState(false);
   const [errorText, setErrorText] = useState(null);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const usernameRef = useRef(null);
   const mainUser = useSelector(userSelectors.getUser());
+  const [profilePic, setProfilePic] = useState(null);
   const username = useParams().username;
   const isMainUser = mainUser.user === username;
-  const user = useSelector(userSelectors.getUser());
 
   const userModalHandler = (type) => {
     dispatch(usersModalOperations.setNewModalType(type));
@@ -75,7 +78,7 @@ const User = () => {
       } else if (!(newUsername.length >= 4 && newUsername.length <= 20)) {
         setErrorText("Min 4 characters and 20 max required");
       } else {
-        changeUsername({ newUsername, userId: user.id })
+        changeUsername({ newUsername, userId: mainUser.id })
           .then((res) => res.json())
           .then((data) => {
             if (data.status === 200) {
@@ -109,6 +112,7 @@ const User = () => {
         if (data.status === 200) {
           setUserData(data);
           setUserExist(true);
+          setProfilePic(data.profileImg);
           getUserPosts(data.id)
             .then((res) => res.json())
             .then((data) => {
@@ -126,7 +130,7 @@ const User = () => {
         }
         setIsLoading(false);
       });
-  }, [isLoading, user.posts]);
+  }, [isLoading, mainUser.posts, mainUser.profileImg]);
 
   if (isLoading && !userExist) {
     return <Loader />;
@@ -141,15 +145,40 @@ const User = () => {
     setUserData(null);
   }
 
+  const deleteProfilePicHandler = () => {
+    dispatch(confirmationModalOperations.closeModal());
+    deleteProfileImg({
+      userId: mainUser.id,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(userOperations.updateProfilePic(data.image));
+      });
+  };
+
+  const showConfirmationModal = () => {
+    dispatch(
+      confirmationModalOperations.customizeModal({
+        title: "Change the profile photo",
+        warning: null,
+        actionBtnText: "Delete the current photo",
+        extraBtnText: "Upload a photo",
+        actionBtnHandler: deleteProfilePicHandler,
+      })
+    );
+    dispatch(confirmationModalOperations.setShowModal(true));
+  };
+
   return (
     <UserContainer>
       <InfoWrapper>
         <ProfileIcon
-          src={userData.profileImg}
+          src={profilePic}
           width={"150px"}
           height={"150px"}
           padding={"0 75px"}
-          // onCli
+          cursor={isMainUser ? "pointer" : "default"}
+          onClick={isMainUser ? showConfirmationModal : undefined}
         />
         <UserInfo>
           <UsernameWrapper>
@@ -222,7 +251,6 @@ const User = () => {
         </UserInfo>
       </InfoWrapper>
       <UserPosts posts={posts} postsLoaded={postsLoaded} />
-      {/* <ConfirmationModal /> */}
       <Outlet />
     </UserContainer>
   );

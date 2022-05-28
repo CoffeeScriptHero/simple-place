@@ -24,12 +24,18 @@ const updateUsername = (username) => ({
   payload: username,
 });
 
+const updateProfilePic = (profilePic) => ({
+  type: types.UPDATE_PROFILE_PIC,
+  payload: profilePic,
+});
+
 const actionsObj = {
   saveUser,
   setLogged,
   updateModal,
   addPost,
   updateUsername,
+  updateProfilePic,
 };
 
 export default actionsObj;

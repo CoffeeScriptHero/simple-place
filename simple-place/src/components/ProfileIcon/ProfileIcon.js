@@ -6,10 +6,10 @@ const ProfileIcon = ({ src, username, ...rest }) => {
     <Wrapper {...rest}>
       {username && (
         <UserLink to={`/${username}`}>
-          <Avatar src={src}></Avatar>
+          <Avatar {...rest} src={src}></Avatar>
         </UserLink>
       )}
-      {!username && <Avatar src={src}></Avatar>}
+      {!username && <Avatar {...rest} src={src}></Avatar>}
     </Wrapper>
   );
 };

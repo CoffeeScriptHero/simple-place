@@ -1,7 +1,13 @@
 const router = require("./main");
+const asyncMiddleware = require("../middlewares/asyncMiddleware");
 const UserModel = require("../models/UserModel");
 const PostModel = require("../models/PostModel");
-const asyncMiddleware = require("../middlewares/asyncMiddleware");
+const { cloudinary } = require("../utils/cloudinary");
+
+const DEFAULT_PROFILE_IMG = process.env.CLOUDINARY_DEFAULT_PROFILE_IMG;
+
+const CLOUDINARY_PROFILE_PICS_PRESET =
+  process.env.CLOUDINARY_PROFILE_PICS_PRESET;
 
 router.post(
   "/check-main-user",
@@ -84,6 +90,102 @@ router.post(
       }
     } catch {
       res.status(500).send({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/change-profile-img",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { userId, imageFile } = req.body.data;
+
+      const base64EncodedImage = imageFile.data_url;
+
+      const PUBLIC_ID = userId.slice(0, 13);
+
+      try {
+        await cloudinary.uploader.destroy(
+          `simple-place/profilePics/${PUBLIC_ID}`,
+          {
+            invalidate: true,
+            resource_type: "image",
+          }
+        );
+      } catch {
+        console.log("no such photo stored");
+      }
+
+      const uploadedResponse = await cloudinary.uploader.upload(
+        base64EncodedImage,
+        {
+          upload_preset: CLOUDINARY_PROFILE_PICS_PRESET,
+          public_id: PUBLIC_ID,
+        }
+      );
+
+      await UserModel.updateOne(
+        {
+          id: userId,
+        },
+        { $set: { profileImg: uploadedResponse.url } }
+      );
+
+      await PostModel.updateMany(
+        { "comments.commentUserId": userId },
+        { $set: { "comments.$[c].profileImg": uploadedResponse.url } },
+        { arrayFilters: [{ "c.commentUserId": userId }] }
+      );
+
+      res.status(200).json({
+        status: 200,
+        image: uploadedResponse.url,
+      });
+    } catch {
+      res.status(500).json({ message: "unexpected error" });
+    }
+  })
+);
+
+router.post(
+  "/delete-profile-img",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { userId } = req.body.data;
+
+      const PUBLIC_ID = userId.slice(0, 13);
+
+      try {
+        await cloudinary.uploader.destroy(
+          `simple-place/profilePics/${PUBLIC_ID}`,
+          {
+            invalidate: true,
+            resource_type: "image",
+          }
+        );
+      } catch {
+        console.log("no such photo stored");
+      }
+
+      await UserModel.updateOne(
+        {
+          id: userId,
+        },
+        { $set: { profileImg: DEFAULT_PROFILE_IMG } }
+      );
+
+      await PostModel.updateMany(
+        { "comments.commentUserId": userId },
+        { $set: { "comments.$[c].profileImg": DEFAULT_PROFILE_IMG } },
+        { arrayFilters: [{ "c.commentUserId": userId }] }
+      );
+
+      res.status(200).json({
+        status: 200,
+        image: DEFAULT_PROFILE_IMG,
+      });
+    } catch {
+      res.status(500).json({ message: "unexpected error" });
     }
   })
 );

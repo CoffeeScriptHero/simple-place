@@ -50,8 +50,7 @@ const AddPostModal = ({ setShowModal }) => {
         warning: "If you leave, your edits won't be saved.",
         actionBtnText: "Discard",
         actionBtnHandler: () => {
-          dispatch(confirmationModalOperations.setShowModal(false));
-          dispatch(confirmationModalOperations.clearModal());
+          dispatch(confirmationModalOperations.closeModal());
           setShowModal(false);
         },
       })

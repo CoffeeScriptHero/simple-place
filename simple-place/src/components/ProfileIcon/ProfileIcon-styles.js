@@ -12,6 +12,7 @@ export const Avatar = styled.img.attrs((props) => ({
   src: props.src || "#",
   alt: props.src || "undefined",
 }))`
+  cursor: ${(props) => props.cursor || "default"};
   border-radius: 50%;
   width: 100%;
   height: 100%;

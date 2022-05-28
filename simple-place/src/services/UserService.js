@@ -52,12 +52,20 @@ export const changeUsername = async (data) => {
   return response;
 };
 
-// export const checkUserExist = async (username) => {
-//   const res = await fetch("/api/user/check-user-exist", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ username: username }),
-//   });
+export const changeProfileImg = async (data) => {
+  const response = await fetch("/api/user/change-profile-img", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data }),
+  });
+  return response;
+};
 
-//   console.log(res);
-// };
+export const deleteProfileImg = async (data) => {
+  const response = await fetch("/api/user/delete-profile-img", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data }),
+  });
+  return response;
+};
