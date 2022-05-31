@@ -30,6 +30,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import { setCookie } from "../../services/CookiesService";
 import { confirmationModalOperations } from "../../store/confirmationModal";
+import { postModalSelectors } from "../../store/postModal";
 
 const User = () => {
   const [userExist, setUserExist] = useState(false);
@@ -39,6 +40,7 @@ const User = () => {
   const [posts, setPosts] = useState([]);
   const [editableUsername, setEditableUsername] = useState(false);
   const [errorText, setErrorText] = useState(null);
+  const postModalInfo = useSelector(postModalSelectors.getModalInfo());
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const usernameRef = useRef(null);
@@ -130,7 +132,7 @@ const User = () => {
         }
         setIsLoading(false);
       });
-  }, [isLoading, mainUser.posts, mainUser.profileImg]);
+  }, [isLoading, mainUser.posts, mainUser.profileImg, postModalInfo.username]);
 
   if (isLoading && !userExist) {
     return <Loader />;

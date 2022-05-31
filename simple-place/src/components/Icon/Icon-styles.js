@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Svg = styled.span`
-  display: block;
+  display: ${(props) => props.display || "block"};
   width: ${(props) => props.width || "24px"};
   height: ${(props) => props.height || "24px"};
   cursor: ${(props) => (props.pointer ? "pointer" : "default")};
@@ -13,6 +13,7 @@ export const Svg = styled.span`
   top: ${(props) => props.top || "0"};
   right: ${(props) => props.right || "0"};
   bottom: ${(props) => props.bottom || "auto"};
+  left: ${(props) => props.left || "auto"};
 `;
 
 export const IconLink = styled(Link)`

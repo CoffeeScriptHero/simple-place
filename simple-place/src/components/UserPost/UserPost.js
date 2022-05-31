@@ -8,12 +8,31 @@ import {
 } from "./UserPost-styles";
 import Icon from "../Icon/Icon";
 import { useNavigate } from "react-router-dom";
+import { postModalOperations } from "../../store/postModal";
+import { receiveData } from "../../services/UserService";
+import { getCookie } from "../../services/CookiesService";
 
-const UserPost = ({ id, img, likes, comments }) => {
+const UserPost = ({ id, img, likes, comments, description, dispatch }) => {
   const navigate = useNavigate();
 
   const postModalHandler = () => {
-    navigate(`p/${id}`);
+    receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(
+          postModalOperations.setPostInfo({
+            username: data.user,
+            profileImg: data.profileImg,
+            image: img,
+            likes: likes,
+            userId: data.id,
+            postId: id,
+            comments: comments,
+            description: description,
+          })
+        );
+        navigate(`p/${id}`);
+      });
   };
   return (
     <Wrapper>

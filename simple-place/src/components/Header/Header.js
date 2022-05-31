@@ -7,6 +7,7 @@ import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import { userSelectors } from "../../store/user/index.js";
 import { useSelector } from "react-redux";
 import AddPostModal from "../AddPostModal/AddPostModal";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Header = () => {
   const username = useSelector(userSelectors.getUser()).user;
@@ -20,6 +21,7 @@ const Header = () => {
       <MainContainer>
         <Nav>
           <Logo>SimplePlace</Logo>
+          <SearchBar />
           <IconsWrapper>
             <Icon path="/" type="home" />
             <Icon pointer type="add" onClick={() => setShowModal(!showModal)} />

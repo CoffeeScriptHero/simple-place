@@ -11,3 +11,5 @@ export { smile } from "./smile";
 export { picture } from "./picture";
 export { leftarrow } from "./leftarrow";
 export { pencil } from "./pencil";
+export { magnifier } from "./magnifier";
+export { circlecross } from "./circlecross";

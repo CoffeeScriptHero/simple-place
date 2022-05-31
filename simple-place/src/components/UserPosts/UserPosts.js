@@ -7,15 +7,20 @@ import {
 import Icon from "../Icon/Icon";
 import UserPost from "../UserPost/UserPost";
 import Loader from "../Loader/Loader";
+import { useDispatch } from "react-redux";
 
 const UserPosts = ({ posts, postsLoaded }) => {
+  const dispatch = useDispatch();
+
   const postsList = posts.map((p) => (
     <UserPost
       img={p.image}
       likes={p.likes}
       comments={p.comments}
+      description={p.description}
       id={p.id}
       key={p.id}
+      dispatch={dispatch}
     ></UserPost>
   ));
 
