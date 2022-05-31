@@ -50,7 +50,7 @@ const Post = ({
       setComments(postInfo.comments);
     }
     setIsFilled(liked);
-    receiveData({ id: userId }, "/api/user/get-user-data")
+    receiveData({ id: userId }, "/api/main_user/get-user-data")
       .then((res) => res.json())
       .then((data) => {
         setUserData({ username: data.username, profileImg: data.profileImg });

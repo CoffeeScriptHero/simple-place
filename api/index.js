@@ -7,7 +7,8 @@ const bodyParser = require("body-parser");
 const PORT = 3080;
 
 const registrationRoutes = require("./routes/registration.routes");
-const userRoutes = require("./routes/user.routes");
+const mainUserRoutes = require("./routes/main_user.routes");
+const usersRoutes = require("./routes/users.routes");
 const postRoutes = require("./routes/post.routes");
 
 const URI = process.env.MONGO_CONNECTION_URL;
@@ -22,8 +23,9 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api/registration", registrationRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/main_user", mainUserRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/users", usersRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on the PORT::${PORT}`);

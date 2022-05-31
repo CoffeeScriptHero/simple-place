@@ -87,7 +87,10 @@ const PostModal = () => {
             setIsFilled(data.post.likes.includes(mainUserId) ? true : false);
             setComments(data.post.comments);
             setLikesArr(data.post.likes);
-            receiveData({ id: data.post.userId }, "/api/user/get-user-data")
+            receiveData(
+              { id: data.post.userId },
+              "/api/main_user/get-user-data"
+            )
               .then((res) => res.json())
 
               .then((data) => {

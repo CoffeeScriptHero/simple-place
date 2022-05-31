@@ -5,7 +5,7 @@ const setNewUser = (userInfo) => (dispatch, getState) => {
 };
 
 const followUser = (id) => async (dispatch, getState) => {
-  fetch("/api/user/follow-user", {
+  fetch("/api/main_user/follow-user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: id, mainId: getState().user.id }),
@@ -16,7 +16,7 @@ const followUser = (id) => async (dispatch, getState) => {
 };
 
 const unfollowUser = (id) => async (dispatch, getState) => {
-  fetch("/api/user/unfollow-user", {
+  fetch("/api/main_user/unfollow-user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: id, mainId: getState().user.id }),
@@ -29,7 +29,7 @@ const unfollowUser = (id) => async (dispatch, getState) => {
 };
 
 const deleteUser = (id) => async (dispatch, getState) => {
-  fetch("/api/user/delete-user", {
+  fetch("/api/main_user/delete-user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: id, mainId: getState().user.id }),

@@ -5,13 +5,13 @@ export const receiveData = async (data, request) => {
   const response = await fetch(request, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ data }),
+    body: JSON.stringify(data),
   });
   return response;
 };
 
 export const setUserData = async (dispatch) => {
-  receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
+  receiveData({ id: getCookie("id") }, "/api/main_user/get-user-data")
     .then((res) => res.json())
     .then((res) => {
       dispatch(
@@ -33,7 +33,7 @@ export const checkUserLogged = async () => {
   let isLogged = false;
 
   if (id) {
-    await receiveData({ id }, "/api/user/check-main-user")
+    await receiveData({ id }, "/api/main_user/check-main-user")
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "allowed") isLogged = true;
@@ -44,25 +44,25 @@ export const checkUserLogged = async () => {
 };
 
 export const changeUsername = async (data) => {
-  const response = await fetch("/api/user/change-username", {
+  const response = await fetch("/api/main_user/change-username", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ data }),
+    body: JSON.stringify(data),
   });
   return response;
 };
 
 export const changeProfileImg = async (data) => {
-  const response = await fetch("/api/user/change-profile-img", {
+  const response = await fetch("/api/main_user/change-profile-img", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ data }),
+    body: JSON.stringify(data),
   });
   return response;
 };
 
 export const deleteProfileImg = async (data) => {
-  const response = await fetch("/api/user/delete-profile-img", {
+  const response = await fetch("/api/main_user/delete-profile-img", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ data }),

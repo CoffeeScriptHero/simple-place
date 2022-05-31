@@ -16,12 +16,12 @@ const UserPost = ({ id, img, likes, comments, description, dispatch }) => {
   const navigate = useNavigate();
 
   const postModalHandler = () => {
-    receiveData({ id: getCookie("id") }, "/api/user/get-user-data")
+    receiveData({ id: getCookie("id") }, "/api/main_user/get-user-data")
       .then((res) => res.json())
       .then((data) => {
         dispatch(
           postModalOperations.setPostInfo({
-            username: data.user,
+            username: data.username,
             profileImg: data.profileImg,
             image: img,
             likes: likes,

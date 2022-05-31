@@ -8,7 +8,7 @@ router.post(
   "/signup",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { username, password } = req.body.data;
+      const { username, password } = req.body;
       const user = await UserModel.findOne({ username }).exec();
 
       if (user) {
@@ -47,7 +47,7 @@ router.post(
   "/login",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { username, password } = req.body.data;
+      const { username, password } = req.body;
       const user = await UserModel.findOne({ username }).exec();
       if (user) {
         if (await bcrypt.compare(password, user.password)) {

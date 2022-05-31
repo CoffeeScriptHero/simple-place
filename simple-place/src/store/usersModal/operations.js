@@ -1,7 +1,7 @@
 import actions from "./actions";
 
 const getFollowers = (username) => async (dispatch, getState) => {
-  fetch("/api/user/get-followers", {
+  fetch("/api/users/get-followers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username }),
@@ -13,7 +13,7 @@ const getFollowers = (username) => async (dispatch, getState) => {
 };
 
 const getFollowing = (username) => async (dispatch, getState) => {
-  fetch("/api/user/get-following", {
+  fetch("/api/users/get-following", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username }),

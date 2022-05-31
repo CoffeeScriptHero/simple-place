@@ -11,7 +11,7 @@ router.post(
   "/add-post",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { description, userId, imageFile } = req.body.data;
+      const { description, userId, imageFile } = req.body;
 
       const POST_ID = uuidv1().slice(0, 8);
       const base64EncodedImage = imageFile.data_url;

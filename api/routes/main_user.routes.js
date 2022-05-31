@@ -13,7 +13,7 @@ router.post(
   "/check-main-user",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { id } = req.body.data;
+      const { id } = req.body;
       const user = await UserModel.findOne({ id }).exec();
 
       if (user) {
@@ -31,7 +31,7 @@ router.post(
   "/get-user-data",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { id } = req.body.data;
+      const { id } = req.body;
       const user = await UserModel.findOne({ id }).exec();
       if (user) {
         res.json({
@@ -55,7 +55,7 @@ router.post(
   "/get-userpage",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { username } = req.body.data;
+      const { username } = req.body;
       const user = await UserModel.findOne({ username }).exec();
       if (user) {
         res.json({
@@ -77,28 +77,10 @@ router.post(
 );
 
 router.post(
-  "/get-all-users",
-  asyncMiddleware(async (req, res, next) => {
-    try {
-      const { id } = req.body.data;
-      const users = await UserModel.find({ id: { $ne: id } }).exec();
-
-      if (users) {
-        res.status(200).json({ message: "allowed", users: users });
-      } else {
-        res.status(400).send({ message: "no such user" });
-      }
-    } catch {
-      res.status(500).send({ message: "unexpected error" });
-    }
-  })
-);
-
-router.post(
   "/change-profile-img",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { userId, imageFile } = req.body.data;
+      const { userId, imageFile } = req.body;
 
       const base64EncodedImage = imageFile.data_url;
 
@@ -151,7 +133,7 @@ router.post(
   "/delete-profile-img",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { userId } = req.body.data;
+      const { userId } = req.body;
 
       const PUBLIC_ID = userId.slice(0, 13);
 
@@ -186,54 +168,6 @@ router.post(
       });
     } catch {
       res.status(500).json({ message: "unexpected error" });
-    }
-  })
-);
-
-router.post(
-  "/get-followers",
-  asyncMiddleware(async (req, res, next) => {
-    try {
-      const { username } = req.body;
-      const user = await UserModel.findOne({ username: username }).exec();
-
-      const followersDataList = await UserModel.find({
-        id: { $in: user.followers },
-      }).exec();
-
-      const followers = followersDataList.map((s) => ({
-        username: s.username,
-        profileImg: s.profileImg,
-        id: s.id,
-      }));
-
-      res.status(200).json({ message: "allowed", followers: followers });
-    } catch {
-      res.status(500).send({ message: "unexpected error" });
-    }
-  })
-);
-
-router.post(
-  "/get-following",
-  asyncMiddleware(async (req, res, next) => {
-    try {
-      const { username } = req.body;
-      const user = await UserModel.findOne({ username: username }).exec();
-
-      const followingDataList = await UserModel.find({
-        id: { $in: user.following },
-      }).exec();
-
-      const following = followingDataList.map((s) => ({
-        username: s.username,
-        profileImg: s.profileImg,
-        id: s.id,
-      }));
-
-      res.status(200).json({ message: "allowed", following: following });
-    } catch {
-      res.status(500).send({ message: "unexpected error" });
     }
   })
 );
@@ -298,7 +232,7 @@ router.post(
   "/change-username",
   asyncMiddleware(async (req, res, next) => {
     try {
-      const { newUsername, userId } = req.body.data;
+      const { newUsername, userId } = req.body;
 
       if (newUsername === undefined || userId === undefined) throw new Error();
 

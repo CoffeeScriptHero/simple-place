@@ -108,7 +108,7 @@ const User = () => {
   };
 
   useEffect(() => {
-    receiveData({ username: username }, "/api/user/get-userpage")
+    receiveData({ username: username }, "/api/main_user/get-userpage")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {

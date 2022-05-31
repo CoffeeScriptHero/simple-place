@@ -21,7 +21,7 @@ const Recommended = () => {
   ];
 
   useEffect(() => {
-    receiveData({ id: getCookie("id") }, "/api/user/get-all-users")
+    receiveData({ id: getCookie("id") }, "/api/users/get-all-users")
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);

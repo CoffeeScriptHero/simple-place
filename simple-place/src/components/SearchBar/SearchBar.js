@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
+import SearchBarUsers from "../SearchBarUsers/SearchBarUsers";
 import {
   Wrapper,
   SearchInput,
@@ -82,6 +83,7 @@ const SearchBar = () => {
           </PlaceholderText>
         </PlaceholderWrapper>
       )}
+      {inputSelected && <SearchBarUsers searchingUser={inputValue} />}
     </Wrapper>
   );
 };
