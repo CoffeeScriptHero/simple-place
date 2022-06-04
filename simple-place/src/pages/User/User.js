@@ -227,8 +227,8 @@ const User = () => {
               onClick={userModalHandler.bind(this, "Followers", username)}
             >
               <Number>
-                {mainUser.user === username && mainUser.followers.length}
-                {mainUser.user !== username && userData.followers.length}
+                {isMainUser && mainUser.followers.length}
+                {!isMainUser && userData.followers.length}
               </Number>{" "}
               followers
             </InfoText>
@@ -243,10 +243,18 @@ const User = () => {
             </InfoText>
           </AccountInfo>
           {!isMainUser && !mainUser.following.includes(userData.id) && (
-            <SubscribeButton onClick={followingHandler}>Follow</SubscribeButton>
+            <SubscribeButton
+              onDoubleClick={(e) => e.preventDefault()}
+              onClick={followingHandler}
+            >
+              Follow
+            </SubscribeButton>
           )}
           {!isMainUser && mainUser.following.includes(userData.id) && (
-            <SubscribeButton onClick={unfollowingHandler}>
+            <SubscribeButton
+              onDoubleClick={(e) => e.preventDefault()}
+              onClick={unfollowingHandler}
+            >
               Unfollow
             </SubscribeButton>
           )}

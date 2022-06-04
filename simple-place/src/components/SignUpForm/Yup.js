@@ -37,7 +37,7 @@ export const signUpSchema = yup.object().shape({
         Please set a password shorter than 26 characters.
       </RequiredMessage>
     )
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, {
+    .matches(/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/, {
       message: (
         <RequiredMessage>
           Hmm, that password doesn't look right.
@@ -89,7 +89,7 @@ export const logInSchema = yup.object().shape({
         Please set a password shorter than 26 characters.
       </RequiredMessage>
     )
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, {
+    .matches(/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/, {
       message: (
         <RequiredMessage>
           Hmm, that password doesn't look right.

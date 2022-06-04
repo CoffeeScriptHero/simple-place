@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Name = styled(Link)`
+export const Wrapper = styled.div`
+  display: inline-block;
+`;
+
+export const NameLink = styled(Link)`
   font-weight: ${(props) => props.weight || "400"};
   font-size: ${(props) => props.fontSize || "16px"};
   margin: ${(props) => props.margin || "0"};
@@ -10,4 +14,11 @@ export const Name = styled(Link)`
   &:hover {
     text-decoration: ${(props) => props.decoration || "none"};
   }
+`;
+
+export const Name = styled.span`
+  font-weight: ${(props) => props.weight || "400"};
+  font-size: ${(props) => props.fontSize || "16px"};
+  margin: ${(props) => props.margin || "0"};
+  color: black;
 `;

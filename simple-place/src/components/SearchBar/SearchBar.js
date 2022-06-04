@@ -11,6 +11,7 @@ import {
 const SearchBar = () => {
   const [inputSelected, setInputSelected] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [usersLoaded, setUsersLoaded] = useState(false);
   const searchInput = useRef(null);
 
   const clearSearchInput = () => {
@@ -40,9 +41,14 @@ const SearchBar = () => {
     setInputSelected(false);
   };
 
-  const searchInputSelect = () => {
+  const selectInputHandler = () => {
     if (!inputSelected) searchInput.current.value = inputValue;
     setInputSelected(true);
+  };
+
+  const changeInputHandler = () => {
+    setInputValue(searchInput.current.value);
+    setUsersLoaded(false);
   };
 
   return (
@@ -51,7 +57,8 @@ const SearchBar = () => {
         ref={searchInput}
         placeholder={inputSelected ? "Search" : ""}
         type="text"
-        onSelect={searchInputSelect}
+        onSelect={selectInputHandler}
+        onChange={changeInputHandler}
       ></SearchInput>
       {inputSelected && (
         <Icon
@@ -83,7 +90,13 @@ const SearchBar = () => {
           </PlaceholderText>
         </PlaceholderWrapper>
       )}
-      {inputSelected && <SearchBarUsers searchingUser={inputValue} />}
+      {inputSelected && (
+        <SearchBarUsers
+          usernameChunk={inputValue}
+          usersLoaded={usersLoaded}
+          setUsersLoaded={setUsersLoaded}
+        />
+      )}
     </Wrapper>
   );
 };

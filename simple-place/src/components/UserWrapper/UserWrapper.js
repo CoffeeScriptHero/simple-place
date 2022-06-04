@@ -11,22 +11,30 @@ const UserWrapper = ({
   weight = "500",
   size = "34px",
   isComment = false,
+  isLink = true,
+  activeBackground = "white",
   ...rest
 }) => {
   return (
-    <Wrapper isComment={isComment} {...rest}>
+    <Wrapper
+      activeBackground={activeBackground}
+      isComment={isComment}
+      {...rest}
+    >
       <ProfileIcon
         cursor="pointer"
         username={username}
         src={profileImg}
         width={size}
         height={size}
+        isLink={isLink}
       />
       <Username
         username={username}
         margin={margin}
         weight={weight}
         fontSize={fontSize}
+        isLink={isLink}
       />
     </Wrapper>
   );

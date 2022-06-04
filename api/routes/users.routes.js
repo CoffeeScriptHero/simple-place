@@ -73,15 +73,30 @@ router.post(
   asyncMiddleware(async (req, res, next) => {
     try {
       const { usernameChunk } = req.body;
-      const matchedUsers = await UserModel.findAll({
-        username: { $regex: usernameChunk },
+
+      let regex;
+      try {
+        if (usernameChunk.length) {
+          regex = usernameChunk === "." ? "/" : new RegExp(usernameChunk, "i");
+        } else {
+          regex = "/";
+        }
+      } catch {
+        console.log(regex);
+      }
+
+      const matchedUsers = await UserModel.find({
+        username: { $regex: regex ? regex : "/" },
       });
 
-      console.log(usernameChunk, matchedUsers);
+      const matchedUsersList = matchedUsers.map((u) => ({
+        profileImg: u.profileImg,
+        username: u.username,
+      }));
 
       res
         .status(200)
-        .json({ status: 200, message: "allowed", users: matchedUsers });
+        .json({ status: 200, message: "allowed", users: matchedUsersList });
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }

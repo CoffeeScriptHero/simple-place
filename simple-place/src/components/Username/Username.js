@@ -1,11 +1,16 @@
 import React from "react";
-import { Name } from "./Username-styles";
+import { Wrapper, Name, NameLink } from "./Username-styles";
 
-const Username = ({ username, ...rest }) => {
+const Username = ({ username, isLink = true, ...rest }) => {
   return (
-    <Name {...rest} to={`/${username}`}>
-      {username}
-    </Name>
+    <Wrapper>
+      {isLink && (
+        <NameLink {...rest} to={`/${username}`}>
+          {username}
+        </NameLink>
+      )}
+      {!isLink && <Name {...rest}>{username}</Name>}
+    </Wrapper>
   );
 };
 

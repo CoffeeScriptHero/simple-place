@@ -177,15 +177,25 @@ router.post(
   asyncMiddleware(async (req, res, next) => {
     try {
       const { mainId, userId } = req.body;
-      await UserModel.updateOne(
-        { id: mainId },
-        { $push: { following: userId } }
-      );
-      await UserModel.updateOne(
-        { id: userId },
-        { $push: { followers: mainId } }
-      );
-      res.status(200).send({ message: "success" });
+
+      const alreadyFollowed = await UserModel.findOne({
+        id: mainId,
+        following: { $in: userId },
+      });
+
+      if (!alreadyFollowed) {
+        await UserModel.updateOne(
+          { id: mainId },
+          { $push: { following: userId } }
+        );
+        await UserModel.updateOne(
+          { id: userId },
+          { $push: { followers: mainId } }
+        );
+        res.status(200).send({ message: "allowed" });
+      } else {
+        res.status(400).send({ message: "denied" });
+      }
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }
@@ -197,6 +207,7 @@ router.post(
   asyncMiddleware(async (req, res, next) => {
     try {
       const { mainId, userId } = req.body;
+
       await UserModel.updateOne(
         { id: mainId },
         { $pull: { following: userId } }

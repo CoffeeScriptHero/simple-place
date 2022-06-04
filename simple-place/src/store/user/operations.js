@@ -9,10 +9,14 @@ const followUser = (id) => async (dispatch, getState) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: id, mainId: getState().user.id }),
-  }).then(() => {
-    getState().user.following.push(id);
-    dispatch(actions.updateModal());
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.message === "allowed") {
+        getState().user.following.push(id);
+        dispatch(actions.updateModal());
+      }
+    });
 };
 
 const unfollowUser = (id) => async (dispatch, getState) => {

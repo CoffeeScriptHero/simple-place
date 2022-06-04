@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import {
   FormikWrapper,
@@ -50,7 +50,6 @@ export const SignUpForm = ({}) => {
               user: values.username,
               id: res.id,
               profileImg: res.profileImg,
-              pageNotFound: false,
               following: res.following,
               followers: res.followers,
               posts: res.posts,

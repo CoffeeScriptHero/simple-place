@@ -66,11 +66,13 @@ const CommentForm = ({ postId, setComments, isModal, ...rest }) => {
   };
 
   useEffect(() => {
-    document.addEventListener("click", closePickerHandler);
-    return () => {
-      document.removeEventListener("click", closePickerHandler);
-    };
-  });
+    if (showPicker) {
+      document.addEventListener("click", closePickerHandler);
+      return () => {
+        document.removeEventListener("click", closePickerHandler);
+      };
+    }
+  }, [showPicker]);
 
   return (
     <Form {...rest}>

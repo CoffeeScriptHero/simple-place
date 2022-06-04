@@ -6,4 +6,7 @@ export const Wrapper = styled.div`
   padding: ${(props) => props.padding || "0"};
   align-items: center;
   pointer-events: ${(props) => (props.disableClick ? "none" : "auto")};
+  &:active {
+    background: ${(props) => props.activeBackground || "none"};
+  }
 `;
