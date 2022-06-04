@@ -48,6 +48,21 @@ router.post(
   })
 );
 
+router.post(
+  "/delete-post",
+  asyncMiddleware(async (req, res, next) => {
+    try {
+      const { postId } = req.body;
+
+      await PostModel.deleteOne({ id: postId });
+
+      res.status(200).json({ message: "success" });
+    } catch {
+      res.status(500).json({ message: "unexpected error" });
+    }
+  })
+);
+
 router.get(
   "/get-all-posts",
   asyncMiddleware(async (req, res, next) => {

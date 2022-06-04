@@ -25,6 +25,7 @@ const Posts = () => {
       desc={p.description}
       postComments={p.comments}
       setShowModal={setShowModal}
+      setPosts={setPosts}
     />
   ));
 
@@ -36,7 +37,7 @@ const Posts = () => {
       .then((data) => {
         setPosts(data.posts.reverse());
       });
-  }, [user]);
+  }, [user, posts]);
 
   return (
     <Section>

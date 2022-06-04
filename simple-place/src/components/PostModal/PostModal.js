@@ -10,13 +10,15 @@ import {
   PostFooter,
   Image,
 } from "./PostModal-styles";
+import { DeleteButton } from "../Post/Post-styles";
 import { SubscribeButton } from "../../App-styles";
 import UserWrapper from "../UserWrapper/UserWrapper";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getPost } from "../../services/PostsService";
+import { deletePost, getPost } from "../../services/PostsService";
 import { receiveData } from "../../services/UserService";
 import { useSelector, useDispatch } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
+import { confirmationModalOperations } from "../../store/confirmationModal";
 import { userOperations, userSelectors } from "../../store/user";
 import Comments from "../Comments/Comments";
 import Comment from "../Comment/Comment";
@@ -46,15 +48,15 @@ const PostModal = () => {
   const [likesArr, setLikesArr] = useState(
     postData.likes ? postData.likes : []
   );
+  const mainPath = path.replace(`/p/${postId}`, "");
   const mainUser = useSelector(userSelectors.getUser());
-  const mainUsername = mainUser.user;
+  const isMainUser = mainUser.user === postData.username;
   const following = useSelector(userSelectors.getUser()).following;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const closeModal = () => {
     if (!showModal) {
-      const mainPath = path.replace(`/p/${postId}`, "");
       dispatch(postModalOperations.clearPostInfo());
       if (mainPath !== "") navigate(`${mainPath}`);
       else navigate("/");
@@ -73,6 +75,29 @@ const PostModal = () => {
 
   const unfollowingHandler = () => {
     dispatch(userOperations.unfollowUser(postData.userId));
+  };
+
+  const deletePostHandler = () => {
+    deletePost(postId)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          dispatch(confirmationModalOperations.closeModal());
+          closeModal();
+        }
+      });
+  };
+
+  const showConfirmationModal = () => {
+    dispatch(
+      confirmationModalOperations.customizeModal({
+        title: "Delete post?",
+        warning: "You can't restore it",
+        actionBtnText: "Delete",
+        actionBtnHandler: deletePostHandler,
+      })
+    );
+    dispatch(confirmationModalOperations.setShowModal(true));
   };
 
   useEffect(() => {
@@ -130,18 +155,21 @@ const PostModal = () => {
                 profileImg={postData.profileImg}
                 username={postData.username}
               />
-              {mainUsername !== postData.username &&
-                !following.includes(postData.userId) && (
-                  <SubscribeButton onClick={followingHandler}>
-                    Follow
-                  </SubscribeButton>
-                )}
-              {mainUsername !== postData.username &&
-                following.includes(postData.userId) && (
-                  <SubscribeButton onClick={unfollowingHandler}>
-                    Unfollow
-                  </SubscribeButton>
-                )}
+              {!isMainUser && !following.includes(postData.userId) && (
+                <SubscribeButton onClick={followingHandler}>
+                  Follow
+                </SubscribeButton>
+              )}
+              {!isMainUser && following.includes(postData.userId) && (
+                <SubscribeButton onClick={unfollowingHandler}>
+                  Unfollow
+                </SubscribeButton>
+              )}
+              {isMainUser && (
+                <DeleteButton onClick={showConfirmationModal}>
+                  Delete
+                </DeleteButton>
+              )}
             </PostHeader>
             <PostBody>
               {postData.description && (

@@ -6,6 +6,7 @@ import {
   Footer,
   Image,
   IconsWrapper,
+  DeleteButton,
   Description,
   ShowMore,
 } from "./Post-styles";
@@ -18,7 +19,8 @@ import UserWrapper from "../UserWrapper/UserWrapper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postModalOperations, postModalSelectors } from "../../store/postModal";
-import { likeHandler } from "../../services/PostsService";
+import { confirmationModalOperations } from "../../store/confirmationModal";
+import { deletePost, likeHandler } from "../../services/PostsService";
 import LikesSection from "../LikesSection/LikesSection";
 import { modalHandler } from "../../services/UsersModalService";
 
@@ -44,6 +46,7 @@ const Post = ({
   const postInfo = useSelector(postModalSelectors.getModalInfo());
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isMainUser = mainUserId === userId;
 
   useEffect(() => {
     if (postInfo.comments && postInfo.postId === postId) {
@@ -56,6 +59,29 @@ const Post = ({
         setUserData({ username: data.username, profileImg: data.profileImg });
       });
   }, [postInfo.comments, liked]);
+
+  const deletePostHandler = () => {
+    deletePost(postId)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          console.log("success");
+          dispatch(confirmationModalOperations.closeModal());
+        }
+      });
+  };
+
+  const showConfirmationModal = () => {
+    dispatch(
+      confirmationModalOperations.customizeModal({
+        title: "Delete post?",
+        warning: "You can't restore it",
+        actionBtnText: "Delete",
+        actionBtnHandler: deletePostHandler,
+      })
+    );
+    dispatch(confirmationModalOperations.setShowModal(true));
+  };
 
   const postModalHandler = () => {
     dispatch(
@@ -87,6 +113,11 @@ const Post = ({
           profileImg={userData.profileImg}
           username={userData.username}
         />
+        {isMainUser && (
+          <DeleteButton pdRight="20px" onClick={showConfirmationModal}>
+            Delete
+          </DeleteButton>
+        )}
       </Header>
       <Main>
         <Image src={img}></Image>

@@ -56,6 +56,15 @@ export const createPost = async (data) => {
   return response;
 };
 
+export const deletePost = async (postId) => {
+  const response = await fetch("/api/post/delete-post", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ postId }),
+  });
+  return response;
+};
+
 export const likeHandler = (
   setIsFilled,
   isFilled,

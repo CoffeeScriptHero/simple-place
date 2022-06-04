@@ -12,7 +12,21 @@ export const Article = styled.article`
 `;
 
 export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
   padding: 15px 0 15px ${PD_LEFT};
+`;
+
+export const DeleteButton = styled.button`
+  border: none;
+  margin-left: 10px;
+  padding-right: ${(props) => props.pdRight || "0"};
+  height: 25px;
+  font-size: 14px;
+  background: transparent;
+  color: #5551ff;
+  line-height: normal;
+  cursor: pointer;
 `;
 
 export const Main = styled.section``;
