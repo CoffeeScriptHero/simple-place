@@ -89,7 +89,7 @@ const Comment = ({
         )}
         {(mainUserId === commentUserId || userId === mainUserId) && (
           <AdditionalText remove onClick={removeCommentHandler}>
-            remove
+            delete
           </AdditionalText>
         )}
       </ContentWrapper>

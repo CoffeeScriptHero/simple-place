@@ -260,7 +260,7 @@ const User = () => {
           )}
         </UserInfo>
       </InfoWrapper>
-      <UserPosts posts={posts} postsLoaded={postsLoaded} />
+      <UserPosts userId={userData.id} posts={posts} postsLoaded={postsLoaded} />
       <Outlet />
     </UserContainer>
   );

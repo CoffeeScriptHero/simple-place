@@ -12,11 +12,19 @@ import { postModalOperations } from "../../store/postModal";
 import { receiveData } from "../../services/UserService";
 import { getCookie } from "../../services/CookiesService";
 
-const UserPost = ({ id, img, likes, comments, description, dispatch }) => {
+const UserPost = ({
+  userId,
+  id,
+  img,
+  likes,
+  comments,
+  description,
+  dispatch,
+}) => {
   const navigate = useNavigate();
 
   const postModalHandler = () => {
-    receiveData({ id: getCookie("id") }, "/api/main_user/get-user-data")
+    receiveData({ id: userId }, "/api/main_user/get-user-data")
       .then((res) => res.json())
       .then((data) => {
         dispatch(

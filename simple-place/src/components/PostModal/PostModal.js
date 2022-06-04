@@ -48,7 +48,6 @@ const PostModal = () => {
   const [likesArr, setLikesArr] = useState(
     postData.likes ? postData.likes : []
   );
-  const mainPath = path.replace(`/p/${postId}`, "");
   const mainUser = useSelector(userSelectors.getUser());
   const isMainUser = mainUser.user === postData.username;
   const following = useSelector(userSelectors.getUser()).following;
@@ -57,6 +56,7 @@ const PostModal = () => {
 
   const closeModal = () => {
     if (!showModal) {
+      const mainPath = path.replace(`/p/${postId}`, "");
       dispatch(postModalOperations.clearPostInfo());
       if (mainPath !== "") navigate(`${mainPath}`);
       else navigate("/");
@@ -102,6 +102,7 @@ const PostModal = () => {
 
   useEffect(() => {
     if (postData.username === null) {
+      console.log("null");
       getPost(postId)
         .then((res) => res.json())
         .then((data) => {
@@ -174,8 +175,10 @@ const PostModal = () => {
             <PostBody>
               {postData.description && (
                 <Comment
-                  mainUserId={postData.userId}
+                  mainUserId={mainUserId}
                   username={postData.username}
+                  userId={postData.userId}
+                  commentUserId={postData.userId}
                   profileImg={postData.profileImg}
                   text={postData.description}
                   isDescription={true}

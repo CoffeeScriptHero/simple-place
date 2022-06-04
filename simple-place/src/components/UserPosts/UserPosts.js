@@ -9,7 +9,7 @@ import UserPost from "../UserPost/UserPost";
 import Loader from "../Loader/Loader";
 import { useDispatch } from "react-redux";
 
-const UserPosts = ({ posts, postsLoaded }) => {
+const UserPosts = ({ userId, posts, postsLoaded }) => {
   const dispatch = useDispatch();
 
   const postsList = posts.map((p) => (
@@ -19,6 +19,7 @@ const UserPosts = ({ posts, postsLoaded }) => {
       comments={p.comments}
       description={p.description}
       id={p.id}
+      userId={userId}
       key={p.id}
       dispatch={dispatch}
     ></UserPost>

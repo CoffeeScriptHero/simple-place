@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const AppWrapper = styled.div`
@@ -9,9 +10,13 @@ export const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled(Link)`
   margin: 0;
   font-size: 20px;
+  user-select: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
   font-family: Quicksand;
   font-weight: bold;
 `;

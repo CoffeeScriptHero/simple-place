@@ -20,7 +20,7 @@ const Header = () => {
     <HeaderWrapper>
       <MainContainer>
         <Nav>
-          <Logo>SimplePlace</Logo>
+          <Logo to="/">SimplePlace</Logo>
           <SearchBar />
           <IconsWrapper>
             <Icon path="/" type="home" />
