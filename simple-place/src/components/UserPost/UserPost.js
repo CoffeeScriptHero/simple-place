@@ -10,7 +10,6 @@ import Icon from "../Icon/Icon";
 import { useNavigate } from "react-router-dom";
 import { postModalOperations } from "../../store/postModal";
 import { receiveData } from "../../services/UserService";
-import { getCookie } from "../../services/CookiesService";
 
 const UserPost = ({
   userId,
@@ -33,7 +32,7 @@ const UserPost = ({
             profileImg: data.profileImg,
             image: img,
             likes: likes,
-            userId: data.id,
+            userId: userId,
             postId: id,
             comments: comments,
             description: description,

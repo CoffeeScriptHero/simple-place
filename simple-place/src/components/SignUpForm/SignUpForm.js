@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import {
   FormikWrapper,
@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Loader from "../Loader/Loader.js";
 
-export const SignUpForm = ({}) => {
+export const SignUpForm = () => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -40,25 +40,25 @@ export const SignUpForm = ({}) => {
       .then((res) => {
         return res.json();
       })
-      .then((res) => {
-        const message = res.message;
+      .then((data) => {
+        const message = data.message;
 
         if (message === "allowed") {
           setShowError(false);
           dispatch(
             userOperations.setNewUser({
               user: values.username,
-              id: res.id,
-              profileImg: res.profileImg,
-              following: res.following,
-              followers: res.followers,
-              posts: res.posts,
+              id: data.id,
+              profileImg: data.profileImg,
+              following: data.following,
+              followers: data.followers,
+              posts: data.posts,
             })
           );
           setCookie("username", values.username, {
             expires: new Date("12/31/40"),
           });
-          setCookie("id", res.id, { expires: new Date("12/31/40") });
+          setCookie("id", data.id, { expires: new Date("12/31/40") });
           navigate("/");
           return;
         }
@@ -84,7 +84,7 @@ export const SignUpForm = ({}) => {
         {(formikProps) => {
           return (
             <Form noValidate>
-              <SignUpLogo>SimplePlace</SignUpLogo>
+              <SignUpLogo to="/">SimplePlace</SignUpLogo>
               {showError && <RequiredMessage>{errorMessage}</RequiredMessage>}
               <div>
                 <Field

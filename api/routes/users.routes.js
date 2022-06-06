@@ -3,17 +3,25 @@ const UserModel = require("../models/UserModel");
 const asyncMiddleware = require("../middlewares/asyncMiddleware");
 
 router.post(
-  "/get-all-users",
+  "/get-recommended-users",
   asyncMiddleware(async (req, res, next) => {
     try {
       const { id } = req.body;
-      const users = await UserModel.find({ id: { $ne: id } }).exec();
+      const mainUserFollowersIds = (await UserModel.findOne({ id })).followers;
+      const notFollowers = await UserModel.find({
+        id: { $nin: [...mainUserFollowersIds, id] },
+      });
+      let suggestedUsers = [];
 
-      if (users) {
-        res.status(200).json({ message: "allowed", users: users });
+      if (notFollowers.length > 14) {
+        for (let u = 0; u < 14; u++) {
+          suggestedUsers.push(notFollowers[u]);
+        }
       } else {
-        res.status(400).send({ message: "no such user" });
+        suggestedUsers = [...notFollowers];
       }
+
+      res.status(200).json({ message: "allowed", users: suggestedUsers });
     } catch {
       res.status(500).send({ message: "unexpected error" });
     }

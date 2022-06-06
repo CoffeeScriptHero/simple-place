@@ -21,7 +21,7 @@ const Recommended = () => {
   ];
 
   useEffect(() => {
-    receiveData({ id: getCookie("id") }, "/api/users/get-all-users")
+    receiveData({ id: getCookie("id") }, "/api/users/get-recommended-users")
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);
@@ -39,12 +39,10 @@ const Recommended = () => {
 
   return (
     <RecommendedWrapper>
-      {users.length > 0 && (
-        <Inscription>
-          Recommended for you{" "}
-          {emojisArray[Math.floor(Math.random() * emojisArray.length)]}
-        </Inscription>
-      )}
+      <Inscription>
+        Recommended for you{" "}
+        {emojisArray[Math.floor(Math.random() * emojisArray.length)]}
+      </Inscription>
       {usersList}
     </RecommendedWrapper>
   );

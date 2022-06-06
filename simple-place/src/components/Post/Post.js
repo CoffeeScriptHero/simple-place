@@ -65,7 +65,6 @@ const Post = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "success") {
-          console.log("success");
           dispatch(confirmationModalOperations.closeModal());
         }
       });

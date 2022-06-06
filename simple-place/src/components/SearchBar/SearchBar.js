@@ -23,7 +23,7 @@ const SearchBar = () => {
   const searchBarHandler = (e) => {
     if (e.target.nodeName === "svg" || e.target.nodeName === "path") {
       clearSearchInput();
-    } else if (e.target !== searchInput.current) {
+    } else if (searchInput.current && e.target !== searchInput.current) {
       searchInputBlur();
     }
   };

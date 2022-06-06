@@ -10,12 +10,15 @@ export const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const Logo = styled(Link)`
+export const LinkMessage = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const Logo = styled(LinkMessage)`
   margin: 0;
   font-size: 20px;
   user-select: none;
-  cursor: pointer;
-  text-decoration: none;
   color: black;
   font-family: Quicksand;
   font-weight: bold;

@@ -87,11 +87,12 @@ const Comment = ({
             {likesArr.length} {likesArr.length === 1 ? "like" : "likes"}
           </AdditionalText>
         )}
-        {(mainUserId === commentUserId || userId === mainUserId) && (
-          <AdditionalText remove onClick={removeCommentHandler}>
-            delete
-          </AdditionalText>
-        )}
+        {(mainUserId === commentUserId || userId === mainUserId) &&
+          !isDescription && (
+            <AdditionalText remove onClick={removeCommentHandler}>
+              delete
+            </AdditionalText>
+          )}
       </ContentWrapper>
     </CommentWrapper>
   );
