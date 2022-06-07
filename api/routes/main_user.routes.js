@@ -232,6 +232,10 @@ router.post(
         { id: mainId },
         { $pull: { followers: userId } }
       );
+      await UserModel.updateOne(
+        { id: userId },
+        { $pull: { following: mainId } }
+      );
       res.status(200).send({ message: "success" });
     } catch {
       res.status(500).send({ message: "unexpected error" });

@@ -7,18 +7,21 @@ router.post(
   asyncMiddleware(async (req, res, next) => {
     try {
       const { id } = req.body;
-      const mainUserFollowersIds = (await UserModel.findOne({ id })).followers;
-      const notFollowers = await UserModel.find({
-        id: { $nin: [...mainUserFollowersIds, id] },
+      const mainUserFollowingIds = (await UserModel.findOne({ id })).following;
+      const notFollowing = await UserModel.find({
+        id: { $nin: [...mainUserFollowingIds, id] },
       });
       let suggestedUsers = [];
 
-      if (notFollowers.length > 14) {
+      if (notFollowing.length > 14) {
         for (let u = 0; u < 14; u++) {
-          suggestedUsers.push(notFollowers[u]);
+          suggestedUsers.push(notFollowing[u]);
         }
+      } else if (notFollowing.length < 5) {
+        const users = await UserModel.find({}).limit(10);
+        suggestedUsers = [...users];
       } else {
-        suggestedUsers = [...notFollowers];
+        suggestedUsers = [...notFollowing];
       }
 
       res.status(200).json({ message: "allowed", users: suggestedUsers });

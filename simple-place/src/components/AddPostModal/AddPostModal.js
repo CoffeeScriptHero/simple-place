@@ -16,7 +16,7 @@ import { userSelectors, userOperations } from "../../store/user";
 import { confirmationModalOperations } from "../../store/confirmationModal";
 
 const AddPostModal = ({ setShowModal }) => {
-  const isDesktopRes = window.screen.width >= 1200;
+  const isDesktopRes = window.screen.width >= 1460;
   const [images, setImages] = useState([]);
   const [sizes, setSizes] = useState({
     width: isDesktopRes ? "680px" : "545px",
@@ -120,6 +120,7 @@ const AddPostModal = ({ setShowModal }) => {
               images={images}
               setImages={setImages}
               setStage={setStage}
+              height={parseInt(sizes.height)}
             />
           )}
           {stage == 3 && (
@@ -129,6 +130,8 @@ const AddPostModal = ({ setShowModal }) => {
                 setImages={setImages}
                 setStage={setStage}
                 width={parseInt(sizes.width) - 340}
+                height={parseInt(sizes.height)}
+                lastStage={true}
                 // whole modal width on 3 stage - description wrapper width
               />
               <AddPostDescription

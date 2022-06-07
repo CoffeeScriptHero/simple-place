@@ -8,7 +8,6 @@ export const ModalContent = styled.div`
   background: white;
   border-radius: 3%;
   overflow-x: hidden;
-  font-family: Segoe UI;
 `;
 
 export const ModalHeader = styled.div`

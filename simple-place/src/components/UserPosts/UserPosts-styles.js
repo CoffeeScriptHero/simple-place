@@ -14,7 +14,6 @@ export const NoUserWrapper = styled.div`
 `;
 
 export const NoUserText = styled.span`
-  font-family: Segoe UI;
   font-size: 18px;
 `;
 

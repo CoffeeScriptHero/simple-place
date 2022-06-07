@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 340px;
-  border-left: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   display: ${(props) => (props.publish ? "flex" : "block")};
   justify-content: end;
 `;

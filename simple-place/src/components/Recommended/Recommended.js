@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RecommendedWrapper, Inscription } from "./Recommended-styles";
+import {
+  RecommendedWrapper,
+  Inscription,
+  UsersWrapper,
+} from "./Recommended-styles";
 import { receiveData } from "../../services/UserService.js";
 import { getCookie } from "../../services/CookiesService";
 import Recommendation from "../Recommendation/Recommendation";
@@ -43,7 +47,7 @@ const Recommended = () => {
         Recommended for you{" "}
         {emojisArray[Math.floor(Math.random() * emojisArray.length)]}
       </Inscription>
-      {usersList}
+      {users.length > 0 && <UsersWrapper>{usersList}</UsersWrapper>}
     </RecommendedWrapper>
   );
 };

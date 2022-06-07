@@ -6,21 +6,23 @@ export const UploadImgWrapper = styled.div`
   width: ${(props) => (props.width ? props.width : "100%")};
   justify-content: center;
   overflow: hidden;
-  height: calc(720px - 44px);
+  height: ${(props) => props.height || "calc(720px - 44px)"};
+  border-right: ${(props) =>
+    props.lastStage ? "1px solid rgba(var(--b6a, 219, 219, 219), 1)" : "none"};
 `;
 
 export const InnerUploadWrapper = styled.div``;
 
 export const ImageWrapper = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src || "#",
 }))`
-  display: block;
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: contain;
 `;
 

@@ -23,15 +23,16 @@ export const ModalContent = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
+  background: #000;
   @media (min-width: 1400px) {
     width: 851px;
     height: 851px;
   }
-  @media (max-width: 1400px) {
-    width: 851px;
-    height: 710px;
+  @media (max-width: 1550px) {
+    min-width: 500px;
+    max-width: 715px;
+    height: 715px;
   }
-  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,19 +42,20 @@ export const ImageWrapper = styled.div`
 export const Image = styled.img.attrs((props) => ({
   src: props.src || "#",
 }))`
+  height: 100%;
   width: 100%;
+  object-fit: contain;
 `;
 
 export const PostContent = styled.div`
-  @media (min-width: 1400px) {
+  @media (min-width: 1550px) {
     width: 500px;
     height: 851px;
   }
-  @media (max-width: 1400px) {
+  @media (max-width: 1550px) {
     width: 500px;
-    height: 710px;
+    height: 715px;
   }
-  height: 710px;
   background: #fff;
 `;
 
@@ -65,7 +67,12 @@ export const PostHeader = styled.header`
 
 export const PostBody = styled.div`
   padding: 16px 35px 16px ${PD_LEFT};
-  height: 600px;
+  @media (min-width: 1550px) {
+    height: 600px;
+  }
+  @media (max-width: 1550px) {
+    height: 470px;
+  }
   border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   scrollbar-width: none;
   -ms-overflow-style: none;
