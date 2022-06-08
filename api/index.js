@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const path = require("path");
 const PORT = 3080;
 
 const registrationRoutes = require("./routes/registration.routes");
@@ -21,6 +22,12 @@ mongoose
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 app.use("/api/registration", registrationRoutes);
 app.use("/api/main_user", mainUserRoutes);
