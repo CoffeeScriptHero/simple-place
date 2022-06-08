@@ -12,6 +12,10 @@ from {
   }
 `;
 
+export const Wrapper = styled.div`
+  text-align: center;
+`;
+
 export const CircleLoader = styled.div`
   display: block;
   position: absolute;
@@ -26,4 +30,10 @@ export const CircleLoader = styled.div`
   border-bottom: 4px black solid;
   border-radius: 50%;
   animation: ${spin} 1s infinite linear;
+`;
+
+export const PostsLoader = styled(CircleLoader)`
+  display: inline-block;
+  position: static;
+  margin: 30px;
 `;

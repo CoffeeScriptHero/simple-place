@@ -10,6 +10,7 @@ import Icon from "../Icon/Icon";
 import { useNavigate } from "react-router-dom";
 import { postModalOperations } from "../../store/postModal";
 import { receiveData } from "../../services/UserService";
+import { userOperations } from "../../store/user";
 
 const UserPost = ({
   userId,

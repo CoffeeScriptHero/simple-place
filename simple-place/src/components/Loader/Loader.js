@@ -1,8 +1,13 @@
 import React from "react";
-import { CircleLoader } from "./Loader-styles";
+import { Wrapper, CircleLoader, PostsLoader } from "./Loader-styles";
 
-const Loader = () => {
-  return <CircleLoader></CircleLoader>;
+const Loader = ({ postsLoader = false }) => {
+  return (
+    <Wrapper>
+      {!postsLoader && <CircleLoader></CircleLoader>}
+      {postsLoader && <PostsLoader></PostsLoader>}
+    </Wrapper>
+  );
 };
 
 export default Loader;

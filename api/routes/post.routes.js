@@ -63,15 +63,26 @@ router.post(
   })
 );
 
-router.get(
-  "/get-all-posts",
+router.post(
+  "/get-posts",
   asyncMiddleware(async (req, res, next) => {
-    const posts = await PostModel.find({}).exec();
+    try {
+      const { from, step } = req.body;
 
-    if (posts) {
-      res.status(200).json({ message: "allowed", posts });
-    } else {
-      res.status(400).json({ message: "no posts" });
+      const totalPostsNumber = await PostModel.count();
+
+      const posts = (await PostModel.find({}))
+        .reverse()
+        .slice(from, from + step);
+
+      const uniquePosts = [...new Set(posts)];
+
+      res.status(200).json({
+        hasMore: from >= totalPostsNumber ? false : true,
+        posts: uniquePosts,
+      });
+    } catch {
+      res.status(500).json({ message: "unexpected error" });
     }
   })
 );

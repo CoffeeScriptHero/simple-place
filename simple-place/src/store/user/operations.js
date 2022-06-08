@@ -4,6 +4,10 @@ const setNewUser = (userInfo) => (dispatch, getState) => {
   dispatch(actions.saveUser(userInfo));
 };
 
+const clearPost = () => (dispatch, getState) => {
+  dispatch(actions.clearPost());
+};
+
 const followUser = (id) => async (dispatch, getState) => {
   fetch("/api/main_user/follow-user", {
     method: "POST",
@@ -59,6 +63,7 @@ const updateProfilePic = (profilePic) => (dispatch, getState) => {
 
 const operationsObj = {
   setNewUser,
+  clearPost,
   followUser,
   unfollowUser,
   deleteUser,

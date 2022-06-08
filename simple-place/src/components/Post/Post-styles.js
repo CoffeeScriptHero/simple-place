@@ -38,6 +38,7 @@ export const Image = styled.img.attrs((props) => ({
 }))`
   width: 100%;
   height: 100%;
+  max-height: 1200px;
 `;
 
 export const IconsWrapper = styled.div`

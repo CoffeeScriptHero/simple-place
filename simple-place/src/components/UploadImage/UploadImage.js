@@ -40,7 +40,7 @@ const UploadImage = ({
           maxNumber={1}
           dataURLKey="data_url"
           resolutionWidth={120}
-          resolutionHeight={150}
+          resolutionHeight={300}
           resolutionType="more"
         >
           {({ imageList, errors, onImageUpload, onImageRemove, dragProps }) => (

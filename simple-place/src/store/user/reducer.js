@@ -24,7 +24,13 @@ const reducer = (state = initialState, action) => {
     case types.ADD_POST: {
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: [action.payload],
+      };
+    }
+    case types.CLEAR_POST: {
+      return {
+        ...state,
+        posts: [],
       };
     }
     case types.UPDATE_USERNAME: {

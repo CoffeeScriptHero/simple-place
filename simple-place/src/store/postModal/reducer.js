@@ -9,12 +9,14 @@ const initialState = {
   userId: null,
   comments: null,
   description: null,
+  deleteHandler: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_POST_INFO: {
       return {
+        ...state,
         ...action.payload,
       };
     }

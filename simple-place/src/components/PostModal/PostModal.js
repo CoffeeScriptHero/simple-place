@@ -101,7 +101,7 @@ const PostModal = () => {
   };
 
   useEffect(() => {
-    if (postData.username === null) {
+    if (!postData.username) {
       getPost(postId)
         .then((res) => res.json())
         .then((data) => {

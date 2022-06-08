@@ -26,6 +26,9 @@ export const TextAreaWrapper = styled.div`
 `;
 
 export const TextArea = styled.textarea`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   outline: none;
   border: none;
   resize: none;

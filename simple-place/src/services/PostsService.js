@@ -3,6 +3,15 @@ export const getAllPosts = async () => {
   return response;
 };
 
+export const getPosts = async (from, step) => {
+  const response = await fetch("/api/post/get-posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ from, step }),
+  });
+  return response;
+};
+
 export const getUserPosts = async (id) => {
   const response = await fetch("/api/post/get-user-posts", {
     method: "POST",

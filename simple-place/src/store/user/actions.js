@@ -10,6 +10,10 @@ const setLogged = (isLogged) => ({
   payload: isLogged,
 });
 
+const clearPost = () => ({
+  type: types.CLEAR_POST,
+});
+
 const updateModal = () => ({
   type: types.UPDATE_MODAL,
 });
@@ -32,6 +36,7 @@ const updateProfilePic = (profilePic) => ({
 const actionsObj = {
   saveUser,
   setLogged,
+  clearPost,
   updateModal,
   addPost,
   updateUsername,

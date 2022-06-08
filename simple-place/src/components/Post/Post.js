@@ -34,6 +34,7 @@ const Post = ({
   desc,
   postComments,
   setShowModal,
+  setPosts,
 }) => {
   const [showDesc, setShowDesc] = useState(true);
   const [userData, setUserData] = useState({
@@ -66,6 +67,10 @@ const Post = ({
       .then((data) => {
         if (data.message === "success") {
           dispatch(confirmationModalOperations.closeModal());
+          setPosts((prevState) => {
+            return prevState.filter((p) => p.id !== postId);
+          });
+          return;
         }
       });
   };
@@ -123,7 +128,6 @@ const Post = ({
       </Main>
       <Footer>
         <IconsWrapper>
-          {/* вынести в глобальные стили */}
           <Icon
             pointer
             margin={"0 10px 0 0"}
