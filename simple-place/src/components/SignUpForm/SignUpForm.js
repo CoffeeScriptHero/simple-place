@@ -52,7 +52,6 @@ export const SignUpForm = () => {
               profileImg: data.profileImg,
               following: data.following,
               followers: data.followers,
-              posts: data.posts,
             })
           );
           setCookie("username", values.username, {

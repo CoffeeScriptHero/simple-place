@@ -19,10 +19,8 @@ export const setUserData = async (dispatch) => {
           user: getCookie("username"),
           id: getCookie("id"),
           profileImg: res.profileImg,
-          pageNotFound: false,
           following: res.following,
           followers: res.followers,
-          posts: res.posts,
         })
       );
     });

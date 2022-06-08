@@ -26,7 +26,6 @@ const Posts = () => {
       .then((data) => {
         setPosts((prevState) => [...prevState, ...data.posts]);
         setFrom((prevState) => prevState + 3);
-        console.log(data.hasMore);
         setHasMore(data.hasMore);
       });
   };
@@ -55,7 +54,9 @@ const Posts = () => {
           return res.json();
         })
         .then((data) => {
+          setHasMore(true);
           setPosts([...data.posts]);
+          // если 3 поста в ленте, потом добавить пост, спуститься вниз и ждать, то последний (третий пост пропадет) при загрузке нового.
           setFrom(3);
         });
     } else {
@@ -69,7 +70,7 @@ const Posts = () => {
           setHasMore(true);
         });
     }
-  }, [user, postModal]);
+  }, [user]);
 
   return (
     <Section>

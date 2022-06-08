@@ -82,6 +82,7 @@ const PostModal = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "success") {
+          dispatch(userOperations.saveDeletedPost(postId));
           dispatch(confirmationModalOperations.closeModal());
           closeModal();
         }

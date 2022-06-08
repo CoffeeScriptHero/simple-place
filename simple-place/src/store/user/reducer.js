@@ -6,13 +6,15 @@ const initialState = {
   profileImg: null,
   following: [],
   followers: [],
-  posts: [],
+  addedPost: null,
+  deletedPost: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SAVE_USER: {
       return {
+        ...state,
         ...action.payload,
       };
     }
@@ -21,16 +23,16 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     }
-    case types.ADD_POST: {
+    case types.SAVE_ADDED_POST: {
       return {
         ...state,
-        posts: [action.payload],
+        addedPost: action.payload,
       };
     }
-    case types.CLEAR_POST: {
+    case types.SAVE_DELETED_POST: {
       return {
         ...state,
-        posts: [],
+        deletedPost: action.payload,
       };
     }
     case types.UPDATE_USERNAME: {

@@ -78,7 +78,7 @@ const AddPostModal = ({ setShowModal }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          dispatch(userOperations.addPost(data));
+          dispatch(userOperations.saveAddedPost(data.id));
         });
       setShowModal(false);
     } else {

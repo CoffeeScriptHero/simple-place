@@ -4,10 +4,6 @@ const setNewUser = (userInfo) => (dispatch, getState) => {
   dispatch(actions.saveUser(userInfo));
 };
 
-const clearPost = () => (dispatch, getState) => {
-  dispatch(actions.clearPost());
-};
-
 const followUser = (id) => async (dispatch, getState) => {
   fetch("/api/main_user/follow-user", {
     method: "POST",
@@ -49,8 +45,12 @@ const deleteUser = (id) => async (dispatch, getState) => {
   });
 };
 
-const addPost = (post) => (dispatch, getState) => {
-  dispatch(actions.addPost(post));
+const saveAddedPost = (post) => (dispatch, getState) => {
+  dispatch(actions.saveAddedPost(post));
+};
+
+const saveDeletedPost = (post) => (dispatch, getState) => {
+  dispatch(actions.saveDeletedPost(post));
 };
 
 const updateUsername = (username) => (dispatch, getState) => {
@@ -63,11 +63,11 @@ const updateProfilePic = (profilePic) => (dispatch, getState) => {
 
 const operationsObj = {
   setNewUser,
-  clearPost,
   followUser,
   unfollowUser,
   deleteUser,
-  addPost,
+  saveAddedPost,
+  saveDeletedPost,
   updateUsername,
   updateProfilePic,
 };
