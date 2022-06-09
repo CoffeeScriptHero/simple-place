@@ -108,6 +108,7 @@ const User = () => {
   };
 
   useEffect(() => {
+    console.log(mainUser);
     receiveData({ username: username }, "/api/main_user/get-userpage")
       .then((res) => res.json())
       .then((data) => {
@@ -132,7 +133,12 @@ const User = () => {
         }
         setIsLoading(false);
       });
-  }, [isLoading, mainUser.posts, mainUser.profileImg, postModalInfo.username]);
+  }, [
+    isLoading,
+    mainUser.addedPost,
+    mainUser.profileImg,
+    postModalInfo.username,
+  ]);
 
   if (isLoading && !userExist) {
     return <Loader />;
