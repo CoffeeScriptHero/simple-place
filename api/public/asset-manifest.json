@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/static/js/main.27726358.js",
+    "main.js": "/static/js/main.22e4a49d.js",
     "static/js/787.32357408.chunk.js": "/static/js/787.32357408.chunk.js",
     "static/media/Quicksand-SemiBold.woff": "/static/media/Quicksand-SemiBold.56a5d56a6058dafa2c4c.woff",
     "static/media/Quicksand-Medium.woff": "/static/media/Quicksand-Medium.08ebd3be8f677260d30b.woff",
@@ -11,10 +11,10 @@
     "static/media/Segoe-UI-Bold.woff": "/static/media/Segoe-UI-Bold.750128e7a4622e3a06a3.woff",
     "static/media/Segoe-UI.woff": "/static/media/Segoe-UI.c60a917e36177fe576d1.woff",
     "index.html": "/index.html",
-    "main.27726358.js.map": "/static/js/main.27726358.js.map",
+    "main.22e4a49d.js.map": "/static/js/main.22e4a49d.js.map",
     "787.32357408.chunk.js.map": "/static/js/787.32357408.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.27726358.js"
+    "static/js/main.22e4a49d.js"
   ]
 }

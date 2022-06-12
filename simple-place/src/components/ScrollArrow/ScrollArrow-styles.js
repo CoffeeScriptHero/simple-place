@@ -13,8 +13,8 @@ const fadeIn = keyframes`
 export const Wrapper = styled.div`
   display: ${(props) => (props.showScroll ? "flex" : "none")};
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 40px;
+  left: 30px;
   align-items: center;
   height: 20px;
   justify-content: center;
