@@ -86,6 +86,8 @@ router.post(
 
       const PUBLIC_ID = userId.slice(0, 13);
 
+      console.log(userId, PUBLIC_ID);
+
       try {
         await cloudinary.uploader.destroy(
           `simple-place/profilePics/${PUBLIC_ID}`,

@@ -18,7 +18,7 @@ router.post(
           suggestedUsers.push(notFollowing[u]);
         }
       } else if (notFollowing.length < 5) {
-        const users = await UserModel.find({}).limit(10);
+        const users = await UserModel.find({ id: { $ne: id } }).limit(10);
         suggestedUsers = [...users];
       } else {
         suggestedUsers = [...notFollowing];
